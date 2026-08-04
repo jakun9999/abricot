@@ -1,0 +1,11 @@
+export { default as AbricotIcon } from "./AbricotIcon";
+export { default as BackarrowIcon } from "./BackarrowIcon";
+export { default as BottomarrowIcon } from "./BottomarrowIcon";
+export { default as CalendarIcon } from "./CalendarIcon";
+export { default as CheckedboxIcon } from "./CheckedboxIcon";
+export { default as DashboardIcon } from "./DashboardIcon";
+export { default as FolderIcon } from "./FolderIcon";
+export { default as GroupIcon } from "./GroupIcon";
+export { default as MessageIcon } from "./MessageIcon";
+export { default as PointsIcon } from "./PointsIcon";
+export { default as StarIcon } from "./StarIcon";
