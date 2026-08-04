@@ -5,8 +5,61 @@
   --foreground: #171717;
 }
 
-/* Custom Abricot theme values */
+/* Custom layer values for text to reduce usage of classes in html */
+@layer base {
+  h1 {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: calc(40 / 16 * 1rem);
+    font-weight: bold;
+  }
+
+  h2 {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: calc(32 / 16 * 1rem);
+    font-weight: bold;
+  }
+
+  h3 {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: calc(28 / 16 * 1rem);
+    font-weight: semi-bold;
+  }
+
+  h4 {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: calc(24 / 16 * 1rem);
+    font-weight: semi-bold;
+  }
+
+  h5 {
+    font-family: var(--font-manrope), sans-serif;
+    font-size: calc(18 / 16 * 1rem);
+    font-weight: semi-bold;
+  }
+}
+
+/* Custom Abricot theme values based on figma proto */
 @theme {
+  --font-sans: var(--font-inter), sans-serif;
+
+  --text-body-l: calc(18 / 16 * 1rem);
+  --text-body-l--font-weight: regular;
+  --text-body-m: calc(16 / 16 * 1rem);
+  --text-body-m--font-weight: regular;
+  --text-body-s: calc(14 / 16 * 1rem);
+  --text-body-s--font-weight: regular;
+  --text-body-xs: calc(12 / 16 * 1rem);
+  --text-body-xs--font-weight: regular;
+  --text-body-2xs: calc(10 / 16 * 1rem);
+  --text-body-2xs--font-weight: regular;
+
+  --text-caption-l: calc(14 / 16 * 1rem);
+  --text-caption-l--font-weight: regular;
+  --text-caption-m: calc(12 / 16 * 1rem);
+  --text-caption-m--font-weight: regular;
+  --text-caption-s: calc(10 / 16 * 1rem);
+  --text-caption-s--font-weight: regular;
+
   --color-abr-main-orange: #f9fafb;
   --color-abr-light-orange: #ffe8d9;
   --color-abr-dark-orange: #d3590b;
@@ -28,22 +81,9 @@
   --color-abr-warning-orange-light: #fff0d7;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
