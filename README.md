@@ -1,4 +1,4 @@
-Option B - Mission (cas fictif) - Développez un SaaS de gestion de tâches.
+### Option B - Mission (cas fictif) - Développez un SaaS de gestion de tâches.
 
 Cahier des charges : https://course.oc-static.com/paths/2631+DA+Full-stack/DA+Full-stack+P7+-+Spe%CC%81cifications+Fonctionnelles+_+Application+de+Gestion+de+Projet+Collaboratif+(SaaS).pdf
 
@@ -28,17 +28,32 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Dev tools
 
-To learn more about Next.js, take a look at the following resources:
+You can generator icon components from svg icons downloaded from Figma design.
+Place your svg icon in src/svg-raw folder and execute this script:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+````bash
+npm run generate:icons
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To check project code with ESLint use following script:
+
+```bash
+npm run lint
+
+To check project code format with prettier use following script:
+
+```bash
+npm run format:check
+
+To let prettier correct you code formating use following script:
+
+```bash
+npm run format:write
 
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+````
