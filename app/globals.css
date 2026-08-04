@@ -5,6 +5,29 @@
   --foreground: #171717;
 }
 
+/* Custom Abricot theme values */
+@theme {
+  --color-abr-main-orange: #f9fafb;
+  --color-abr-light-orange: #ffe8d9;
+  --color-abr-dark-orange: #d3590b;
+  --color-abr-grey-950: #0f0f0f;
+  --color-abr-grey-800: #1f1f1f;
+  --color-abr-grey-600: #6b7280;
+  --color-abr-grey-400: #9ca3af;
+  --color-abr-grey-200: #e5e7eb;
+  --color-abr-grey-100: #f3f4f6;
+  --color-abr-grey-50: #f9fafb;
+  --color-abr-white: #ffffff;
+  --color-abr-success-green: #27ae60;
+  --color-abr-success-green-light: #f1fff7;
+  --color-abr-error-red: #ef4444;
+  --color-abr-error-red-light: #ffe0e0;
+  --color-abr-info-blue: #3b82f6;
+  --color-abr-info-blue-light: #e0ecff;
+  --color-abr-warning-orange: #e08d00;
+  --color-abr-warning-orange-light: #fff0d7;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
