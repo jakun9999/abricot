@@ -35,21 +35,25 @@ Place your svg icon in src/svg-raw folder and execute this script:
 
 ````bash
 npm run generate:icons
+```
 
 To check project code with ESLint use following script:
 
 ```bash
 npm run lint
+```
 
 To check project code format with prettier use following script:
 
 ```bash
 npm run format:check
+```
 
 To let prettier correct you code formating use following script:
 
 ```bash
 npm run format:write
+```
 
 ## Deploy on Vercel
 
