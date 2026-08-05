@@ -35,7 +35,10 @@ export default function Chips({
   className = "",
   ...props
 }: ChipsProps) {
-  const mode = color === "white" ? "bg-abr-white" : "bg-abr-light-orange";
+  const mode =
+    color === "white"
+      ? "bg-abr-white hover:bg-abr-light-orange transition-colors duration-200"
+      : "bg-abr-light-orange";
 
   return (
     <button
