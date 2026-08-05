@@ -3,7 +3,7 @@ const path = require("path");
 
 // Configuration des dossiers
 const SVG_DIR = path.join(__dirname, "src/svg-raw"); // Où tu déposes tes fichiers .svg
-const OUTPUT_DIR = path.join(__dirname, "components/icons"); // Où seront générés tes .tsx
+const OUTPUT_DIR = path.join(__dirname, "components/ui/icons"); // Où seront générés tes .tsx
 
 // Utilitaires de nommage (ex: "shopping-bag.svg" -> "ShoppingBagIcon")
 const toPascalCase = (str) =>
