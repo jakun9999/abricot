@@ -5,6 +5,7 @@ import Chips from "@/components/ui/chips/Chips";
 import Label from "@/components/ui/labels/Label";
 import UserIcon from "@/components/ui/icons/UserIcon";
 import MenuItem from "@/components/ui/menus/MenuItem";
+import IconButton from "@/components/ui/buttons/IconButton";
 
 export default function Page() {
   return (
@@ -87,6 +88,19 @@ export default function Page() {
             color="black"
             type="projects"
             aria-label="Projects menu item"
+          />
+        </div>
+        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
+          Icon buttons :
+          <IconButton
+            label="back"
+            aria-label="Back button"
+            onClick={() => alert("Back button clicked!")}
+          />
+          <IconButton
+            label="points"
+            aria-label="Points button"
+            onClick={() => alert("Points button clicked!")}
           />
         </div>
       </div>
