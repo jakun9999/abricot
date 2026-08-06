@@ -32,7 +32,7 @@ export default function AiButton({
   return (
     <button
       {...props}
-      className={`flex items-center justify-center h-10 w-10 rounded-full transition-colors duration-200 ${mode} ${className}`}
+      className={`flex items-center justify-center h-10 w-10 rounded-full transition-colors duration-500 ${mode} ${className}`}
     >
       <StarIcon className="size-3.5" />
     </button>

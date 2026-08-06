@@ -3,6 +3,7 @@
 import AiButton from "@/components/ui/buttons/AiButton";
 import Chips from "@/components/ui/chips/Chips";
 import Label from "@/components/ui/labels/Label";
+import UserIcon from "@/components/ui/icons/UserIcon";
 
 export default function Page() {
   return (
@@ -56,6 +57,11 @@ export default function Page() {
           <Label color="warningOrangeLight" text="Warning" />
           <Label color="lightOrange" text="Light Orange" />
           <Label color="grey" text="Grey" />
+        </div>
+        <div className="flex flex-col items-center justify-center gap-2">
+          User icons:
+          <UserIcon color="dark" label="AB" aria-label="User initials" />
+          <UserIcon color="light" label="CD" aria-label="User initials" />
         </div>
       </div>
     </main>

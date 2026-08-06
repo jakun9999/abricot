@@ -37,7 +37,7 @@ export default function Chips({
 }: ChipsProps) {
   const mode =
     color === "white"
-      ? "bg-abr-white hover:bg-abr-light-orange transition-colors duration-200"
+      ? "bg-abr-white hover:bg-abr-light-orange transition-colors duration-500"
       : "bg-abr-light-orange";
 
   return (
