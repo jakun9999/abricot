@@ -4,12 +4,13 @@ import AiButton from "@/components/ui/buttons/AiButton";
 import Chips from "@/components/ui/chips/Chips";
 import Label from "@/components/ui/labels/Label";
 import UserIcon from "@/components/ui/icons/UserIcon";
+import MenuItem from "@/components/ui/menus/MenuItem";
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start gap-2 p-24 bg-white">
-      <div className="flex flex-row items-center justify-center gap-2">
-        <div className="flex flex-col items-center justify-center gap-2">
+    <main className="flex min-h-screen flex-col items-center justify-start gap-10 p-24 bg-white">
+      <div className="flex flex-row items-center justify-center gap-10">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
           AiButton with dark color:
           <AiButton
             aria-label="Generate with AI"
@@ -23,7 +24,7 @@ export default function Page() {
             onClick={() => alert("AI action triggered!")}
           />
         </div>
-        <div className="flex flex-col items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
           Chips with task icon and white color:
           <Chips
             text="Tasks"
@@ -49,7 +50,7 @@ export default function Page() {
             onClick={() => alert("Folder action triggered!")}
           />
         </div>
-        <div className="flex flex-col items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
           Labels with different colors:
           <Label color="green" text="Success" />
           <Label color="red" text="Error" />
@@ -58,10 +59,35 @@ export default function Page() {
           <Label color="lightOrange" text="Light Orange" />
           <Label color="grey" text="Grey" />
         </div>
-        <div className="flex flex-col items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
           User icons:
           <UserIcon color="dark" label="AB" aria-label="User initials" />
           <UserIcon color="light" label="CD" aria-label="User initials" />
+        </div>
+      </div>
+      <div className="flex flex-row items-center justify-center gap-10">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
+          Menu items with different colors:
+          <MenuItem
+            color="white"
+            type="dashboard"
+            aria-label="Dashboard menu item"
+          />
+          <MenuItem
+            color="black"
+            type="dashboard"
+            aria-label="Dashboard menu item"
+          />
+          <MenuItem
+            color="white"
+            type="projects"
+            aria-label="Projects menu item"
+          />
+          <MenuItem
+            color="black"
+            type="projects"
+            aria-label="Projects menu item"
+          />
         </div>
       </div>
     </main>
