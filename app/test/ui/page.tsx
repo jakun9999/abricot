@@ -6,6 +6,7 @@ import Label from "@/components/ui/labels/Label";
 import UserIcon from "@/components/ui/icons/UserIcon";
 import MenuItem from "@/components/ui/menus/MenuItem";
 import IconButton from "@/components/ui/buttons/IconButton";
+import AbrButton from "@/components/ui/buttons/AbrButton";
 
 export default function Page() {
   return (
@@ -102,6 +103,13 @@ export default function Page() {
             aria-label="Points button"
             onClick={() => alert("Points button clicked!")}
           />
+        </div>
+        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
+          Buttons in different states (standard, focus, disabled, outline mode)
+          :<AbrButton color="black" label="Label" />
+          <AbrButton color="black" label="Label" />
+          <AbrButton color="black" label="Label" disabled />
+          <AbrButton color="outline" label="Label" />
         </div>
       </div>
     </main>
