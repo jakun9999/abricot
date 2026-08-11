@@ -7,10 +7,14 @@ import UserIcon from "@/components/ui/icons/UserIcon";
 import MenuItem from "@/components/ui/menus/MenuItem";
 import IconButton from "@/components/ui/buttons/IconButton";
 import AbrButton from "@/components/ui/buttons/AbrButton";
+import FormInput from "@/components/ui/inputs/FormInput";
+import Header from "@/components/ui/header/Header";
+import Footer from "@/components/ui/footer/Footer";
 
 export default function Page() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-start gap-10 p-24 bg-white">
+      <Header initials="ML" />
       <div className="flex flex-row items-center justify-center gap-10">
         <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
           AiButton with dark color:
@@ -112,6 +116,26 @@ export default function Page() {
           <AbrButton color="outline" label="Label" />
         </div>
       </div>
+      <div className="flex flex-row items-center justify-center gap-10">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
+          Inputs:
+          <FormInput
+            inputId="login"
+            inputType="text"
+            mandatory={true}
+            label="Login"
+            placeHolder="Your login"
+          />
+          <FormInput
+            inputId="password"
+            inputType="password"
+            mandatory={true}
+            label="Password"
+            placeHolder="Your password"
+          />
+        </div>
+      </div>
+      <Footer />
     </main>
   );
 }
