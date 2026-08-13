@@ -11,6 +11,7 @@ import FormInput from "@/components/ui/inputs/FormInput";
 import Header from "@/components/ui/header/Header";
 import Footer from "@/components/ui/footer/Footer";
 import Comments from "@/components/ui/comments/Comments";
+import Project from "@/components/ui/cards/Project";
 
 export default function Page() {
   return (
@@ -138,6 +139,11 @@ export default function Page() {
         <div className="flex flex-row items-center justify-center gap-10">
           <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
             <Comments taskId="1" />
+          </div>
+        </div>
+        <div className="flex flex-row items-center justify-center gap-10">
+          <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
+            <Project projectId="1" />
           </div>
         </div>
       </div>
