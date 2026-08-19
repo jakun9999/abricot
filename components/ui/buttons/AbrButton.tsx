@@ -30,7 +30,7 @@ export default function AbrButton({
       : "bg-white text-abr-dark-orange border border-abr-dark-orange";
   return (
     <button
-      className={`flex items-center justify-center h-12.5 px-18.5 text-body-m rounded-[10px] ${mode} ${className}`}
+      className={`flex items-center justify-center h-12.5 text-body-m rounded-[10px] ${mode} ${className}`}
       {...props}
     >
       {label}
