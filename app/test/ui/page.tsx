@@ -114,10 +114,10 @@ export default function Page() {
         </div>
         <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
           Buttons in different states (standard, focus, disabled, outline mode)
-          :<AbrButton color="black" label="Label" />
-          <AbrButton color="black" label="Label" />
-          <AbrButton color="black" label="Label" disabled />
-          <AbrButton color="outline" label="Label" />
+          :<AbrButton color="black" label="Label" className="w-30.25" />
+          <AbrButton color="black" label="Label" className="w-30.25" />
+          <AbrButton color="black" label="Label" disabled className="w-30.25" />
+          <AbrButton color="outline" label="Label" className="w-30.25" />
         </div>
       </div>
       <div className="flex flex-row items-center justify-center gap-10">
@@ -151,7 +151,7 @@ export default function Page() {
       </div>
       Tasks
       <div className="flex flex-row items-center justify-center gap-10">
-        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
+        <div className="flex flex-col gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
           <TaskLong taskId="1" />
           <TaskShort taskId="1" />
         </div>
