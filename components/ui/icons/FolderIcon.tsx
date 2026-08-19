@@ -1,10 +1,7 @@
 import * as React from "react";
 import type { SVGProps } from "react";
 
-export const FolderIcon = ({
-  className = "",
-  ...props
-}: SVGProps<SVGSVGElement>) => (
+export const FolderIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width="24"
     height="24"

@@ -10,31 +10,31 @@
   h1 {
     font-family: var(--font-manrope), sans-serif;
     font-size: calc(40 / 16 * 1rem);
-    font-weight: bold;
+    font-weight: 700;
   }
 
   h2 {
     font-family: var(--font-manrope), sans-serif;
     font-size: calc(32 / 16 * 1rem);
-    font-weight: bold;
+    font-weight: 700;
   }
 
   h3 {
     font-family: var(--font-manrope), sans-serif;
     font-size: calc(28 / 16 * 1rem);
-    font-weight: semi-bold;
+    font-weight: 600;
   }
 
   h4 {
     font-family: var(--font-manrope), sans-serif;
     font-size: calc(24 / 16 * 1rem);
-    font-weight: semi-bold;
+    font-weight: 600;
   }
 
   h5 {
     font-family: var(--font-manrope), sans-serif;
     font-size: calc(18 / 16 * 1rem);
-    font-weight: semi-bold;
+    font-weight: 600;
   }
 }
 
@@ -43,22 +43,22 @@
   --font-sans: var(--font-inter), sans-serif;
 
   --text-body-l: calc(18 / 16 * 1rem);
-  --text-body-l--font-weight: regular;
+  --text-body-l--font-weight: 400;
   --text-body-m: calc(16 / 16 * 1rem);
-  --text-body-m--font-weight: regular;
+  --text-body-m--font-weight: 400;
   --text-body-s: calc(14 / 16 * 1rem);
-  --text-body-s--font-weight: regular;
+  --text-body-s--font-weight: 400;
   --text-body-xs: calc(12 / 16 * 1rem);
-  --text-body-xs--font-weight: regular;
+  --text-body-xs--font-weight: 400;
   --text-body-2xs: calc(10 / 16 * 1rem);
-  --text-body-2xs--font-weight: regular;
+  --text-body-2xs--font-weight: 400;
 
   --text-caption-l: calc(14 / 16 * 1rem);
-  --text-caption-l--font-weight: regular;
+  --text-caption-l--font-weight: 400;
   --text-caption-m: calc(12 / 16 * 1rem);
-  --text-caption-m--font-weight: regular;
+  --text-caption-m--font-weight: 400;
   --text-caption-s: calc(10 / 16 * 1rem);
-  --text-caption-s--font-weight: regular;
+  --text-caption-s--font-weight: 400;
 
   --color-abr-main-orange: #ff8b42;
   --color-abr-light-orange: #ffe8d9;
