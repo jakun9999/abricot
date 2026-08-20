@@ -70,3 +70,50 @@ export const formatDateRelative = (isoString: string): string => {
 
   return `${dayAndMonth} ${date.getFullYear()}, ${time}`;
 };
+
+/**
+ * Formate une date ISO en libellé lisible (ex: "aujourd'hui", "23 mars" ou "23 mars 2024").
+ *
+ * @param isoString - Date au format ISO 8601 (ex: "2025-12-30T10:00:00Z").
+ * @returns La date formatée en français.
+ *
+ * @example
+ * formatDateRelative("2026-08-20T11:20:00Z") // "aujourd'hui"
+ * formatDateRelative("2026-03-23T11:20:00Z") // "23 mars"
+ * formatDateRelative("2024-03-23T11:20:00Z") // "23 mars 2024"
+ */
+export const formatDateShort = (isoString: string): string => {
+  const date = new Date(isoString);
+
+  // Sécurité en cas de chaîne de date invalide
+  if (isNaN(date.getTime())) {
+    return "";
+  }
+
+  const now = new Date();
+
+  // Vérification du jour même
+  const isToday =
+    date.getDate() === now.getDate() &&
+    date.getMonth() === now.getMonth() &&
+    date.getFullYear() === now.getFullYear();
+
+  if (isToday) {
+    return "aujourd'hui";
+  }
+
+  // Formatage du jour et du mois (ex: "23 mars")
+  const dayAndMonth = date.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+  });
+
+  const isCurrentYear = date.getFullYear() === now.getFullYear();
+
+  // Si même année : "23 mars", sinon : "23 mars 2024"
+  if (isCurrentYear) {
+    return `${dayAndMonth}`;
+  }
+
+  return `${dayAndMonth} ${date.getFullYear()}`;
+};

@@ -5,7 +5,7 @@ import { Comment } from "@/types/comment";
 import { getUserInitials, formatDateRelative } from "@/lib/utils";
 
 interface CommentsProps {
-  taskId: string | number;
+  initialComments?: Comment[];
   currentUserInitials?: string;
 }
 
@@ -27,11 +27,13 @@ const MOCK_COMMENTS: Comment[] = [
 ];
 
 export default function Comments({
-  taskId,
+  initialComments,
   currentUserInitials = "AD",
 }: CommentsProps) {
   // Initialisation directe avec les faux commentaires
-  const [comments, setComments] = useState<Comment[]>(MOCK_COMMENTS);
+  const [comments, setComments] = useState<Comment[]>(
+    initialComments ?? MOCK_COMMENTS,
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [newComment, setNewComment] = useState<string>("");
 
@@ -57,7 +59,7 @@ export default function Comments({
       fetchComments();
     }
     */
-  }, [taskId]);
+  }, [comments]);
 
   const handleAddComment = (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,7 +85,7 @@ export default function Comments({
   }
 
   return (
-    <div className="w-full max-w-2xl flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-5">
       {/* Liste des commentaires */}
       {comments.map((item) => (
         <div key={item.id} className="flex items-start gap-3.5">
