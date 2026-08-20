@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { GroupIcon } from "@/components/ui/icons";
 import { Project } from "@/types/project";
 import { getUserInitials } from "@/lib/utils";
+import { Task } from "@/types/task";
 
 interface ProjectProps {
   projectId: string | number;
@@ -16,7 +17,7 @@ const MOCK_PROJECT: Project = {
   description: "Création d'un frontend nextjs pour Abricat",
   tasks: [
     { name: "Une tâche", status: "inprogress" },
-    { name: "Une autre tâche", status: "pending" },
+    { name: "Une autre tâche", status: "done" },
   ],
   owner: "Matthieu DUPONT",
   members: ["Adeline DUPONT", "Georges LUCAS"],
