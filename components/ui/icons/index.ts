@@ -1,3 +1,5 @@
+export { default as BinIcon } from "./BinIcon";
+export { default as ModifyIcon } from "./ModifyIcon";
 export { default as AbricotIcon } from "./AbricotIcon";
 export { default as BackarrowIcon } from "./BackarrowIcon";
 export { default as BottomarrowIcon } from "./BottomarrowIcon";

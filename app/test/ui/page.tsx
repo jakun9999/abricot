@@ -14,6 +14,7 @@ import Comments from "@/components/ui/comments/Comments";
 import Project from "@/components/ui/cards/Project";
 import TaskLong from "@/components/ui/cards/TaskLong";
 import TaskShort from "@/components/ui/cards/TaskShort";
+import TaskSimple from "@/components/ui/cards/TaskSimple";
 
 export default function Page() {
   return (
@@ -154,6 +155,7 @@ export default function Page() {
         <div className="flex flex-col gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
           <TaskLong taskId="1" />
           <TaskShort taskId="1" />
+          <TaskSimple taskId="1" />
         </div>
       </div>
       <Footer />
