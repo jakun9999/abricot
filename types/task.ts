@@ -1,3 +1,5 @@
+import { Comment } from "@/types/comment";
+
 /**
  * Représente une tâche individuelle au sein d'un projet.
  */
@@ -18,7 +20,7 @@ export interface Task {
   date?: string;
 
   /** Nombre de commentaires associés à la tâche. */
-  comments?: number;
+  comments?: Comment[];
 
   /** État d'avancement actuel de la tâche. */
   status: "pending" | "inprogress" | "done";

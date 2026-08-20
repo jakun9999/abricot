@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { GroupIcon } from "@/components/ui/icons";
 import { Project } from "@/types/project";
-import getInitials from "@/lib/utils";
+import { getUserInitials } from "@/lib/utils";
 
 interface ProjectProps {
   projectId: string | number;
@@ -105,7 +105,7 @@ export default function Comments({ projectId }: ProjectProps) {
         </div>
         <div className="flex items-center gap-1">
           <span className="flex w-6.75 h-6.75 bg-abr-light-orange rounded-full border border-white text-[10px] font-normal items-center justify-center">
-            {getInitials(project.owner)}
+            {getUserInitials(project.owner)}
           </span>
           <span className="flex w-27.25 h-6.75 bg-abr-light-orange rounded-full border border-white text-body-s text-abr-dark-orange items-center justify-center">
             Propriétaire
@@ -116,7 +116,7 @@ export default function Comments({ projectId }: ProjectProps) {
                 key={index}
                 className="flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-abr-grey-200 text-[10px] font-normal"
               >
-                {getInitials(member)}
+                {getUserInitials(member)}
               </span>
             ))}
           </div>

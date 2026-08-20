@@ -1,14 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-export interface CommentData {
-  id?: string | number;
-  user: string;
-  userInitiales: string;
-  comment: string;
-  createdAt?: string;
-}
+import { Comment } from "@/types/comment";
+import { getUserInitials, formatDateRelative } from "@/lib/utils";
 
 interface CommentsProps {
   taskId: string | number;
@@ -16,21 +10,19 @@ interface CommentsProps {
 }
 
 // Jeu de données de test (mock)
-const MOCK_COMMENTS: CommentData[] = [
+const MOCK_COMMENTS: Comment[] = [
   {
     id: 1,
-    user: "Bertrand Dupont",
-    userInitiales: "BD",
-    comment:
+    userFullName: "Bertrand Dupont",
+    description:
       "Attention à bien gérer l'expiration des tokens et le refresh automatique côté client.",
-    createdAt: "23 mars, 11:20",
+    createdAt: "2026-03-03T11:26:11Z",
   },
   {
     id: 2,
-    user: "Alice Durand",
-    userInitiales: "AD",
-    comment: "C'est noté, je m'en occupe dans la journée !",
-    createdAt: "23 mars, 11:45",
+    userFullName: "Alice Durand",
+    description: "C'est noté, je m'en occupe dans la journée !",
+    createdAt: "2026-03-22T09:22:05Z",
   },
 ];
 
@@ -39,7 +31,7 @@ export default function Comments({
   currentUserInitials = "AD",
 }: CommentsProps) {
   // Initialisation directe avec les faux commentaires
-  const [comments, setComments] = useState<CommentData[]>(MOCK_COMMENTS);
+  const [comments, setComments] = useState<Comment[]>(MOCK_COMMENTS);
   const [loading, setLoading] = useState<boolean>(false);
   const [newComment, setNewComment] = useState<string>("");
 
@@ -71,17 +63,11 @@ export default function Comments({
     e.preventDefault();
     if (!newComment.trim()) return;
 
-    const commentToAdd: CommentData = {
+    const commentToAdd: Comment = {
       id: Date.now(),
-      user: "Vous",
-      userInitiales: currentUserInitials,
-      comment: newComment.trim(),
-      createdAt: new Date().toLocaleDateString("fr-FR", {
-        day: "numeric",
-        month: "long",
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
+      userFullName: "Matthieu LUCAS",
+      description: newComment.trim(),
+      createdAt: new Date().toISOString(),
     };
 
     setComments((prev) => [...prev, commentToAdd]);
@@ -103,21 +89,23 @@ export default function Comments({
         <div key={item.id} className="flex items-start gap-3.5">
           {/* Avatar initiales */}
           <div className="flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-gray-200 text-[10px] font-normal text-gray-950">
-            {item.userInitiales}
+            {getUserInitials(item.userFullName)}
           </div>
 
           {/* Contenu du commentaire */}
           <div className="flex-1 rounded-[10px] bg-gray-100 px-3.5 py-4.5  min-h-2.75">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-body-s text-black">{item.user}</span>
+              <span className="text-body-s text-black">
+                {item.userFullName}
+              </span>
               {item.createdAt && (
                 <span className="text-body-xs text-gray-600">
-                  {item.createdAt}
+                  {formatDateRelative(item.createdAt)}
                 </span>
               )}
             </div>
             <p className="leading-relaxed text-black text-body-xs">
-              {item.comment}
+              {item.description}
             </p>
           </div>
         </div>
