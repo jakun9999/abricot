@@ -85,10 +85,10 @@ export default function Comments({
   }
 
   return (
-    <div className="w-full flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-4">
       {/* Liste des commentaires */}
       {comments.map((item) => (
-        <div key={item.id} className="flex items-start gap-3.5">
+        <div key={item.id} className="flex items-start gap-4.5">
           {/* Avatar initiales */}
           <div className="flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-gray-200 text-[10px] font-normal text-gray-950">
             {getUserInitials(item.userFullName)}
@@ -121,22 +121,25 @@ export default function Comments({
         </div>
 
         {/* Formulaire de saisie */}
-        <form onSubmit={handleAddComment} className="flex-1">
-          <div className="rounded-[10px] bg-gray-50 px-3.5 py-4.5 min-h-2.75">
+        <form onSubmit={handleAddComment} className="flex-1 flex flex-col">
+          <div className="rounded-[10px] bg-gray-50  px-3.5 py-4.5 min-h-2.75">
             <textarea
               rows={2}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Ajouter un commentaire..."
-              className="w-full resize-none bg-transparent text-body-xs text-gray-800 placeholder-gray-400 focus:outline-none"
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleAddComment(e);
-                }
-              }}
+              className="w-full resize-none text-body-xs text-gray-800 placeholder-gray-400 focus:outline-none"
             />
           </div>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleAddComment(e);
+            }}
+            className="place-self-end w-52.25 h-12.5 mt-4 bg-abr-grey-200 rounded-[10px] text-abr-grey-400 text-body-m"
+          >
+            Envoyer
+          </button>
         </form>
       </div>
     </div>
