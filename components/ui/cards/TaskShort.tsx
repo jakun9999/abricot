@@ -5,6 +5,8 @@ import { FolderIcon, CalendarIcon, MessageIcon } from "@/components/ui/icons";
 import Label from "@/components/ui/labels/Label";
 import AbrButton from "@/components/ui/buttons/AbrButton";
 import { Task } from "@/types/task";
+import { Comment } from "@/types/comment";
+
 interface TaskProps {
   taskId: string | number;
 }
@@ -16,7 +18,13 @@ const MOCK_TASK_DATA: Task = {
   description: "Description de la tâche",
   projectName: "Nom du projet",
   date: "9 mars",
-  comments: 2,
+  comments: [
+    {
+      description: "Un commentaire",
+      userFullName: "Georges LUCAS",
+      createdAt: "2026-08-20T05:21:00Z",
+    },
+  ],
   status: "pending",
 };
 
@@ -92,7 +100,7 @@ export default function TaskShort({ taskId }: TaskProps) {
           <p>|</p>
           <p className="flex items-center gap-2">
             <MessageIcon className="w-3.75 h-3.75" />
-            {task.comments}
+            {task.comments?.length}
           </p>
         </div>
       </div>

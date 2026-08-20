@@ -15,7 +15,13 @@ const MOCK_TASK_DATA: Task = {
   description: "Description de la tâche",
   projectName: "Nom du projet",
   date: "9 mars",
-  comments: 2,
+  comments: [
+    {
+      description: "Un commentaire",
+      userFullName: "Georges LUCAS",
+      createdAt: "2026-08-20T05:21:00Z",
+    },
+  ],
   status: "pending",
 };
 
