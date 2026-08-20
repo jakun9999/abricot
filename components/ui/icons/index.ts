@@ -12,3 +12,4 @@ export { default as MessageIcon } from "./MessageIcon";
 export { default as PointsIcon } from "./PointsIcon";
 export { default as StarIcon } from "./StarIcon";
 export { default as UserIcon } from "./UserIcon";
+export { default as UparrowIcon } from "./UparrowIcon";
