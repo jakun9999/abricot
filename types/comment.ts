@@ -1,19 +1,27 @@
+import { User } from "@/types/user";
+
 /**
- * Représente un commentaire rattaché à une tâche.
+ * Represent a comment, always attached to a task.
  */
 export interface Comment {
-  /** Identifiant unique du commentaire (optionnel avant création en BDD). */
-  id?: string | number;
+  /** Comment unique ID (optional, can be provided by backend at creation) */
+  id?: string;
 
-  /** Texte du commentaire. */
-  description: string;
+  /** Comment text content. */
+  content: string;
 
-  /** ID de la task à laquelle le commentaire est rattaché. */
+  /** Task above the comment. */
   taskId?: string;
 
-  /** Date de création au format ISO (ex: "2026-08-20T10:00:00Z"). */
+  /** User unique ID who created the comment */
+  authorId: string;
+
+  /** Author details in a User object */
+  author: User;
+
+  /** Comment creation date in ISO format (ex: "2026-08-20T07:24:38.904Z"). */
   createdAt?: string;
 
-  /** Nom complet de l'utilisateur ayant posté le commentaire */
-  userFullName: string;
+  /** Comment update date in ISO format (ex: "2026-08-20T07:24:38.904Z"). */
+  updatedAt?: string;
 }

@@ -1,27 +1,31 @@
-import { Task } from "@/types/task";
+import { ProjectMember } from "@/types/project-member";
+import { User } from "@/types/user";
 
 /**
- * Représente un projet au sein de l'application.
+ * Represent a project in the application.
  */
 export interface Project {
-  /** Identifiant unique du projet (généré par le serveur si absent). */
+  /** Project unique ID. */
   id?: string | number;
 
-  /** Nom du projet. */
+  /** Project name. */
   name: string;
 
-  /** Description détaillée des objectifs du projet. */
+  /** Project description. */
   description: string;
 
-  /** Liste des tâches associées au projet. */
-  tasks: Task[];
+  /** Project owner unique ID. */
+  ownerId: string;
 
-  /** Date de création au format ISO (ex: "2026-08-20T10:00:00Z"). */
+  /** Project owner details as user */
+  owner: User;
+
+  /** List of members for the project. */
+  members: ProjectMember[];
+
+  /** Project creation date in ISO format (ex: "2026-08-20T07:24:38.904Z"). */
   createdAt?: string;
 
-  /** Identifiant ou nom du propriétaire du projet. */
-  owner: string;
-
-  /** Liste des identifiants des membres ayant accès au projet. */
-  members: string[];
+  /** Project update date in ISO format (ex: "2026-08-20T07:24:38.904Z"). */
+  updatedAt?: string;
 }

@@ -1,33 +1,43 @@
 import { Comment } from "@/types/comment";
+import { TaskAssignee } from "@/types/task-assignee";
 
 /**
- * Représente une tâche individuelle au sein d'un projet.
+ * Represent a single task linked to a project.
  */
 export interface Task {
-  /** Identifiant unique de la tâche (optionnel avant création en BDD). */
-  id?: string | number;
+  /** Unique task ID (optional, ID can be obtained at task creation on backend side). */
+  id?: string;
 
-  /** User ID who created the tasks */
-  userId?: string;
+  /** Task title. */
+  title: string;
 
-  /** Users who are assigned to the task */
-  assignedUsersId?: string[];
-
-  /** Libellé ou titre de la tâche. */
-  name: string;
-
-  /** Description détaillée des actions à réaliser. */
+  /** Task description (optional). */
   description?: string;
 
-  /** Nom du projet auquel la tâche est rattachée. */
-  projectName?: string;
+  /** Possible task status. */
+  status: "TODO" | "IN_PROGRESS" | "DONE" | "CANCELLED";
 
-  /** Date d'échéance ou de création au format ISO (ex: "2026-08-20"). */
-  date: string;
+  /** Task priority level */
+  priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
 
-  /** Nombre de commentaires associés à la tâche. */
+  /** Task due date in ISO format (ex: "2026-08-20T07:24:38.904Z"). */
+  dueDate?: string;
+
+  /** Task's project unique ID */
+  projectId: string;
+
+  /** User unique ID who created the task */
+  creatorId: string;
+
+  /** Users who are assigned to the task */
+  assignees?: TaskAssignee[];
+
+  /** Comments attached to the task */
   comments?: Comment[];
 
-  /** État d'avancement actuel de la tâche. */
-  status: "pending" | "inprogress" | "done";
+  /** Task creation date in ISO format (ex: "2026-08-20T07:24:38.904Z"). */
+  createdAt?: string;
+
+  /** Task update date in ISO format (ex: "2026-08-20T07:24:38.904Z"). */
+  updatedAt?: string;
 }
