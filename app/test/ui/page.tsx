@@ -1,21 +1,21 @@
 "use client";
 
-import AiButton from "@/components/ui/buttons/AiButton";
-import Chips from "@/components/ui/chips/Chips";
-import Label from "@/components/ui/labels/Label";
-import UserIcon from "@/components/ui/icons/UserIcon";
-import MenuItem from "@/components/ui/menus/MenuItem";
-import IconButton from "@/components/ui/buttons/IconButton";
-import AbrButton from "@/components/ui/buttons/AbrButton";
-import FormInput from "@/components/ui/inputs/FormInput";
-import Header from "@/components/ui/header/Header";
-import Footer from "@/components/ui/footer/Footer";
-import Comments from "@/components/ui/comments/Comments";
-import Project from "@/components/ui/cards/Project";
-import TaskLong from "@/components/ui/cards/TaskLong";
-import TaskShort from "@/components/ui/cards/TaskShort";
-import TaskSimple from "@/components/ui/cards/TaskSimple";
-import TaskDetailed from "@/components/ui/cards/TaskDetailed";
+import AiButton from "@/components/ui/buttons/ai-button";
+import Chips from "@/components/ui/chips/chips";
+import Label from "@/components/ui/labels/label";
+import UserIcon from "@/components/ui/icons/user-icon";
+import MenuItem from "@/components/ui/menus/menu-item";
+import IconButton from "@/components/ui/buttons/icon-button";
+import AbrButton from "@/components/ui/buttons/abr-button";
+import FormInput from "@/components/ui/inputs/form-input";
+import Header from "@/components/ui/header/header";
+import Footer from "@/components/ui/footer/footer";
+import Comments from "@/components/ui/comments/comments";
+import Project from "@/components/ui/cards/project";
+import TaskLong from "@/components/ui/cards/task-long";
+import TaskShort from "@/components/ui/cards/task-short";
+import TaskSimple from "@/components/ui/cards/task-simple";
+import TaskDetailed from "@/components/ui/cards/task-detailed";
 
 export default function Page() {
   return (
@@ -142,7 +142,7 @@ export default function Page() {
         </div>
         <div className="flex flex-row items-center justify-center gap-10">
           <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
-            <Comments taskId="1" />
+            <Comments />
           </div>
         </div>
         <div className="flex flex-row items-center justify-center gap-10">

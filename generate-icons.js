@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
 // Configuration des dossiers
 const SVG_DIR = path.join(__dirname, "src/svg-raw"); // Où tu déposes tes fichiers .svg

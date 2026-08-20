@@ -1,4 +1,4 @@
-import AbricotIcon from "@/components/ui/icons/AbricotIcon";
+import AbricotIcon from "@/components/ui/icons/abricot-icon";
 
 export default function Page() {
   return (

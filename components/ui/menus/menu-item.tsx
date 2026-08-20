@@ -1,5 +1,5 @@
-import DashboardIcon from "@/components/ui/icons/DashboardIcon";
-import FolderIcon from "@/components/ui/icons/FolderIcon";
+import DashboardIcon from "@/components/ui/icons/dashboard-icon";
+import FolderIcon from "@/components/ui/icons/folder-icon";
 
 export interface MenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**

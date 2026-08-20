@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { GroupIcon } from "@/components/ui/icons";
 import { Project } from "@/types/project";
 import { getUserInitials } from "@/lib/utils";
-import { Task } from "@/types/task";
 
 interface ProjectProps {
   projectId: string | number;
@@ -12,22 +11,24 @@ interface ProjectProps {
 
 // Jeu de données de test (mock)
 const MOCK_PROJECT: Project = {
-  id: 1,
+  id: "1",
   name: "Frontend Abricot",
   description: "Création d'un frontend nextjs pour Abricat",
-  tasks: [
-    { name: "Une tâche", status: "inprogress" },
-    { name: "Une autre tâche", status: "done" },
+  ownerId: "Matthieu DUPONT",
+  owner: { name: "Matthieu DUPONT", email: "matthieulucas457@outlook.fr" },
+  members: [
+    {
+      role: "ADMIN",
+      user: { name: "Matthieu DUPONT", email: "matthieulucas457@outlook.fr" },
+      joinedAt: "2026-01-01T08:00:00Z",
+    },
   ],
-  owner: "Matthieu DUPONT",
-  members: ["Adeline DUPONT", "Georges LUCAS"],
-  createdAt: "23 mars, 11:20",
+  createdAt: "2026-03-14T10:00:00Z",
 };
 
 export default function Comments({ projectId }: ProjectProps) {
   // Initialisation directe avec les faux commentaires
-  const [project, setProject] = useState<Project>(MOCK_PROJECT);
-  const [loading, setLoading] = useState<boolean>(false);
+  const project = MOCK_PROJECT;
 
   useEffect(() => {
     /*
@@ -53,23 +54,13 @@ export default function Comments({ projectId }: ProjectProps) {
     */
   }, [projectId]);
 
-  if (loading) {
-    return (
-      <div className="text-sm text-gray-500 animate-pulse">
-        Chargement du projet...
-      </div>
-    );
-  }
-
-  const totalTasks = project.tasks.length;
-  const finishedTasks = project.tasks.filter(
-    (task) => task.status === "done",
-  ).length;
+  const totalTasks = 4;
+  const finishedTasks = 2;
   const progression =
     totalTasks > 0 ? Math.round((finishedTasks / totalTasks) * 100) : 0;
 
   const nonOwnerMembers = project.members.filter(
-    (member) => member !== project.owner,
+    (member) => member.user.name !== project.owner.name,
   );
 
   return (
@@ -101,12 +92,12 @@ export default function Comments({ projectId }: ProjectProps) {
         <div className="flex items-center gap-2 text-abr-grey-600">
           <GroupIcon className="w-[11.58px] h-2.75" />
           <span className="text-body-2xs">
-            Équipe ({project.members.length + 1})
+            Équipe ({project.members.length})
           </span>
         </div>
         <div className="flex items-center gap-1">
           <span className="flex w-6.75 h-6.75 bg-abr-light-orange rounded-full border border-white text-[10px] font-normal items-center justify-center">
-            {getUserInitials(project.owner)}
+            {getUserInitials(project.owner.name)}
           </span>
           <span className="flex w-27.25 h-6.75 bg-abr-light-orange rounded-full border border-white text-body-s text-abr-dark-orange items-center justify-center">
             Propriétaire
@@ -117,7 +108,7 @@ export default function Comments({ projectId }: ProjectProps) {
                 key={index}
                 className="flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-abr-grey-200 text-[10px] font-normal"
               >
-                {getUserInitials(member)}
+                {getUserInitials(member.user.name)}
               </span>
             ))}
           </div>

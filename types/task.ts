@@ -21,7 +21,7 @@ export interface Task {
   priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
 
   /** Task due date in ISO format (ex: "2026-08-20T07:24:38.904Z"). */
-  dueDate?: string;
+  dueDate: string;
 
   /** Task's project unique ID */
   projectId: string;

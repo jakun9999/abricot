@@ -1,5 +1,5 @@
-import BackarrowIcon from "@/components/ui/icons/BackarrowIcon";
-import PointsIcon from "@/components/ui/icons/PointsIcon";
+import BackarrowIcon from "@/components/ui/icons/backarrow-icon";
+import PointsIcon from "@/components/ui/icons/points-icon";
 
 export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**

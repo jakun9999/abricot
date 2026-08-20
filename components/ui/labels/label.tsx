@@ -1,9 +1,3 @@
-"use client";
-
-import CheckedboxIcon from "@/components/ui/icons/CheckedboxIcon";
-import CalendarIcon from "@/components/ui/icons/CalendarIcon";
-import FolderIcon from "@/components/ui/icons/FolderIcon";
-
 export interface LabelProps extends React.HTMLAttributes<HTMLParagraphElement> {
   /**
    * Label variant colors.

@@ -1,8 +1,5 @@
 "use client";
 
-import { CalendarIcon } from "@/components/ui/icons/CalendarIcon";
-import { BottomarrowIcon } from "@/components/ui/icons/BottomarrowIcon";
-
 export interface SelectorOption {
   label: string;
   value: string | number;
@@ -20,7 +17,7 @@ export interface FormInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   label: string;
   placeHolder?: string;
   inputWidth?: string;
-  selectorOptions?: SelectorOption | string[];
+  // selectorOptions?: SelectorOption | string[];
 }
 
 /**
@@ -38,7 +35,7 @@ export default function FormInput({
   label = "",
   placeHolder = "",
   inputWidth = "w-[280px]",
-  selectorOptions = [],
+  // selectorOptions = [],
   className = "",
   ...props
 }: FormInputProps) {
@@ -55,7 +52,7 @@ export default function FormInput({
       <input
         type={inputType}
         placeholder={placeHolder}
-        className={`${baseInputCss}`}
+        className={`${className} ${baseInputCss}`}
         {...props}
       />
     </div>

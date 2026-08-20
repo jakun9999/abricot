@@ -1,5 +1,5 @@
 import { AbricotIcon, UserIcon } from "@/components/ui/icons";
-import MenuItem from "@/components/ui/menus/MenuItem";
+import MenuItem from "@/components/ui/menus/menu-item";
 
 export interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**

@@ -1,8 +1,8 @@
 "use client";
 
-import CheckedboxIcon from "@/components/ui/icons/CheckedboxIcon";
-import CalendarIcon from "@/components/ui/icons/CalendarIcon";
-import FolderIcon from "@/components/ui/icons/FolderIcon";
+import CheckedboxIcon from "@/components/ui/icons/checkedbox-icon";
+import CalendarIcon from "@/components/ui/icons/calendar-icon";
+import FolderIcon from "@/components/ui/icons/folder-icon";
 
 export interface ChipsProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**

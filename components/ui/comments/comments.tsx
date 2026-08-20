@@ -12,17 +12,20 @@ interface CommentsProps {
 // Jeu de données de test (mock)
 const MOCK_COMMENTS: Comment[] = [
   {
-    id: 1,
-    userFullName: "Bertrand Dupont",
-    description:
+    id: "1",
+    authorId: "1",
+    author: { name: "Bertrand Dupont", email: "bd@demo.net" },
+    content:
       "Attention à bien gérer l'expiration des tokens et le refresh automatique côté client.",
     createdAt: "2026-03-03T11:26:11Z",
   },
   {
-    id: 2,
-    userFullName: "Alice Durand",
-    description: "C'est noté, je m'en occupe dans la journée !",
-    createdAt: "2026-03-22T09:22:05Z",
+    id: "2",
+    authorId: "1",
+    author: { name: "Bertrand Dupont", email: "bd@demo.net" },
+    content:
+      "Attention à bien gérer l'expiration des tokens et le refresh automatique côté client.",
+    createdAt: "2026-03-03T11:26:11Z",
   },
 ];
 
@@ -34,7 +37,7 @@ export default function Comments({
   const [comments, setComments] = useState<Comment[]>(
     initialComments ?? MOCK_COMMENTS,
   );
-  const [loading, setLoading] = useState<boolean>(false);
+
   const [newComment, setNewComment] = useState<string>("");
 
   useEffect(() => {
@@ -66,23 +69,16 @@ export default function Comments({
     if (!newComment.trim()) return;
 
     const commentToAdd: Comment = {
-      id: Date.now(),
-      userFullName: "Matthieu LUCAS",
-      description: newComment.trim(),
+      id: "3",
+      authorId: "Matthieu LUCAS",
+      author: { name: "Matthieu LUCAS", email: "matthieulucas457@outlook.fr" },
+      content: newComment.trim(),
       createdAt: new Date().toISOString(),
     };
 
     setComments((prev) => [...prev, commentToAdd]);
     setNewComment("");
   };
-
-  if (loading) {
-    return (
-      <div className="text-sm text-gray-500 animate-pulse">
-        Chargement des commentaires...
-      </div>
-    );
-  }
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -91,15 +87,13 @@ export default function Comments({
         <div key={item.id} className="flex items-start gap-4.5">
           {/* Avatar initiales */}
           <div className="flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-gray-200 text-[10px] font-normal text-gray-950">
-            {getUserInitials(item.userFullName)}
+            {getUserInitials(item.author.name)}
           </div>
 
           {/* Contenu du commentaire */}
           <div className="flex-1 rounded-[10px] bg-gray-100 px-3.5 py-4.5  min-h-2.75">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-body-s text-black">
-                {item.userFullName}
-              </span>
+              <span className="text-body-s text-black">{item.author.name}</span>
               {item.createdAt && (
                 <span className="text-body-xs text-gray-600">
                   {formatDateRelative(item.createdAt)}
@@ -107,7 +101,7 @@ export default function Comments({
               )}
             </div>
             <p className="leading-relaxed text-black text-body-xs">
-              {item.description}
+              {item.content}
             </p>
           </div>
         </div>

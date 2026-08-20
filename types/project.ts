@@ -6,7 +6,7 @@ import { User } from "@/types/user";
  */
 export interface Project {
   /** Project unique ID. */
-  id?: string | number;
+  id?: string;
 
   /** Project name. */
   name: string;

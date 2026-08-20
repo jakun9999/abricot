@@ -1,6 +1,6 @@
 "use client";
 
-import StarIcon from "@/components/ui/icons/StarIcon";
+import StarIcon from "@/components/ui/icons/star-icon";
 
 export interface AiButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**

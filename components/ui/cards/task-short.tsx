@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FolderIcon, CalendarIcon, MessageIcon } from "@/components/ui/icons";
-import Label from "@/components/ui/labels/Label";
-import AbrButton from "@/components/ui/buttons/AbrButton";
+import Label from "@/components/ui/labels/label";
+import AbrButton from "@/components/ui/buttons/abr-button";
 import { Task } from "@/types/task";
-import { Comment } from "@/types/comment";
+import { formatDateShort } from "@/lib/utils";
 
 interface TaskProps {
   taskId: string | number;
@@ -13,25 +13,46 @@ interface TaskProps {
 
 // Jeu de données de test (mock)
 const MOCK_TASK_DATA: Task = {
-  id: 1,
-  name: "Nom de la tâche",
+  id: "1",
+  title: "Nom de la tâche",
   description: "Description de la tâche",
-  projectName: "Nom du projet",
-  date: "9 mars",
-  comments: [
+  projectId: "Nom du projet",
+  dueDate: "2026-08-20T00:00:00Z",
+  creatorId: "Matthieu LUCAS",
+  priority: "HIGH",
+  assignees: [
     {
-      description: "Un commentaire",
-      userFullName: "Georges LUCAS",
-      createdAt: "2026-08-20T05:21:00Z",
+      id: "1",
+      taskId: "1",
+      userId: "1",
+      user: { name: "Matthieu LUCAS", email: "matthieulucas457@outlook.fr" },
+      assignedAt: "2026-08-18T10:00:00Z",
     },
   ],
-  status: "pending",
+  comments: [
+    {
+      id: "1",
+      authorId: "1",
+      author: { name: "Bertrand Dupont", email: "bd@demo.net" },
+      content:
+        "Attention à bien gérer l'expiration des tokens et le refresh automatique côté client.",
+      createdAt: "2026-03-03T11:26:11Z",
+    },
+    {
+      id: "2",
+      authorId: "1",
+      author: { name: "Bertrand Dupont", email: "bd@demo.net" },
+      content:
+        "Attention à bien gérer l'expiration des tokens et le refresh automatique côté client.",
+      createdAt: "2026-03-03T11:26:11Z",
+    },
+  ],
+  status: "TODO",
 };
 
 export default function TaskShort({ taskId }: TaskProps) {
   // Initialisation directe avec les faux commentaires
-  const [task, setTask] = useState<Task>(MOCK_TASK_DATA);
-  const [loading, setLoading] = useState<boolean>(false);
+  const task = MOCK_TASK_DATA;
 
   useEffect(() => {
     /*
@@ -57,14 +78,6 @@ export default function TaskShort({ taskId }: TaskProps) {
         */
   }, [taskId]);
 
-  if (loading) {
-    return (
-      <div className="text-sm text-gray-500 animate-pulse">
-        Chargement de la tâche...
-      </div>
-    );
-  }
-
   return (
     <div className="w-92.75 h-[229.75px] flex flex-col justify-between py-6.25 px-10 bg-white rounded-[10px]">
       {/* Top area */}
@@ -72,15 +85,18 @@ export default function TaskShort({ taskId }: TaskProps) {
         {/* Task info */}
         <div className="flex justify-between">
           <div className="flex flex-col gap-1.75">
-            <h5 className="font-semibold">{task.name}</h5>
+            <h5 className="font-semibold">{task.title}</h5>
             <p className="text-body-s text-abr-grey-600">{task.description}</p>
           </div>
           <div className="text-body-s">
-            {task.status === "pending" && <Label color="red" text="À faire" />}
-            {task.status === "inprogress" && (
-              <Label color="grey" text="En cours" />
+            {task.status === "TODO" && <Label color="red" text="À faire" />}
+            {task.status === "IN_PROGRESS" && (
+              <Label color="warningOrangeLight" text="En cours" />
             )}
-            {task.status === "done" && <Label color="green" text="Terminé" />}
+            {task.status === "DONE" && <Label color="green" text="Terminé" />}
+            {task.status === "CANCELLED" && (
+              <Label color="grey" text="Annulé" />
+            )}
           </div>
         </div>
 
@@ -90,12 +106,12 @@ export default function TaskShort({ taskId }: TaskProps) {
             <span className="text-abr-grey-400!">
               <FolderIcon className="w-4.5 h-3.5" />
             </span>
-            {task.projectName}
+            {task.projectId}
           </p>
           <p className="text-abr-grey-600">|</p>
           <p className="flex items-center gap-2">
             <CalendarIcon className="w-3.75 h-3.5" />
-            {task.date}
+            {formatDateShort(task.dueDate)}
           </p>
           <p>|</p>
           <p className="flex items-center gap-2">

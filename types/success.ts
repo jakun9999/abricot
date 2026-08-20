@@ -10,5 +10,5 @@ export interface Success {
   message: string;
 
   /** Data sent back by backend API request */
-  data: {};
+  data: { any: object };
 }
