@@ -4,17 +4,7 @@ import { useEffect, useState } from "react";
 import { FolderIcon, CalendarIcon, MessageIcon } from "@/components/ui/icons";
 import Label from "@/components/ui/labels/Label";
 import AbrButton from "@/components/ui/buttons/AbrButton";
-
-export interface Task {
-  id?: string | number;
-  name: string;
-  description: string;
-  projectName: string;
-  date: string;
-  comments: number;
-  status: "todo" | "started" | "finished";
-}
-
+import { Task } from "@/types/task";
 interface TaskProps {
   taskId: string | number;
 }
@@ -27,7 +17,7 @@ const MOCK_TASK_DATA: Task = {
   projectName: "Nom du projet",
   date: "9 mars",
   comments: 2,
-  status: "todo",
+  status: "pending",
 };
 
 export default function TaskShort({ taskId }: TaskProps) {
@@ -78,13 +68,11 @@ export default function TaskShort({ taskId }: TaskProps) {
             <p className="text-body-s text-abr-grey-600">{task.description}</p>
           </div>
           <div className="text-body-s">
-            {task.status === "todo" && <Label color="red" text="À faire" />}
-            {task.status === "started" && (
+            {task.status === "pending" && <Label color="red" text="À faire" />}
+            {task.status === "inprogress" && (
               <Label color="grey" text="En cours" />
             )}
-            {task.status === "finished" && (
-              <Label color="green" text="Terminé" />
-            )}
+            {task.status === "done" && <Label color="green" text="Terminé" />}
           </div>
         </div>
 

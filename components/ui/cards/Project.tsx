@@ -2,57 +2,31 @@
 
 import { useEffect, useState } from "react";
 import { GroupIcon } from "@/components/ui/icons";
-import Label from "@/components/ui/labels/Label";
-
-export interface Task {
-  id?: string | number;
-  name: string;
-  status: "todo" | "started" | "finished";
-}
-
-export interface ProjectData {
-  id?: string | number;
-  name: string;
-  description: string;
-  tasks: Task[];
-  createdAt?: string;
-  owner: string;
-  members: string[];
-}
+import { Project } from "@/types/project";
+import getInitials from "@/lib/utils";
 
 interface ProjectProps {
   projectId: string | number;
 }
 
 // Jeu de données de test (mock)
-const MOCK_PROJECT: ProjectData[] = [
-  {
-    id: 1,
-    name: "Frontend Abricot",
-    description: "Création d'un frontend nextjs pour Abricat",
-    tasks: [
-      { name: "Une tâche", status: "started" },
-      { name: "Une autre tâche", status: "finished" },
-    ],
-    owner: "Matthieu DUPONT",
-    members: ["Adeline DUPONT", "Georges LUCAS"],
-    createdAt: "23 mars, 11:20",
-  },
-];
+const MOCK_PROJECT: Project = {
+  id: 1,
+  name: "Frontend Abricot",
+  description: "Création d'un frontend nextjs pour Abricat",
+  tasks: [
+    { name: "Une tâche", status: "inprogress" },
+    { name: "Une autre tâche", status: "pending" },
+  ],
+  owner: "Matthieu DUPONT",
+  members: ["Adeline DUPONT", "Georges LUCAS"],
+  createdAt: "23 mars, 11:20",
+};
 
 export default function Comments({ projectId }: ProjectProps) {
   // Initialisation directe avec les faux commentaires
-  const [project, setProject] = useState<ProjectData[]>(MOCK_PROJECT);
+  const [project, setProject] = useState<Project>(MOCK_PROJECT);
   const [loading, setLoading] = useState<boolean>(false);
-
-  const getInitials = (name: string): string =>
-    name
-      .trim()
-      .split(/\s+/)
-      .map((word) => word[0])
-      .slice(0, 2)
-      .join("")
-      .toUpperCase();
 
   useEffect(() => {
     /*
@@ -86,25 +60,23 @@ export default function Comments({ projectId }: ProjectProps) {
     );
   }
 
-  const totalTasks = project[0].tasks.length;
-  const finishedTasks = project[0].tasks.filter(
-    (task) => task.status === "finished",
+  const totalTasks = project.tasks.length;
+  const finishedTasks = project.tasks.filter(
+    (task) => task.status === "done",
   ).length;
   const progression =
     totalTasks > 0 ? Math.round((finishedTasks / totalTasks) * 100) : 0;
 
-  const nonOwnerMembers = project[0].members.filter(
-    (member) => member !== project[0].owner,
+  const nonOwnerMembers = project.members.filter(
+    (member) => member !== project.owner,
   );
 
   return (
     <div className="w-95 h-87.75 flex flex-col bg-white rounded-[10px] gap-14 px-8.5 py-7.5">
       {/* Project info */}
       <div className="gap-2">
-        <h5>{project[0].name}</h5>
-        <p className="text-body-s text-abr-grey-600">
-          {project[0].description}
-        </p>
+        <h5>{project.name}</h5>
+        <p className="text-body-s text-abr-grey-600">{project.description}</p>
       </div>
       {/* Progression */}
       <div>
@@ -128,12 +100,12 @@ export default function Comments({ projectId }: ProjectProps) {
         <div className="flex items-center gap-2 text-abr-grey-600">
           <GroupIcon className="w-[11.58px] h-2.75" />
           <span className="text-body-2xs">
-            Équipe ({project[0].members.length + 1})
+            Équipe ({project.members.length + 1})
           </span>
         </div>
         <div className="flex items-center gap-1">
           <span className="flex w-6.75 h-6.75 bg-abr-light-orange rounded-full border border-white text-[10px] font-normal items-center justify-center">
-            {getInitials(project[0].owner)}
+            {getInitials(project.owner)}
           </span>
           <span className="flex w-27.25 h-6.75 bg-abr-light-orange rounded-full border border-white text-body-s text-abr-dark-orange items-center justify-center">
             Propriétaire

@@ -2,16 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { BinIcon, ModifyIcon } from "@/components/ui/icons";
-
-export interface Task {
-  id?: string | number;
-  name: string;
-  description: string;
-  projectName: string;
-  date: string;
-  comments: number;
-  status: "todo" | "started" | "finished";
-}
+import { Task } from "@/types/task";
 
 interface TaskProps {
   taskId: string | number;
@@ -25,7 +16,7 @@ const MOCK_TASK_DATA: Task = {
   projectName: "Nom du projet",
   date: "9 mars",
   comments: 2,
-  status: "todo",
+  status: "pending",
 };
 
 export default function TaskSimple({ taskId }: TaskProps) {
