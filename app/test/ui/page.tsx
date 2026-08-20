@@ -15,6 +15,7 @@ import Project from "@/components/ui/cards/Project";
 import TaskLong from "@/components/ui/cards/TaskLong";
 import TaskShort from "@/components/ui/cards/TaskShort";
 import TaskSimple from "@/components/ui/cards/TaskSimple";
+import TaskDetailed from "@/components/ui/cards/TaskDetailed";
 
 export default function Page() {
   return (
@@ -156,6 +157,7 @@ export default function Page() {
           <TaskLong taskId="1" />
           <TaskShort taskId="1" />
           <TaskSimple taskId="1" />
+          <TaskDetailed taskId="1" />
         </div>
       </div>
       <Footer />

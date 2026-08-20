@@ -71,7 +71,7 @@ export default function TaskShort({ taskId }: TaskProps) {
       <div className="flex flex-col gap-8">
         {/* Task info */}
         <div className="flex justify-between">
-          <div className="gap-1.75">
+          <div className="flex flex-col gap-1.75">
             <h5 className="font-semibold">{task.name}</h5>
             <p className="text-body-s text-abr-grey-600">{task.description}</p>
           </div>

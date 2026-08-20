@@ -70,7 +70,7 @@ export default function Comments({ taskId }: TaskProps) {
       {/* Left area */}
       <div className="flex flex-col gap-8 ml-7.5 my-[32.23px]">
         {/* Task info */}
-        <div className="gap-1.75">
+        <div className="flex flex-col gap-1.75">
           <h5>{task.name}</h5>
           <p className="text-body-s text-abr-grey-600">{task.description}</p>
         </div>
