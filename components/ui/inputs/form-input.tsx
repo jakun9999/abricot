@@ -13,7 +13,7 @@ export interface FormInputProps extends React.InputHTMLAttributes<HTMLInputEleme
    */
   inputId: string;
   mandatory?: true | false;
-  inputType: "text" | "password" | "number" | "date" | "selector";
+  inputType: "text" | "password" | "email" | "number" | "date" | "selector";
   label: string;
   placeHolder?: string;
   inputWidth?: string;
@@ -41,7 +41,7 @@ export default function FormInput({
 }: FormInputProps) {
   // Generic css classes to include whatever the input type
   const baseLabelCss = "text-body-s text-black";
-  const baseInputCss = `flex items-center justify-start h-[53px] ${inputWidth} pl-[17px] bg-white border rounded-[4px] border-gray-200 text-body-xs text-gray-600 placeholder:text-gray-300`;
+  const baseInputCss = `flex items-center justify-start h-[53px] ${inputWidth} pl-[17px] bg-white border rounded-[4px] border-gray-200 text-body-s text-gray-600 placeholder:text-gray-300`;
 
   return (
     <div className="flex flex-col gap-1.75">
@@ -50,6 +50,7 @@ export default function FormInput({
         {mandatory ? "*" : ""}
       </label>
       <input
+        id={inputId}
         type={inputType}
         placeholder={placeHolder}
         className={`${className} ${baseInputCss}`}
