@@ -17,8 +17,12 @@ export default function AuthWrapper({
   return (
     <div className="flex min-h-screen w-full bg-white">
       {/* Form column */}
-      <div className="flex w-full flex-col justify-between items-center py-[111.92] lg:w-[40%]">
-        <AbricotIcon className="w-[252.57px] h-[32.17] text-abr-dark-orange" />
+      <div className="flex w-full flex-col justify-between max-h-256 items-center py-[111.92] lg:w-[40%]">
+        <AbricotIcon
+          className="w-[252.57px] h-[32.17px] text-abr-dark-orange"
+          aria-label="Logo Abricot"
+          role="img"
+        />
         {children}
         {login ? (
           <p className="flex item-center text-body-s">
@@ -46,7 +50,7 @@ export default function AuthWrapper({
       <div className="relative hidden lg:block lg:w-[60%]">
         <Image
           src={backgroundImage}
-          alt="Illustration"
+          alt=""
           fill
           priority
           sizes="(min-width: 1024px) 60vw, 0vw"

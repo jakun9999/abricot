@@ -17,12 +17,14 @@ export default function LoginForm() {
         inputId="email"
         inputType="email"
         className="w-70.5"
+        autoComplete="email"
       />
       <FormInput
         label="Mot de passe"
         inputId="password"
         inputType="password"
         className="w-70.5"
+        autoComplete="current-password"
       />
       <button className="w-62.25 h-12.5 rounded-[10px] bg-black text-abr-white text-body-m">
         Se connecter
