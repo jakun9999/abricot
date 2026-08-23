@@ -3,9 +3,9 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Tableau de bord",
-  description: "Tableau de bord Abricot - Suivi des tâches",
+  description: "Tableau de bord Kanban Abricot - Suivi des tâches",
 };
 
-export default function Page() {
-  return <div>Dashboard</div>;
+export default function Kanban() {
+  return <div></div>;
 }

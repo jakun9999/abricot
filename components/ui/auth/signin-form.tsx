@@ -24,7 +24,7 @@ export default function SigninForm() {
         autoComplete="new-password"
       />
       <button className="w-62.25 h-12.5 rounded-[10px] bg-black text-abr-white text-body-m">
-        S'inscrire
+        S&apos;inscrire
       </button>
     </form>
   );
