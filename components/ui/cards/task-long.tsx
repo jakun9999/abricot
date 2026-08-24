@@ -7,8 +7,9 @@ import AbrButton from "@/components/ui/buttons/abr-button";
 import { Task } from "@/types/task";
 import { formatDateShort } from "@/lib/utils";
 
-interface TaskProps {
+interface TaskLongProps {
   taskId: string | number;
+  className?: string;
 }
 
 // Jeu de données de test (mock)
@@ -47,10 +48,10 @@ const MOCK_TASK_DATA: Task = {
       createdAt: "2026-03-03T11:26:11Z",
     },
   ],
-  status: "DONE",
+  status: "TODO",
 };
 
-export default function Comments({ taskId }: TaskProps) {
+export default function TaskLong({ taskId, className = "" }: TaskLongProps) {
   // Initialisation directe avec les faux commentaires
   const task = MOCK_TASK_DATA;
 
@@ -79,7 +80,9 @@ export default function Comments({ taskId }: TaskProps) {
   }, [taskId]);
 
   return (
-    <div className="w-255.5 h-40.5 flex justify-between bg-white rounded-[10px]">
+    <div
+      className={`${className} w-full h-40.5 flex justify-between bg-white rounded-[10px] border border-abr-grey-200`}
+    >
       {/* Left area */}
       <div className="flex flex-col gap-8 ml-7.5 my-[32.23px]">
         {/* Task info */}

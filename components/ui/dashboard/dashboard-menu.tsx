@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Chips from "@/components/ui/chips/chips";
-import path from "path";
 
 export interface DashboardMenuProps extends React.HTMLAttributes<HTMLDivElement> {}
 

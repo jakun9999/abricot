@@ -7,8 +7,9 @@ import AbrButton from "@/components/ui/buttons/abr-button";
 import { Task } from "@/types/task";
 import { formatDateShort } from "@/lib/utils";
 
-interface TaskProps {
+interface TaskShortProps {
   taskId: string | number;
+  className?: string;
 }
 
 // Jeu de données de test (mock)
@@ -50,7 +51,7 @@ const MOCK_TASK_DATA: Task = {
   status: "TODO",
 };
 
-export default function TaskShort({ taskId }: TaskProps) {
+export default function TaskShort({ taskId, className = "" }: TaskShortProps) {
   // Initialisation directe avec les faux commentaires
   const task = MOCK_TASK_DATA;
 
@@ -79,7 +80,9 @@ export default function TaskShort({ taskId }: TaskProps) {
   }, [taskId]);
 
   return (
-    <div className="w-92.75 h-[229.75px] flex flex-col justify-between py-6.25 px-10 bg-white rounded-[10px]">
+    <div
+      className={`${className} w-full h-[229.75px] flex flex-col justify-between py-6.25 px-10 bg-white rounded-[10px] border border-abr-grey-200`}
+    >
       {/* Top area */}
       <div className="flex flex-col gap-8">
         {/* Task info */}
