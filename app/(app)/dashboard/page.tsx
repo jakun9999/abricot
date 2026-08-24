@@ -22,7 +22,7 @@ for (let i = 0; i < 7; i++) {
 
 export default function Page() {
   return (
-    <div className="w-full min-h-screen mt-7.5 rounded-[10px] border border-abr-grey-200 bg-abr-white px-2.5 md:px-14.75 py-10 ">
+    <div className="w-full min-h-screen mt-7.5 rounded-[10px] border border-abr-grey-200 bg-abr-white px-2.5 md:px-14.75 py-10 mb-12">
       <div className="flex flex-col md:flex-row justify-between items-start gap-1.5 md:gap-0">
         <div className="flex flex-col">
           <h5 className="text-abr-grey-800">Mes tâches assignées</h5>
