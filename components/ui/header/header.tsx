@@ -25,8 +25,8 @@ export default function Header({ initials }: HeaderProps) {
   };
 
   return (
-    <header className="w-full bg-white shadow-[0_4px_12px_1px_rgba(0,0,0,0.02)]">
-      <div className="w-full max-w-7xl mx-auto h-23.5 px-4 sm:px-6 lg:px-8 flex items-center justify-between text-abr-dark-orange">
+    <header className="w-full mx-auto bg-white shadow-[0_4px_12px_1px_rgba(0,0,0,0.02)]">
+      <div className="w-full h-23.5 px-4 sm:px-6 lg:px-25 flex items-center justify-between text-abr-dark-orange">
         {/* Logo SVG - Responsive size */}
         <Link href="/" className="shrink-0">
           <AbricotIcon className="w-30 h-auto sm:w-36.75" />

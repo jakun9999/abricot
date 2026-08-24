@@ -9,9 +9,9 @@ export default function MainAppLayout({
 }) {
   return (
     <>
-      <div className="mt-10 md:mt-22.25 flex flex-col items-center">
-        <div className="flex flex-col md:flex-row gap-5 md:gap-0 md:justify-between md:items-end max-w-308.75 w-full">
-          <div className="flex flex-col gap-3.5 mx-2">
+      <div className="mt-10 flex flex-col items-center w-full">
+        <div className="flex flex-col md:flex-row gap-5 md:gap-0 md:justify-between w-full pl-4 pr-4 lg:pl-25 lg:pr-31.25 box-border">
+          <div className="flex flex-col gap-3.5">
             <h1 aria-label="Tableau de bord Abricot" className="sr-only"></h1>
             <h4>Tableau de bord</h4>
             <p className="text-body-l">
@@ -21,14 +21,14 @@ export default function MainAppLayout({
           <AbrButton
             color="black"
             label="+ Créer un projet"
-            className="w-45.25 h-12.5 mx-2"
+            className="w-45.25 h-12.5 shrink-0"
           />
         </div>
-        <div className="flex flex-col max-w-308.75 w-full ">
-          <div className="flex">
-            <DashboardMenu className="mt-15 mx-3.25" />
+        <div className="flex flex-col w-full ">
+          <div className="flex pl-4 lg:pl-26.25">
+            <DashboardMenu className="mt-15" />
           </div>
-          <div className="flex flex-col mx-2">{children}</div>
+          {children}
         </div>
       </div>
     </>

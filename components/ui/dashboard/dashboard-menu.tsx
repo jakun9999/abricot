@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Chips from "@/components/ui/chips/chips";
 
-export interface DashboardMenuProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface DashboardMenuProps {
+  className?: string;
+}
 
 export default function DashboardMenu({ className = "" }: DashboardMenuProps) {
   const pathName = usePathname();
