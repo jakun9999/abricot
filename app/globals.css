@@ -7,6 +7,10 @@
 
 /* Custom layer values for text to reduce usage of classes in html */
 @layer base {
+  body {
+    letter-spacing: 0em;
+  }
+
   h1 {
     font-family: var(--font-manrope), sans-serif;
     font-size: calc(40 / 16 * 1rem);

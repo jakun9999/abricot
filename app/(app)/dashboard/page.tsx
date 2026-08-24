@@ -1,4 +1,3 @@
-import React from "react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <div className="">Dashboard</div>;
+  return <div></div>;
 }
