@@ -18,7 +18,7 @@ const MOCK_TASK_DATA: Task = {
   title: "Nom de la tâche",
   description: "Description de la tâche",
   projectId: "Nom du projet",
-  dueDate: "2026-08-20T00:00:00Z",
+  dueDate: "2026-03-09T00:00:00Z",
   creatorId: "Matthieu LUCAS",
   priority: "HIGH",
   assignees: [
@@ -81,7 +81,7 @@ export default function TaskShort({ taskId, className = "" }: TaskShortProps) {
 
   return (
     <div
-      className={`${className} w-full h-[229.75px] flex flex-col justify-between py-6.25 px-10 bg-white rounded-[10px] border border-abr-grey-200`}
+      className={`${className} w-full h-[229.54px] flex flex-col justify-between py-6.25 px-10 bg-white rounded-[10px] border border-abr-grey-200`}
     >
       {/* Top area */}
       <div className="flex flex-col gap-8">
@@ -104,17 +104,19 @@ export default function TaskShort({ taskId, className = "" }: TaskShortProps) {
         </div>
 
         {/* Task addition info (project name, date, comments) */}
-        <div className="flex items-center gap-3.75 text-abr-grey-600 text-body-xs">
+        <div className="flex items-center gap-3.75 text-abr-grey-600 text-body-xs -mr-7">
           <p className="flex items-center gap-2">
             <span className="text-abr-grey-400!">
               <FolderIcon className="w-4.5 h-3.5" />
             </span>
-            {task.projectId}
+            <span className="w-20.25 truncate">{task.projectId}</span>
           </p>
-          <p className="text-abr-grey-600">|</p>
+          <p className="p-0 box-border">|</p>
           <p className="flex items-center gap-2">
-            <CalendarIcon className="w-3.75 h-3.5" />
-            {formatDateShort(task.dueDate)}
+            <CalendarIcon className="w-3.75 h-[16.54px]" />
+            <span className="w-9.75 truncate">
+              {formatDateShort(task.dueDate)}
+            </span>
           </p>
           <p>|</p>
           <p className="flex items-center gap-2">
@@ -122,8 +124,8 @@ export default function TaskShort({ taskId, className = "" }: TaskShortProps) {
             {task.comments?.length}
           </p>
         </div>
+        <AbrButton label="Voir" color="black" className="w-30.25 h-12.5" />
       </div>
-      <AbrButton label="Voir" color="black" className="w-30.25 h-12.5" />
     </div>
   );
 }
