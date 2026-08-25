@@ -15,7 +15,6 @@ export interface SelectorInputProps {
 }
 
 export default function SelectorInput({
-  id,
   placeHolder,
   width = 152,
   className = "",
