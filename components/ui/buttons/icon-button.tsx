@@ -3,9 +3,9 @@ import PointsIcon from "@/components/ui/icons/points-icon";
 
 export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * IconButton variant colors.
-   * - `black` : Orange Dark BG with white text.
-   * - `dark` : Light orange BG with black text.
+   * IconButton predifined label.
+   * - `back` : Icon which indicates to the user to go back to previous page.
+   * - `points` : Icon which indicates to the user to have more details.
    */
   label: "back" | "points";
 }
@@ -14,7 +14,7 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
  * Circular icon button (40x40px) containing the specified label.
  * @example
  * ```tsx
- * <IconButton aria-label="Back" color="dark" label="back"/>
+ * <IconButton aria-label="Retour à la liste des projets" label="back"/>
  * ```
  */
 export default function IconButton({
@@ -34,7 +34,7 @@ export default function IconButton({
 
   return (
     <button
-      className={`flex items-center justify-center text-caption-l rounded-[10px] border bg-white ${mode} ${className}`}
+      className={`flex items-center justify-center text-caption-l cursor-pointer rounded-[10px] border bg-white ${mode} ${className}`}
       {...props}
     >
       {label === "back" && <BackarrowIcon />}

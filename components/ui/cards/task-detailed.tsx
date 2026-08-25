@@ -87,7 +87,7 @@ export default function TaskDetailed({ taskId }: TaskProps) {
   const commentsCount = task.comments?.length ?? 0;
 
   return (
-    <div className="w-255.5 flex flex-col justify-between py-6.25 px-10 bg-white rounded-[10px]">
+    <div className="max-w-255.5 flex flex-col justify-between py-6.25 px-2.5 lg:px-10 bg-white rounded-[10px] border border-abr-grey-200">
       {/* Top area */}
       <div className="flex flex-col gap-6">
         {/* Task header (title status button description) */}
@@ -95,7 +95,7 @@ export default function TaskDetailed({ taskId }: TaskProps) {
           <div className=" flex flex-col gap-1.75 mb-2">
             <div className="flex gap-2 items-center">
               <h5 className="font-semibold">{task.title}</h5>
-              <div className="text-body-s">
+              <div className="text-body-s shrink-0 mr-2 lg:mr-0">
                 {task.status === "TODO" && <Label color="red" text="À faire" />}
                 {task.status === "IN_PROGRESS" && (
                   <Label color="warningOrangeLight" text="En cours" />

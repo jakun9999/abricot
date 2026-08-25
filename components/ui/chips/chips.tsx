@@ -41,7 +41,7 @@ export default function Chips({
   return (
     <button
       {...props}
-      className={`flex items-center justify-center h-11.25 px-4 gap-3.5 rounded-lg text-abr-dark-orange ${mode} ${className}`}
+      className={`flex items-center justify-center h-11.25 px-4 gap-3.5 hover:cursor-pointer rounded-lg text-abr-dark-orange ${mode} ${className}`}
     >
       {icon === "task" && <CheckedboxIcon className="size-4" />}
       {icon === "calendar" && <CalendarIcon className="size-4" />}

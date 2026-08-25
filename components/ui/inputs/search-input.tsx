@@ -24,7 +24,7 @@ export default function FormInput({
 }: SearchInputProps) {
   return (
     <div
-      className={`flex items-center justify-between px-8 ${width} h-15.75 bg-white border rounded-sm border-gray-200 focus-within:border-abr-dark-orange text-body-s text-gray-600`}
+      className={`flex items-center justify-between px-8 h-15.75 ${width} bg-white border rounded-lg border-gray-200 focus-within:border-abr-dark-orange text-body-s text-gray-600`}
     >
       <input
         id="search"
