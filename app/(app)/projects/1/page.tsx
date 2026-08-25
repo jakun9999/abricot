@@ -57,7 +57,15 @@ export default function Projet() {
           </Link>
           <div className="flex flex-col gap-3.5">
             <h1 aria-label={`Projet ${project.name}`} className="sr-only"></h1>
-            <h4>{project.name}</h4>
+            <div className="flex items-center gap-3.5">
+              <h4>{project.name}</h4>
+              <Link
+                href=""
+                className="text-abr-dark-orange text-body-s underline mb-1"
+              >
+                Modifier
+              </Link>
+            </div>
             <p className="text-body-l">{project.description}</p>
           </div>
         </div>

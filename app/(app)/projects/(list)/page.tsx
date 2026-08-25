@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Project from "@/components/ui/cards/project";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Projets",
@@ -10,9 +11,9 @@ const elements: any = [];
 
 for (let i = 0; i < 9; i++) {
   elements.push(
-    <div key={i}>
+    <Link key={i} href={`/projects/${i}`}>
       <Project projectId={i} />
-    </div>,
+    </Link>,
   );
 }
 export default function Page() {
