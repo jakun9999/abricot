@@ -74,9 +74,9 @@ export default function Projet() {
       {/* Project members div */}
       <div className="mt-12.25 flex w-full pl-4 pr-4 lg:pl-28 lg:pr-28.25 box-border">
         <div className="flex flex-col lg:flex-row lg:items-center w-full gap-2 md:gap-0 h-auto md:h-40 lg:h-16.75 bg-abr-grey-100 px-12.5 py-5 rounded-[10px] justify-evenly lg:justify-between">
-          <div className="flex flex-col md:flex-row md:items-end gap-2">
+          <div className="flex flex-col md:flex-row md:items-center gap-2">
             <h5 className="text-abr-grey-800">Contributeurs</h5>
-            <p className=" text-abr-grey-600 text-body-m">{`${project.members.length} ${project.members.length > 1 ? "personnes" : "personne"}`}</p>
+            <p className="mt-px text-abr-grey-600 text-body-m">{`${project.members.length} ${project.members.length > 1 ? "personnes" : "personne"}`}</p>
           </div>
           {/* Display members */}
           <div className="flex flex-col md:flex-row md:items-center gap-2">
