@@ -35,7 +35,6 @@ export default function FormInput({
   label = "",
   placeHolder = "",
   inputWidth = "w-[280px]",
-  // selectorOptions = [],
   className = "",
   ...props
 }: FormInputProps) {
