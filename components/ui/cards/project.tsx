@@ -64,7 +64,7 @@ export default function Comments({ projectId }: ProjectProps) {
   );
 
   return (
-    <div className="w-95 h-87.75 flex flex-col bg-white rounded-[10px] gap-14 px-8.5 py-7.5">
+    <div className="max-w-95 h-87.75 flex flex-col bg-white rounded-[10px] border border-abr-grey-200 gap-14 px-8.5 py-7.5">
       {/* Project info */}
       <div className="gap-2">
         <h5>{project.name}</h5>
@@ -77,7 +77,7 @@ export default function Comments({ projectId }: ProjectProps) {
           <span className="text-abr-grey-800 text-body-xs">{progression}%</span>
         </div>
         {/* Progress bar */}
-        <div className="w-78 h-1.75 bg-abr-grey-200 rounded-[40px]">
+        <div className="max-w-78 h-1.75 bg-abr-grey-200 rounded-[40px]">
           <div
             className="bg-abr-grey-400 h-1.75 rounded-[40px]"
             style={{ width: `${progression}%` }}

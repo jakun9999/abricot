@@ -2,7 +2,7 @@ import React from "react";
 import AbrButton from "@/components/ui/buttons/abr-button";
 import DashboardMenu from "@/components/ui/dashboard/dashboard-menu";
 
-export default function MainAppLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
