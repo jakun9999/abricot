@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { UserSchema } from "@/schemas/user";
-import { loginSchema } from "@/schemas/login-schema";
+import { LoginSchema } from "@/schemas/login-schema";
 import { z } from "zod";
 
 export async function POST(request: Request) {
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     // We transfer auth data to the backend
     // but with a validation of what is sent to our
     // nextjs API /api/login
-    const authDataValidation = loginSchema.safeParse(body);
+    const authDataValidation = LoginSchema.safeParse(body);
 
     if (!authDataValidation.success) {
       // We reject incoming body as it doens't fit zod loginSchema
