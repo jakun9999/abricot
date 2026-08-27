@@ -1,10 +1,5 @@
 "use client";
 
-export interface SelectorOption {
-  label: string;
-  value: string | number;
-}
-
 export interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
    * StdInput variant colors.
@@ -35,6 +30,8 @@ export default function FormInput({
   label = "",
   placeHolder = "",
   inputWidth = "w-[280px]",
+  value,
+  onChange,
   className = "",
   ...props
 }: FormInputProps) {
@@ -53,6 +50,8 @@ export default function FormInput({
         type={inputType}
         placeholder={placeHolder}
         className={`${className} ${baseInputCss}`}
+        value={value}
+        onChange={onChange}
         {...props}
       />
     </div>
