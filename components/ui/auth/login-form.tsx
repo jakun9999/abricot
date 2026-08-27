@@ -32,8 +32,6 @@ export default function LoginForm() {
         throw new Error(result.message || "Identifiants incorrects");
       }
 
-      // Connexion réussie !
-      // result.data.user contient les infos utilisateur si tu veux les stocker dans un state global (ex: Zustand/Context)
       setUser(result.user);
       router.push("/dashboard");
       router.refresh();
@@ -79,6 +77,9 @@ export default function LoginForm() {
       >
         {isLoading ? "Connexion..." : "Se connecter"}
       </button>
+      <p className={`${error ? "" : "hidden "}text-body-s text-abr-error-red`}>
+        {error}
+      </p>
     </form>
   );
 }

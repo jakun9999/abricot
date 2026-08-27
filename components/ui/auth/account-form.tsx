@@ -9,7 +9,7 @@ export default function AccountForm() {
   const { user } = useAuth();
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
-  const [password, setPassword] = useState("**********");
+  const [password, setPassword] = useState("12345678");
 
   return (
     <form className="flex flex-col gap-10.25">

@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       // We reject incoming body as it doens't fit zod loginSchema
       return NextResponse.json(
         {
-          message: "Invalide login data",
+          message: "Données d'identification incorrectes",
           errors: z.treeifyError(authDataValidation.error),
         },
         { status: 400 },
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     if (!backendResponse.ok || !result.success) {
       return NextResponse.json(
-        { message: result.message || "Authentication error" },
+        { message: result.message || "Erreur d'authentification" },
         { status: backendResponse.status },
       );
     }
