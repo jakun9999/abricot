@@ -9,7 +9,7 @@ export default function MainAppLayout({
 }) {
   return (
     <div className="app-container max-w-360 min-h-screen w-full mx-auto flex flex-col items-center">
-      <Header initials="ML" />
+      <Header />
       <main className="bg-abr-grey-50 w-full">{children}</main>
       <Footer />
     </div>

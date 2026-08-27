@@ -1,6 +1,7 @@
 import React from "react";
 import AbrButton from "@/components/ui/buttons/abr-button";
 import DashboardMenu from "@/components/ui/dashboard/dashboard-menu";
+import AuthUserLabel from "@/components/ui/auth/auth-user-label";
 
 export default function DashboardLayout({
   children,
@@ -15,7 +16,8 @@ export default function DashboardLayout({
             <h1 aria-label="Tableau de bord Abricot" className="sr-only"></h1>
             <h4>Tableau de bord</h4>
             <p className="text-body-l">
-              Bonjour Alice Dupont, voici un aperçu de vos projets et tâches
+              Bonjour <AuthUserLabel />, voici un aperçu de vos projets et
+              tâches
             </p>
           </div>
           <AbrButton

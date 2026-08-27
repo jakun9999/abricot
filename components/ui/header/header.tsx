@@ -6,19 +6,15 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react"; // Optionnel : icônes pour le menu burger
 import MenuItem from "@/components/ui/menus/menu-item";
 import { AbricotIcon, UserIcon } from "../icons";
+import { useAuth } from "@/context/auth-context";
+import { getUserInitials } from "@/lib/utils";
 
-export interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * Header parameters.
-   * initials: user initials for user badge
-   */
-  initials: string;
-}
-
-export default function Header({ initials }: HeaderProps) {
+export default function Header() {
   const pathName = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useAuth();
 
+  const initials = user !== null ? getUserInitials(user.name) : "ER";
   const isActive = (targetPath: string) => {
     if (targetPath === "/") return pathName === "/";
     return pathName === targetPath || pathName.startsWith(`${targetPath}/`);
