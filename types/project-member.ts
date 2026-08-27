@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { User } from "@/schemas/user";
 
 /**
  * Each project member are attached to a single

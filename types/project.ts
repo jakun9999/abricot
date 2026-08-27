@@ -1,5 +1,5 @@
 import { ProjectMember } from "@/types/project-member";
-import { User } from "@/types/user";
+import { User } from "@/schemas/user";
 
 /**
  * Represent a project in the application.
