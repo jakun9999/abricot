@@ -8,76 +8,17 @@ import { Task } from "@/types/task";
 import { formatDateShort } from "@/lib/utils";
 
 interface TaskShortProps {
-  taskId: string | number;
+  task: Task;
+  projectName: string;
   className?: string;
 }
 
-// Jeu de données de test (mock)
-const MOCK_TASK_DATA: Task = {
-  id: "1",
-  title: "Nom de la tâche",
-  description: "Description de la tâche",
-  projectId: "Nom du projet",
-  dueDate: "2026-03-09T00:00:00Z",
-  creatorId: "Matthieu LUCAS",
-  priority: "HIGH",
-  assignees: [
-    {
-      id: "1",
-      taskId: "1",
-      userId: "1",
-      user: { name: "Matthieu LUCAS", email: "matthieulucas457@outlook.fr" },
-      assignedAt: "2026-08-18T10:00:00Z",
-    },
-  ],
-  comments: [
-    {
-      id: "1",
-      authorId: "1",
-      author: { name: "Bertrand Dupont", email: "bd@demo.net" },
-      content:
-        "Attention à bien gérer l'expiration des tokens et le refresh automatique côté client.",
-      createdAt: "2026-03-03T11:26:11Z",
-    },
-    {
-      id: "2",
-      authorId: "1",
-      author: { name: "Bertrand Dupont", email: "bd@demo.net" },
-      content:
-        "Attention à bien gérer l'expiration des tokens et le refresh automatique côté client.",
-      createdAt: "2026-03-03T11:26:11Z",
-    },
-  ],
-  status: "TODO",
-};
-
-export default function TaskShort({ taskId, className = "" }: TaskShortProps) {
+export default function TaskShort({
+  task,
+  projectName,
+  className = "",
+}: TaskShortProps) {
   // Initialisation directe avec les faux commentaires
-  const task = MOCK_TASK_DATA;
-
-  useEffect(() => {
-    /*
-        // --- CODE D'APPEL API EN ATTENTE ---
-        async function fetchComments() {
-          try {
-            setLoading(true);
-            const response = await fetch(`/api/tasks/${taskId}/comments`);
-            if (!response.ok) throw new Error('Erreur lors de la récupération');
-            
-            const data: CommentData[] = await response.json();
-            setComments(data);
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setLoading(false);
-          }
-        }
-    
-        if (taskId) {
-          fetchComments();
-        }
-        */
-  }, [taskId]);
 
   return (
     <div
@@ -109,7 +50,7 @@ export default function TaskShort({ taskId, className = "" }: TaskShortProps) {
             <span className="text-abr-grey-400!">
               <FolderIcon className="w-4.5 h-3.5" />
             </span>
-            <span className="w-20.25 truncate">{task.projectId}</span>
+            <span className="w-20.25 truncate">{projectName}</span>
           </p>
           <p className="p-0 box-border">|</p>
           <p className="flex items-center gap-2">
