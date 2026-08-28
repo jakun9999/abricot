@@ -63,7 +63,7 @@ export async function POST(request: Request) {
     cookieStore.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
       path: "/",
     });
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
     cookieStore.set("user_data", JSON.stringify(result.data.user), {
       httpOnly: false, // Usable locally by the client once authenticated
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60,
       path: "/",
     });

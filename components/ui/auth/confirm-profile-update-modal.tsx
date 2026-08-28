@@ -50,7 +50,7 @@ export default function ConfirmProfilUpdateModal({
         role="dialog"
         aria-modal="true"
       >
-        <h2 className="text-lg font-semibold mb-2">Confirmer la mise à jour</h2>
+        <h2 className="text-body-s mb-2">Confirmer la mise à jour</h2>
         <p className="text-sm text-gray-600 mb-4">
           {requiresCurrentPassword
             ? "Veuillez saisir votre mot de passe actuel pour confirmer le changement de mot de passe."
@@ -71,10 +71,10 @@ export default function ConfirmProfilUpdateModal({
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               disabled={isSubmitting}
-              className="w-full border rounded px-3 py-2 text-sm disabled:opacity-50"
+              className="w-full border rounded-lg px-3 py-2 text-sm disabled:opacity-50"
             />
             {showPasswordError && (
-              <p className="text-sm text-red-600 mt-1" role="alert">
+              <p className="text-body-xs text-abr-error-red mt-1" role="alert">
                 Le mot de passe actuel est requis
               </p>
             )}
@@ -82,7 +82,7 @@ export default function ConfirmProfilUpdateModal({
         )}
 
         {error && (
-          <p className="text-sm text-red-600 mb-4" role="alert">
+          <p className="text-sm text-abr-error-red mb-4" role="alert">
             {error}
           </p>
         )}
@@ -92,7 +92,7 @@ export default function ConfirmProfilUpdateModal({
             type="button"
             onClick={handleCancel}
             disabled={isSubmitting}
-            className="px-4 py-2 rounded border disabled:opacity-50"
+            className="px-4 py-2 rounded-lg bg-abr-grey-950 text-abr-white disabled:opacity-50"
           >
             Annuler
           </button>
@@ -100,7 +100,7 @@ export default function ConfirmProfilUpdateModal({
             type="button"
             onClick={handleConfirmClick}
             disabled={isSubmitting}
-            className="px-4 py-2 rounded bg-blue-600 text-white disabled:opacity-50"
+            className="px-4 py-2 rounded-lg bg-abr-grey-950 text-abr-white disabled:opacity-50"
           >
             {isSubmitting ? "Enregistrement..." : "Confirmer"}
           </button>
