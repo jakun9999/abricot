@@ -1,4 +1,4 @@
-import { User } from "@/schemas/user";
+import { User } from "@/schemas/user-schema";
 
 /**
  * Each project member are attached to a single

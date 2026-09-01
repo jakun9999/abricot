@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import SearchInput from "@/components/ui/inputs/search-input";
 import TaskLong from "@/components/ui/cards/task-long";
 import TaskShort from "@/components/ui/cards/task-short";
-import { Task } from "@/types/task";
-import { Project } from "@/types/project";
+import { Task } from "@/schemas/task-schema";
+import { Project } from "@/schemas/project-schema";
 import { fetchServer } from "@/lib/api-server";
 
 export const metadata: Metadata = {
@@ -27,6 +27,9 @@ export default async function Page() {
 
   const projectRes = await projectsResponse.json();
   const projects: Project[] = projectRes.data.projects;
+
+  // Create a map of project IDs to project names for easy lookup
+  // This will help us display the project name for each task
   const projectMap = new Map<string, string>(
     projects
       .filter((project): project is Project & { id: string } =>

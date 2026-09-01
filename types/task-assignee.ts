@@ -1,4 +1,4 @@
-import { User } from "@/schemas/user";
+import { User } from "@/schemas/user-schema";
 
 /** Represent a assigned user for a specific task */
 export interface TaskAssignee {

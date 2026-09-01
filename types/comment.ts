@@ -1,4 +1,4 @@
-import { User } from "@/schemas/user";
+import { User } from "@/schemas/user-schema";
 
 /**
  * Represent a comment, always attached to a task.

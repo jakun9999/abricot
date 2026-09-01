@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { UserSchema } from "@/schemas/user";
+import { UserSchema } from "@/schemas/user-schema";
 import { LoginSchema } from "@/schemas/login-schema";
 import { z } from "zod";
 

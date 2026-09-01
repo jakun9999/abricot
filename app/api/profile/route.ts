@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { UpdateProfilePayloadSchema } from "@/schemas/update-profile-schema";
-import { UserSchema } from "@/schemas/user";
+import { UserSchema } from "@/schemas/user-schema";
 
 const API_URL = process.env.API_URL_INTERNAL;
 
