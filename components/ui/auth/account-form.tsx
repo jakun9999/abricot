@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth-context";
@@ -24,7 +24,9 @@ export default function AccountForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    control,
+    formState: { errors, isDirty },
   } = useForm<ProfileFormData>({
     resolver: zodResolver(UpdateProfileSchema),
     defaultValues: {
@@ -34,7 +36,17 @@ export default function AccountForm() {
     },
   });
 
+  const newPasswordValue = useWatch({
+    control,
+    name: "newPassword",
+  });
+
+  const passwordChanged = (newPasswordValue ?? "").trim().length > 0;
+  const hasFormChanges = isDirty || passwordChanged;
+  const isSubmitDisabled = isSubmitting || !hasFormChanges;
+
   const handleValidatedSubmit = (data: ProfileFormData) => {
+    if (!hasFormChanges) return;
     setSubmitError(null);
     setPendingData(data);
   };
@@ -46,8 +58,8 @@ export default function AccountForm() {
     setSubmitError(null);
 
     try {
-      const passwordChanged = Boolean(pendingData.newPassword);
-
+      // Only include password fields when the user actually enters a new password.
+      // This prevents stale values from being submitted and keeps the form clean after a successful update.
       const response = await fetch("/api/profile", {
         method: "POST",
         credentials: "include",
@@ -71,8 +83,15 @@ export default function AccountForm() {
       }
 
       setUser(result.user);
+
+      // Clear the password field after a successful update so the user cannot accidentally resend an old value.
+      reset({
+        name: result.user.name,
+        email: result.user.email,
+        newPassword: "",
+      });
+
       setPendingData(null);
-      router.push("/account");
       router.refresh();
     } catch (err) {
       setSubmitError(
@@ -85,6 +104,14 @@ export default function AccountForm() {
 
   const handleCancel = () => {
     if (isSubmitting) return;
+
+    // Keep the form state consistent when the user cancels the confirmation dialog.
+    reset({
+      name: user?.name ?? "",
+      email: user?.email ?? "",
+      newPassword: "",
+    });
+
     setPendingData(null);
     setSubmitError(null);
   };
@@ -148,6 +175,7 @@ export default function AccountForm() {
           label="Modifier les informations"
           color="black"
           className="w-60.5"
+          disabled={isSubmitDisabled}
         />
       </form>
 
@@ -155,6 +183,7 @@ export default function AccountForm() {
         <ConfirmProfilUpdateModal
           requiresCurrentPassword={Boolean(pendingData.newPassword)}
           isSubmitting={isSubmitting}
+          hasChanges={hasFormChanges}
           error={submitError}
           onConfirm={handleConfirm}
           onCancel={handleCancel}

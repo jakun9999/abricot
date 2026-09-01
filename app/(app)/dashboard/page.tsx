@@ -48,10 +48,10 @@ export default async function Page({
   // Tasks need to be sorted by priority, with the highest priority first.
   // We can define a mapping of priority levels to numbers for sorting purposes.
   const PRIORITY_ORDER: Record<Task["priority"], number> = {
-    LOW: 0,
-    MEDIUM: 1,
-    HIGH: 2,
-    URGENT: 3,
+    LOW: 3,
+    MEDIUM: 2,
+    HIGH: 1,
+    URGENT: 0,
   };
 
   // Sort tasks by priority using the defined order

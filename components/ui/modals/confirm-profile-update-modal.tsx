@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import AbrButton from "@/components/ui/buttons/abr-button";
 
 interface ConfirmModalProps {
   requiresCurrentPassword: boolean;
   isSubmitting: boolean;
+  hasChanges: boolean;
   error: string | null;
   onConfirm: (currentPassword: string) => void;
   onCancel: () => void;
@@ -13,6 +15,7 @@ interface ConfirmModalProps {
 export default function ConfirmProfilUpdateModal({
   requiresCurrentPassword,
   isSubmitting,
+  hasChanges,
   error,
   onConfirm,
   onCancel,
@@ -22,6 +25,10 @@ export default function ConfirmProfilUpdateModal({
 
   const showPasswordError =
     touched && requiresCurrentPassword && !currentPassword;
+  const isConfirmDisabled =
+    isSubmitting ||
+    !hasChanges ||
+    (requiresCurrentPassword && !currentPassword);
 
   const handleConfirmClick = () => {
     if (requiresCurrentPassword && !currentPassword) {
@@ -41,17 +48,18 @@ export default function ConfirmProfilUpdateModal({
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      // Block user click on update profil form
       onClick={() => !isSubmitting && handleCancel()}
     >
       <div
-        className="bg-white rounded-lg p-6 w-full max-w-sm"
-        onClick={(e) => e.stopPropagation()} // avoid closing while user is in the modal
+        className="bg-white rounded-[10px] px-7 py-6 w-full max-w-107.5 shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+        onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
       >
-        <h2 className="text-body-s mb-2">Confirmer la mise à jour</h2>
-        <p className="text-sm text-gray-600 mb-4">
+        <h2 className="text-body-s text-abr-grey-800 mb-2">
+          Confirmer la mise à jour
+        </h2>
+        <p className="text-body-xs text-abr-grey-600 mb-4">
           {requiresCurrentPassword
             ? "Veuillez saisir votre mot de passe actuel pour confirmer le changement de mot de passe."
             : "Voulez-vous vraiment enregistrer ces modifications ?"}
@@ -71,7 +79,7 @@ export default function ConfirmProfilUpdateModal({
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               disabled={isSubmitting}
-              className="w-full border rounded-lg px-3 py-2 text-sm disabled:opacity-50"
+              className="w-full border border-abr-grey-300 rounded-[10px] px-3 py-2 text-body-s text-abr-grey-800 placeholder:text-abr-grey-400 focus:outline-none focus:border-abr-dark-orange disabled:opacity-50"
             />
             {showPasswordError && (
               <p className="text-body-xs text-abr-error-red mt-1" role="alert">
@@ -82,28 +90,28 @@ export default function ConfirmProfilUpdateModal({
         )}
 
         {error && (
-          <p className="text-sm text-abr-error-red mb-4" role="alert">
+          <p className="text-body-xs text-abr-error-red mb-4" role="alert">
             {error}
           </p>
         )}
 
-        <div className="flex justify-end gap-2">
-          <button
+        <div className="flex justify-end gap-2 mt-2">
+          <AbrButton
             type="button"
             onClick={handleCancel}
             disabled={isSubmitting}
-            className="px-4 py-2 rounded-lg bg-abr-grey-950 text-abr-white disabled:opacity-50"
-          >
-            Annuler
-          </button>
-          <button
+            color="outline"
+            label="Annuler"
+            className="min-w-27.5"
+          />
+          <AbrButton
             type="button"
             onClick={handleConfirmClick}
-            disabled={isSubmitting}
-            className="px-4 py-2 rounded-lg bg-abr-grey-950 text-abr-white disabled:opacity-50"
-          >
-            {isSubmitting ? "Enregistrement..." : "Confirmer"}
-          </button>
+            disabled={isConfirmDisabled}
+            color="black"
+            label={isSubmitting ? "Enregistrement..." : "Confirmer"}
+            className="min-w-32.5"
+          />
         </div>
       </div>
     </div>

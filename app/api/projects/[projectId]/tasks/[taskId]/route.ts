@@ -8,11 +8,10 @@ export async function POST(
   try {
     const { projectId, taskId } = await params;
     const body = await request.json();
-
     const response = await fetchServer(
       `/projects/${projectId}/tasks/${taskId}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },

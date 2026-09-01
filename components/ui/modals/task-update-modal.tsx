@@ -9,22 +9,20 @@ import SelectorInput from "@/components/ui/inputs/selector-input";
 import TaskStatusSelectorInput from "@/components/ui/inputs/task-status-selector-input";
 import AbrButton from "@/components/ui/buttons/abr-button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function TaskUpdateModal({
   task,
   projectId,
-  isEditing,
-  setIsEditing,
   onClose,
   onUpdate,
 }: {
   task: Task;
   projectId: string;
-  isEditing: boolean;
-  setIsEditing: (isEditing: boolean) => void;
   onClose: () => void;
   onUpdate: (updatedTask: Task) => void;
 }) {
+  const router = useRouter();
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description || "");
   const [priority, setPriority] = useState<Task["priority"]>(task.priority);
@@ -37,6 +35,19 @@ export default function TaskUpdateModal({
   const [status, setStatus] = useState<Task["status"]>(task.status);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const initialAssigneeIds = (task.assignees ?? [])
+    .map((assignee) => assignee.userId ?? assignee.user?.id ?? "")
+    .filter(Boolean);
+
+  const hasChanges =
+    title !== task.title ||
+    description !== (task.description ?? "") ||
+    priority !== task.priority ||
+    dueDate !== (task.dueDate ?? "") ||
+    status !== task.status ||
+    JSON.stringify([...assigneeIds].sort()) !==
+      JSON.stringify([...initialAssigneeIds].sort());
 
   const toIsoDate = (value: string) => {
     if (!value) return "";
@@ -66,7 +77,7 @@ export default function TaskUpdateModal({
             status,
             priority,
             dueDate,
-            assignees: assigneeIds,
+            assigneeIds: assigneeIds,
           }),
         },
       );
@@ -85,6 +96,7 @@ export default function TaskUpdateModal({
         payload) as Task;
       onUpdate(updatedTask);
       onClose();
+      router.refresh();
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -100,7 +112,7 @@ export default function TaskUpdateModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div
-        className="flex flex-col bg-white rounded-[10px] lg:w-149.5 pt-9.25 pb-[79px] px-[38.67px]"
+        className="flex flex-col bg-white rounded-[10px] lg:w-149.5 pt-9.25 pb-19.75 px-[38.67px]"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -176,10 +188,10 @@ export default function TaskUpdateModal({
             <AbrButton
               type="button"
               className="w-61 mt-8"
-              color="disabled"
+              color="black"
               label={isSubmitting ? "Mise à jour..." : "Enregistrer"}
               onClick={handleUpdate}
-              disabled={isSubmitting}
+              disabled={isSubmitting || !hasChanges}
             />
             {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           </form>
