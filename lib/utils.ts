@@ -33,7 +33,7 @@ export const formatDateRelative = (isoString: string): string => {
   const date = new Date(isoString);
 
   // Sécurité en cas de chaîne de date invalide
-  if (isNaN(date.getTime())) {
+  if (!Number.isFinite(date.getTime())) {
     return "";
   }
 
@@ -86,7 +86,7 @@ export const formatDateShort = (isoString: string): string => {
   const date = new Date(isoString);
 
   // Sécurité en cas de chaîne de date invalide
-  if (isNaN(date.getTime())) {
+  if (!Number.isFinite(date.getTime())) {
     return "";
   }
 

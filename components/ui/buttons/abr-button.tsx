@@ -5,9 +5,10 @@ export interface AbrButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEle
    * AbrButton variant colors
    * - `black` : default button mode.
    * - `outline` : White BG and dark orange text and border.
+   * - `disabled` : Disabled button mode.
    *
    */
-  color: "black" | "outline";
+  color: "black" | "outline" | "disabled";
   label: string;
 }
 
@@ -27,7 +28,9 @@ export default function AbrButton({
   const mode =
     color === "black"
       ? "bg-gray-800 text-white focus:bg-gray-950 disabled:bg-gray-200 disabled:text-gray-400"
-      : "bg-white text-abr-dark-orange border border-abr-dark-orange";
+      : color === "disabled"
+        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+        : "bg-white text-abr-dark-orange border border-abr-dark-orange";
   return (
     <button
       className={`flex items-center justify-center h-12.5 hover:cursor-pointer text-body-m rounded-[10px] ${mode} ${className}`}

@@ -8,7 +8,7 @@ import { useAuth } from "@/context/auth-context";
 import FormInput from "@/components/ui/inputs/form-input";
 import AbrButton from "@/components/ui/buttons/abr-button";
 import { UpdateProfileSchema } from "@/schemas/update-profile-schema";
-import ConfirmProfilUpdateModal from "@/components/ui/auth/confirm-profile-update-modal";
+import ConfirmProfilUpdateModal from "@/components/ui/modals/confirm-profile-update-modal";
 import { z } from "zod";
 
 type ProfileFormData = z.infer<typeof UpdateProfileSchema>;

@@ -1,0 +1,61 @@
+"use client";
+
+import Label from "@/components/ui/labels/label";
+
+export type TaskStatusValue = "TODO" | "IN_PROGRESS" | "DONE" | "CANCELLED";
+
+interface TaskStatusSelectorInputProps {
+  label?: string;
+  value: TaskStatusValue;
+  onChange: (value: TaskStatusValue) => void;
+  className?: string;
+}
+
+const STATUS_OPTIONS: {
+  value: TaskStatusValue;
+  label: string;
+  color: "red" | "warningOrangeLight" | "green" | "grey";
+}[] = [
+  { value: "TODO", label: "À faire", color: "red" },
+  { value: "IN_PROGRESS", label: "En cours", color: "warningOrangeLight" },
+  { value: "DONE", label: "Terminée", color: "green" },
+  { value: "CANCELLED", label: "Annulée", color: "grey" },
+];
+
+export default function TaskStatusSelectorInput({
+  label = "Statut",
+  value,
+  onChange,
+  className = "",
+}: TaskStatusSelectorInputProps) {
+  return (
+    <div className={`flex flex-col gap-4 ${className}`}>
+      {label ? <label className="text-body-s text-black">{label}</label> : null}
+
+      <div className="flex items-center gap-2">
+        {STATUS_OPTIONS.map((option) => {
+          const isSelected = option.value === value;
+
+          return (
+            <button
+              key={option.value}
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => onChange(option.value)}
+              className={`
+                rounded-full transition-all
+                ${isSelected ? "ring-2 ring-abr-dark-orange ring-offset-1" : ""}
+              `}
+            >
+              <Label
+                color={option.color}
+                text={option.label}
+                className={isSelected ? "shadow-sm" : ""}
+              />
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

@@ -40,13 +40,13 @@ export default function SearchInput({
 
   return (
     <div
-      className={`flex items-center justify-between px-8 h-15.75 ${width} bg-white border rounded-lg border-gray-200 focus-within:border-abr-dark-orange text-body-s text-gray-600`}
+      className={`flex items-center justify-between px-8 h-15.75 ${width} bg-white border rounded-lg border-abr-grey-200 focus-within:border-abr-dark-orange text-body-s text-abr-grey-600`}
     >
       <input
         id="search"
         type="text"
         placeholder={placeHolder}
-        className={`${className} placeholder:text-gray-300 w-full outline-0`}
+        className={`${className} placeholder:text-abr-grey-300 w-full outline-0`}
         defaultValue={searchParams.get("search") ?? ""}
         onChange={(e) => handleSearch(e.target.value)}
         {...props}

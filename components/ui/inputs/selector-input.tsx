@@ -6,8 +6,12 @@ import { BottomarrowIcon } from "@/components/ui/icons";
 export interface SelectorInputProps {
   id: string;
   placeHolder: string;
+  label?: string;
+  value?: string;
+  defaultValue?: string;
   width?: number | string;
   className?: string;
+  onChange?: (value: string) => void;
   options: {
     value: string;
     text: string;
@@ -17,23 +21,30 @@ export interface SelectorInputProps {
 export default function SelectorInput({
   placeHolder,
   width = 152,
+  label = "",
+  value,
+  defaultValue,
   className = "",
   options,
+  onChange,
 }: SelectorInputProps) {
-  // Convertit proprement en valeur CSS (ex: 300 -> "300px", "100%" -> "100%")
   const widthValue = typeof width === "number" ? `${width}px` : width;
 
   return (
-    /* 1. Le conteneur externe fixe la largeur stricte */
     <div style={{ width: widthValue }} className={`inline-block ${className}`}>
-      <Select.Root>
-        <Select.Trigger className="w-full h-15.75 flex items-center justify-between gap-2 rounded-lg border border-gray-200 bg-white px-8 text-body-s text-gray-600 outline-none focus:outline-abr-dark-orange overflow-hidden box-border">
-          {/* 2. Le texte est forcé de se couper sans pousser les bords */}
+      {label && <label className="text-body-s text-black">{label}</label>}
+      <Select.Root
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onChange}
+      >
+        <Select.Trigger
+          className={`w-full ${label ? "mt-1.75" : ""} h-[53px] flex items-center justify-between gap-2 rounded-lg border border-abr-grey-200 bg-white px-4.25 text-body-s text-abr-grey-600 overflow-hidden box-border outline-none focus-visible:ring-2 focus-visible:ring-abr-dark-orange data-[state=open]:ring-2 data-[state=open]:ring-abr-dark-orange`}
+        >
           <span className="truncate text-left flex-1 min-w-0">
             <Select.Value placeholder={placeHolder} />
           </span>
 
-          {/* 3. L'icône conserve sa taille */}
           <Select.Icon className="shrink-0">
             <BottomarrowIcon />
           </Select.Icon>
@@ -44,14 +55,14 @@ export default function SelectorInput({
             position="popper"
             sideOffset={4}
             style={{ width: widthValue }}
-            className="overflow-hidden rounded-lg border border-gray-200 bg-abr-white shadow-md z-50"
+            className="overflow-hidden rounded-lg border border-abr-grey-200 bg-abr-white shadow-md z-50"
           >
             <Select.Viewport className="p-2 box-border w-full">
-              {options.map((option, index) => (
+              {options.map((option) => (
                 <Select.Item
-                  key={index}
+                  key={option.value}
                   value={option.value}
-                  className="relative flex cursor-default select-none items-center rounded-lg py-1.5 px-8 text-body-s text-abr-grey-800 outline-none data-highlighted:bg-abr-light-orange"
+                  className="relative flex cursor-pointer select-none items-center rounded-lg py-1.5 px-8 text-body-s text-abr-grey-800 outline-none data-highlighted:bg-abr-light-orange"
                 >
                   <Select.ItemText>
                     <span className="block truncate">{option.text}</span>

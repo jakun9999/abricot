@@ -1,0 +1,190 @@
+"use client";
+
+import { useState } from "react";
+import { Task } from "@/schemas/task-schema";
+import FormInput from "@/components/ui/inputs/form-input";
+import DateSelectorInput from "@/components/ui/inputs/date-selector-input";
+import AssigneeSelectorInput from "@/components/ui/inputs/assignee-selector-input";
+import SelectorInput from "@/components/ui/inputs/selector-input";
+import TaskStatusSelectorInput from "@/components/ui/inputs/task-status-selector-input";
+import AbrButton from "@/components/ui/buttons/abr-button";
+import Image from "next/image";
+
+export default function TaskUpdateModal({
+  task,
+  projectId,
+  isEditing,
+  setIsEditing,
+  onClose,
+  onUpdate,
+}: {
+  task: Task;
+  projectId: string;
+  isEditing: boolean;
+  setIsEditing: (isEditing: boolean) => void;
+  onClose: () => void;
+  onUpdate: (updatedTask: Task) => void;
+}) {
+  const [title, setTitle] = useState(task.title);
+  const [description, setDescription] = useState(task.description || "");
+  const [priority, setPriority] = useState<Task["priority"]>(task.priority);
+  const [dueDate, setDueDate] = useState(task.dueDate || "");
+  const [assigneeIds, setAssigneeIds] = useState<string[]>(
+    (task.assignees ?? [])
+      .map((assignee) => assignee.userId ?? assignee.user?.id ?? "")
+      .filter(Boolean),
+  );
+  const [status, setStatus] = useState<Task["status"]>(task.status);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const toIsoDate = (value: string) => {
+    if (!value) return "";
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      const [year, month, day] = value.split("-").map(Number);
+      return new Date(Date.UTC(year, month - 1, day, 12, 0, 0)).toISOString();
+    }
+
+    const parsed = new Date(value);
+    return Number.isFinite(parsed.getTime()) ? parsed.toISOString() : "";
+  };
+
+  const handleUpdate = async () => {
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `/api/projects/${projectId}/tasks/${task.id}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title,
+            description,
+            status,
+            priority,
+            dueDate,
+            assignees: assigneeIds,
+          }),
+        },
+      );
+
+      const payload = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(
+          payload?.message ??
+            "Impossible de mettre à jour la tâche. Veuillez réessayer.",
+        );
+      }
+
+      const updatedTask: Task = (payload?.data?.task ??
+        payload?.task ??
+        payload) as Task;
+      onUpdate(updatedTask);
+      onClose();
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCancel = () => {
+    if (isSubmitting) return;
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div
+        className="flex flex-col bg-white rounded-[10px] lg:w-149.5 pt-9.25 pb-[79px] px-[38.67px]"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className="flex flex-col items-end w-full ">
+          <Image
+            src="/close.svg"
+            alt="Fermer"
+            className="self-end cursor-pointer text-abr-grey-600 "
+            width={14.33}
+            height={14.33}
+            onClick={handleCancel}
+          />
+        </div>
+        <div className="flex flex-col py-[27.67px] px-5">
+          <h4 className="text-abr-grey-800">Modifier</h4>
+          <form className="flex flex-col gap-6 mt-10">
+            <FormInput
+              inputId="title"
+              width="max-[452px]"
+              className="w-full"
+              placeHolder="Titre de la tâche"
+              label="Titre"
+              inputType="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <FormInput
+              inputId="description"
+              width="max-[452px]"
+              className="w-full"
+              placeHolder="Description de la tâche"
+              label="Description"
+              inputType="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <DateSelectorInput
+              width="max-[452px]"
+              placeHolder="Sélectionner une date"
+              label="Échéance"
+              value={dueDate}
+              onChange={(e) => setDueDate(toIsoDate(e.target.value))}
+            />
+
+            <AssigneeSelectorInput
+              projectId={projectId}
+              label="Assigné à"
+              width="w-full"
+              value={assigneeIds}
+              onChange={setAssigneeIds}
+              placeholder="Aucun collaborateur"
+            />
+            <SelectorInput
+              id="priority"
+              width="max-[452px]"
+              label="Priorité"
+              value={priority}
+              placeHolder="Sélectionner une priorité"
+              onChange={(value) => setPriority(value as Task["priority"])}
+              options={[
+                { value: "LOW", text: "Basse" },
+                { value: "MEDIUM", text: "Moyenne" },
+                { value: "HIGH", text: "Haute" },
+                { value: "URGENT", text: "Urgente" },
+              ]}
+            />
+            <TaskStatusSelectorInput
+              label="Statut :"
+              value={status}
+              onChange={setStatus}
+            />
+            <AbrButton
+              type="button"
+              className="w-61 mt-8"
+              color="disabled"
+              label={isSubmitting ? "Mise à jour..." : "Enregistrer"}
+              onClick={handleUpdate}
+              disabled={isSubmitting}
+            />
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
