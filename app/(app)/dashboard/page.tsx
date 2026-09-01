@@ -11,7 +11,12 @@ export const metadata: Metadata = {
   description: "Tableau de bord Abricot - Suivi des tâches",
 };
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { search?: string };
+}) {
+  const searchQuery = (await searchParams).search?.toLowerCase() ?? "";
   const [tasksResponse, projectsResponse] = await Promise.all([
     fetchServer("/dashboard/assigned-tasks"),
     fetchServer("/projects"),
@@ -54,6 +59,20 @@ export default async function Page() {
     (a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority],
   );
 
+  // Finally we manage the search functionality by filtering
+  // the sorted tasks based on the search input.
+  const filteredTasks = sortedTasks.filter((task) => {
+    if (!searchQuery) return true; // If no search query, include all tasks
+    return (
+      task.title.toLowerCase().includes(searchQuery) ||
+      task.description?.toLowerCase().includes(searchQuery) ||
+      (projectMap.get(task.projectId)?.toLowerCase() ?? "").includes(
+        searchQuery,
+      ) ||
+      task.status.toLowerCase().includes(searchQuery)
+    );
+  });
+
   return (
     <div className="pl-2.5 lg:pl-25 pr-2.5 lg:pr-31.25">
       <div className="w-full min-h-screen mt-7.5 rounded-[10px] border border-abr-grey-200 bg-abr-white px-2.5 md:px-14.75 py-10 mb-12">
@@ -73,7 +92,7 @@ export default async function Page() {
           {tasks.length === 0 ? (
             <p className="text-abr-grey-600">Aucune tâche assignée.</p>
           ) : (
-            sortedTasks.map((task) => {
+            filteredTasks.map((task) => {
               const projectName =
                 projectMap.get(task.projectId) ?? "Projet incoonu";
               return (
