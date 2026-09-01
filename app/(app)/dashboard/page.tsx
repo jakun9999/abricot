@@ -40,6 +40,20 @@ export default async function Page() {
   const taskRes = await tasksResponse.json();
   const tasks: Task[] = taskRes.data.tasks;
 
+  // Tasks need to be sorted by priority, with the highest priority first.
+  // We can define a mapping of priority levels to numbers for sorting purposes.
+  const PRIORITY_ORDER: Record<Task["priority"], number> = {
+    LOW: 0,
+    MEDIUM: 1,
+    HIGH: 2,
+    URGENT: 3,
+  };
+
+  // Sort tasks by priority using the defined order
+  const sortedTasks = [...tasks].sort(
+    (a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority],
+  );
+
   return (
     <div className="pl-2.5 lg:pl-25 pr-2.5 lg:pr-31.25">
       <div className="w-full min-h-screen mt-7.5 rounded-[10px] border border-abr-grey-200 bg-abr-white px-2.5 md:px-14.75 py-10 mb-12">
@@ -59,7 +73,7 @@ export default async function Page() {
           {tasks.length === 0 ? (
             <p className="text-abr-grey-600">Aucune tâche assignée.</p>
           ) : (
-            tasks.map((task) => {
+            sortedTasks.map((task) => {
               const projectName =
                 projectMap.get(task.projectId) ?? "Projet incoonu";
               return (
