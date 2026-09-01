@@ -76,8 +76,6 @@ export default function TaskLong({
         <TaskUpdateModal
           task={task}
           projectId={task.projectId}
-          isEditing={isModalOpen}
-          setIsEditing={setIsModalOpen}
           onClose={() => setIsModalOpen(false)}
           onUpdate={() => setIsModalOpen(false)}
         />

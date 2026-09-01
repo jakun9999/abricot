@@ -88,8 +88,6 @@ export default function TaskShort({
         <TaskUpdateModal
           task={task}
           projectId={task.projectId}
-          isEditing={isModalOpen}
-          setIsEditing={setIsModalOpen}
           onClose={() => setIsModalOpen(false)}
           onUpdate={() => setIsModalOpen(false)}
         />
