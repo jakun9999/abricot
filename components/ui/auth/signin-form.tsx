@@ -1,11 +1,63 @@
 "use client";
 
 import FormInput from "@/components/ui/inputs/form-input";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/auth-context";
+import { SigninSchema } from "@/schemas/signin-schema";
 
 export default function SigninForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useAuth();
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    setIsLoading(true);
+
+    const validation = SigninSchema.safeParse({ email, password });
+    if (!validation.success) {
+      setError(
+        validation.error.issues[0]?.message ?? "Données d'inscription invalides",
+      );
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Impossible de créer le compte");
+      }
+
+      setUser(result.user);
+      router.push("/dashboard");
+      router.refresh();
+    } catch (err: unknown) {
+      setError(
+        err instanceof Error ? err.message : "Impossible de créer le compte",
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <form action="" className="flex flex-col items-center gap-7.25">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-center gap-7.25"
+    >
       <h1 aria-label="Inscription sur Abricot" className="text-abr-dark-orange">
         Inscription
       </h1>
@@ -15,6 +67,8 @@ export default function SigninForm() {
         inputType="email"
         className="w-70.5"
         autoComplete="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <FormInput
         label="Mot de passe"
@@ -22,10 +76,19 @@ export default function SigninForm() {
         inputType="password"
         className="w-70.5"
         autoComplete="new-password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
-      <button className="w-62.25 h-12.5 rounded-[10px] bg-black text-abr-white text-body-m">
-        S&apos;inscrire
+      <button
+        type="submit"
+        className="w-62.25 h-12.5 rounded-[10px] bg-black text-abr-white text-body-m"
+        disabled={isLoading}
+      >
+        {isLoading ? "Inscription..." : "S'inscrire"}
       </button>
+      <p className={`${error ? "" : "hidden "}text-body-s text-abr-error-red`}>
+        {error}
+      </p>
     </form>
   );
 }
