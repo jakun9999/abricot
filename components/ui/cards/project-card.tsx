@@ -26,7 +26,7 @@ export default function ProjectCard({
     <div className="max-w-95 h-87.75 flex flex-col bg-white rounded-[10px] border border-abr-grey-200 gap-14 px-8.5 py-7.5">
       {/* Project info */}
       <div className="gap-2">
-        <h5>{project.name}</h5>
+        <h5 className="line-clamp-1">{project.name}</h5>
         <p className="text-body-s text-abr-grey-600 line-clamp-2">
           {project.description}
         </p>

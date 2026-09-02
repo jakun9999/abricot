@@ -1,7 +1,7 @@
 import React from "react";
-import AbrButton from "@/components/ui/buttons/abr-button";
 import DashboardMenu from "@/components/ui/dashboard/dashboard-menu";
 import AuthUserLabel from "@/components/ui/auth/auth-user-label";
+import NewProjectButton from "@/components/ui/buttons/new-project-button";
 
 export default function DashboardLayout({
   children,
@@ -20,11 +20,7 @@ export default function DashboardLayout({
               tâches
             </p>
           </div>
-          <AbrButton
-            color="black"
-            label="+ Créer un projet"
-            className="w-45.25 h-12.5 shrink-0"
-          />
+          <NewProjectButton />
         </div>
         <div className="flex flex-col w-full ">
           <div className="flex pl-4 lg:pl-26.25">

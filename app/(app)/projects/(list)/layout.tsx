@@ -1,5 +1,6 @@
 import React from "react";
-import AbrButton from "@/components/ui/buttons/abr-button";
+
+import NewProjectButton from "@/components/ui/buttons/new-project-button";
 
 export default function ProjectsLayout({
   children,
@@ -15,11 +16,7 @@ export default function ProjectsLayout({
             <h4>Mes projets</h4>
             <p className="text-body-l">Gérez vos projets</p>
           </div>
-          <AbrButton
-            color="black"
-            label="+ Créer un projet"
-            className="w-45.25 h-12.5 shrink-0"
-          />
+          <NewProjectButton />
         </div>
         <div className="flex flex-col w-full mt-16 mb-19.5">{children}</div>
       </div>
