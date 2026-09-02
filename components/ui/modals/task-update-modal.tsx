@@ -169,6 +169,7 @@ export default function TaskUpdateModal({
             <SelectorInput
               id="priority"
               width="max-[452px]"
+              height="h-13.25"
               label="Priorité"
               value={priority}
               placeHolder="Sélectionner une priorité"

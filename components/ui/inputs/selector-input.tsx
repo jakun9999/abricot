@@ -10,6 +10,7 @@ export interface SelectorInputProps {
   value?: string;
   defaultValue?: string;
   width?: number | string;
+  height?: number | string;
   className?: string;
   onChange?: (value: string) => void;
   options: {
@@ -21,6 +22,7 @@ export interface SelectorInputProps {
 export default function SelectorInput({
   placeHolder,
   width = 152,
+  height = "h-[63px]",
   label = "",
   value,
   defaultValue,
@@ -39,7 +41,7 @@ export default function SelectorInput({
         onValueChange={onChange}
       >
         <Select.Trigger
-          className={`w-full ${label ? "mt-1.75" : ""} h-13.25 flex items-center justify-between gap-2 rounded-lg border border-abr-grey-200 bg-white px-4.25 text-body-s text-abr-grey-600 overflow-hidden box-border outline-none focus-visible:ring-2 focus-visible:ring-abr-dark-orange data-[state=open]:ring-2 data-[state=open]:ring-abr-dark-orange`}
+          className={`w-full ${label ? "mt-1.75" : ""} ${height} flex items-center justify-between gap-2 rounded-sm border border-abr-grey-200 bg-white px-4.25 text-body-s text-abr-grey-600 overflow-hidden box-border outline-none focus-visible:ring-2 focus-visible:ring-abr-dark-orange data-[state=open]:ring-2 data-[state=open]:ring-abr-dark-orange`}
         >
           <span className="truncate text-left flex-1 min-w-0">
             <Select.Value placeholder={placeHolder} />

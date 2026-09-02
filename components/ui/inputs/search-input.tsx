@@ -40,7 +40,7 @@ export default function SearchInput({
 
   return (
     <div
-      className={`flex items-center justify-between px-8 h-15.75 ${width} bg-white border rounded-lg border-abr-grey-200 focus-within:border-abr-dark-orange text-body-s text-abr-grey-600`}
+      className={`flex items-center justify-between px-8 h-15.75 ${width} bg-white border rounded-sm border-abr-grey-200 focus-within:border-abr-dark-orange text-body-s text-abr-grey-600`}
     >
       <input
         id="search"
