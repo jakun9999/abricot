@@ -11,7 +11,7 @@ import FormInput from "@/components/ui/inputs/form-input";
 import Header from "@/components/ui/header/header";
 import Footer from "@/components/ui/footer/footer";
 import Comments from "@/components/ui/comments/comments";
-import Project from "@/components/ui/cards/project";
+import Project from "@/components/ui/cards/project-card";
 import TaskLong from "@/components/ui/cards/task-long";
 import TaskShort from "@/components/ui/cards/task-short";
 import TaskSimple from "@/components/ui/cards/task-simple";

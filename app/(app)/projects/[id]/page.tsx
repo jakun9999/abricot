@@ -1,4 +1,5 @@
-import { Project } from "@/types/project";
+import { Project } from "@/schemas/project-schema";
+import { Task } from "@/schemas/task-schema";
 import AbrButton from "@/components/ui/buttons/abr-button";
 import IconButton from "@/components/ui/buttons/icon-button";
 import AiSquareButton from "@/components/ui/buttons/ai-square-button";
@@ -8,45 +9,53 @@ import TaskDetailed from "@/components/ui/cards/task-detailed";
 import ProjectMenu from "@/components/ui/dashboard/project-menu";
 import SearchInput from "@/components/ui/inputs/search-input";
 import SelectorInput from "@/components/ui/inputs/selector-input";
+import { fetchServer } from "@/lib/api-server";
 
-// Jeu de données de test (mock)
-const project: Project = {
-  id: "1",
-  name: "Frontend Abricot",
-  description: "Création d'un frontend nextjs pour Abricat",
-  ownerId: "Matthieu DUPONT",
-  owner: { name: "Matthieu DUPONT", email: "matthieulucas457@outlook.fr" },
-  members: [
-    {
-      role: "ADMIN",
-      user: { name: "Matthieu DUPONT", email: "matthieulucas457@outlook.fr" },
-      joinedAt: "2026-01-01T08:00:00Z",
-    },
-    {
-      role: "CONTRIBUTOR",
-      user: { name: "Sandrine MARTIN", email: "sm@gmail.com" },
-      joinedAt: "2026-01-01T08:00:00Z",
-    },
-  ],
-  createdAt: "2026-03-14T10:00:00Z",
-};
+// for (let i = 0; i < 4; i++) {
+//   elements.push(
+//     <div key={i}>
+//       <TaskDetailed taskId={i} />
+//     </div>,
+//   );
+// }
 
-const nonOwnerMembers = project.members.filter(
-  (member) => member.user.name !== project.owner.name,
-);
-
-// Test data for ui display
-const elements: any = [];
-
-for (let i = 0; i < 4; i++) {
-  elements.push(
-    <div key={i}>
-      <TaskDetailed taskId={i} />
-    </div>,
-  );
+interface PageProps {
+  params: Promise<{
+    id: string;
+  }>;
 }
 
-export default function Projet() {
+export default async function Page({ params }: PageProps) {
+  const { id } = await params;
+
+  const projectResponse = await fetchServer(`/projects/${id}`);
+  if (!projectResponse.ok) {
+    return (
+      <div className="p-10 text-center text-red-500">
+        Une erreur est survenue lors du chargement du projet.
+      </div>
+    );
+  }
+
+  const projectRes = await projectResponse.json();
+  const project: Project = projectRes.data.project;
+
+  const tasksResponse = await fetchServer(`/projects/${id}/tasks`);
+  if (!tasksResponse.ok) {
+    return (
+      <div className="p-10 text-center text-red-500">
+        Une erreur est survenue lors du chargement des tâches du projet.
+      </div>
+    );
+  }
+
+  const tasksRes = await tasksResponse.json();
+  const tasks: Task[] = tasksRes?.data?.tasks ?? [];
+
+  const nonOwnerMembers = project.members.filter(
+    (member) => member.user.name !== project.owner.name,
+  );
+
   return (
     <div className="mt-19.5 flex flex-col items-center w-full">
       <div className="flex flex-col md:flex-row gap-5 md:gap-0 md:justify-between md:items-end w-full pl-4 pr-4 lg:pl-11 lg:pr-28.25 box-border">
@@ -153,7 +162,9 @@ export default function Projet() {
           </div>
           {/* Tasks list */}
           <div className="flex flex-col mt-10.25 gap-4.25 lg:px-10">
-            {elements}
+            {tasks.map((task) => (
+              <TaskDetailed key={task.id} task={task} />
+            ))}
           </div>
         </div>
       </div>

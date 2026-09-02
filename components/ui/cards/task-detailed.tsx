@@ -7,83 +7,17 @@ import {
   CalendarIcon,
 } from "@/components/ui/icons";
 import Label from "@/components/ui/labels/label";
-import { Task } from "@/types/task";
+import { Task } from "@/schemas/task-schema";
 import { getUserInitials, formatDateShort } from "@/lib/utils";
 import Comments from "../comments/comments";
 import IconButton from "../buttons/icon-button";
 
 interface TaskProps {
-  taskId: string | number;
+  task: Task;
 }
 
-// Jeu de données de test (mock)
-const MOCK_TASK_DATA: Task = {
-  id: "1",
-  title: "Nom de la tâche",
-  description: "Description de la tâche",
-  projectId: "Nom du projet",
-  dueDate: "2026-08-18T00:00:00Z",
-  creatorId: "Matthieu LUCAS",
-  priority: "HIGH",
-  assignees: [
-    {
-      id: "1",
-      taskId: "1",
-      userId: "1",
-      user: { name: "Matthieu LUCAS", email: "matthieulucas457@outlook.fr" },
-      assignedAt: "2026-08-18T10:00:00Z",
-    },
-  ],
-  comments: [
-    {
-      id: "1",
-      authorId: "1",
-      author: { name: "Bertrand Dupont", email: "bd@demo.net" },
-      content:
-        "Attention à bien gérer l'expiration des tokens et le refresh automatique côté client.",
-      createdAt: "2026-03-03T11:26:11Z",
-    },
-    {
-      id: "2",
-      authorId: "1",
-      author: { name: "Bertrand Dupont", email: "bd@demo.net" },
-      content:
-        "Attention à bien gérer l'expiration des tokens et le refresh automatique côté client.",
-      createdAt: "2026-03-03T11:26:11Z",
-    },
-  ],
-  status: "IN_PROGRESS",
-};
-
-export default function TaskDetailed({ taskId }: TaskProps) {
-  // Initialisation directe avec les faux commentaires
-  const task = MOCK_TASK_DATA;
+export default function TaskDetailed({ task }: TaskProps) {
   const [showComments, setShowComments] = useState(false);
-
-  useEffect(() => {
-    /*
-        // --- CODE D'APPEL API EN ATTENTE ---
-        async function fetchComments() {
-          try {
-            setLoading(true);
-            const response = await fetch(`/api/tasks/${taskId}/comments`);
-            if (!response.ok) throw new Error('Erreur lors de la récupération');
-            
-            const data: CommentData[] = await response.json();
-            setComments(data);
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setLoading(false);
-          }
-        }
-    
-        if (taskId) {
-          fetchComments();
-        }
-        */
-  }, [taskId]);
-
   const commentsCount = task.comments?.length ?? 0;
 
   return (

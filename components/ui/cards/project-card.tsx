@@ -1,61 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
 import { GroupIcon } from "@/components/ui/icons";
-import { Project } from "@/types/project";
+import { Project } from "@/schemas/project-schema";
 import { getUserInitials } from "@/lib/utils";
 
-interface ProjectProps {
-  projectId: string | number;
+interface ProjectCardProps {
+  project: Project;
+  totalTasks: number;
+  finishedTasks: number;
 }
 
-// Jeu de données de test (mock)
-const MOCK_PROJECT: Project = {
-  id: "1",
-  name: "Frontend Abricot",
-  description: "Création d'un frontend nextjs pour Abricat",
-  ownerId: "Matthieu DUPONT",
-  owner: { name: "Matthieu DUPONT", email: "matthieulucas457@outlook.fr" },
-  members: [
-    {
-      role: "ADMIN",
-      user: { name: "Matthieu DUPONT", email: "matthieulucas457@outlook.fr" },
-      joinedAt: "2026-01-01T08:00:00Z",
-    },
-  ],
-  createdAt: "2026-03-14T10:00:00Z",
-};
-
-export default function Comments({ projectId }: ProjectProps) {
-  // Initialisation directe avec les faux commentaires
-  const project = MOCK_PROJECT;
-
-  useEffect(() => {
-    /*
-    // --- CODE D'APPEL API EN ATTENTE ---
-    async function fetchComments() {
-      try {
-        setLoading(true);
-        const response = await fetch(`/api/tasks/${taskId}/comments`);
-        if (!response.ok) throw new Error('Erreur lors de la récupération');
-        
-        const data: CommentData[] = await response.json();
-        setComments(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    if (taskId) {
-      fetchComments();
-    }
-    */
-  }, [projectId]);
-
-  const totalTasks = 4;
-  const finishedTasks = 2;
+export default function ProjectCard({
+  project,
+  totalTasks,
+  finishedTasks,
+}: ProjectCardProps) {
   const progression =
     totalTasks > 0 ? Math.round((finishedTasks / totalTasks) * 100) : 0;
 
@@ -68,7 +27,9 @@ export default function Comments({ projectId }: ProjectProps) {
       {/* Project info */}
       <div className="gap-2">
         <h5>{project.name}</h5>
-        <p className="text-body-s text-abr-grey-600">{project.description}</p>
+        <p className="text-body-s text-abr-grey-600 line-clamp-2">
+          {project.description}
+        </p>
       </div>
       {/* Progression */}
       <div>
@@ -92,7 +53,7 @@ export default function Comments({ projectId }: ProjectProps) {
         <div className="flex items-center gap-2 text-abr-grey-600">
           <GroupIcon className="w-[11.58px] h-2.75" />
           <span className="text-body-2xs">
-            Équipe ({project.members.length})
+            Équipe ({project.members.length + 1})
           </span>
         </div>
         <div className="flex items-center gap-1">
