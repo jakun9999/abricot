@@ -5,7 +5,7 @@ import Label from "@/components/ui/labels/label";
 import AbrButton from "@/components/ui/buttons/abr-button";
 import { Task } from "@/schemas/task-schema";
 import { formatDateShort } from "@/lib/utils";
-import TaskUpdateModal from "@/components/ui/modals/task-update-modal";
+import UpdateTaskModal from "@/components/ui/modals/update-task-modal";
 import { useState } from "react";
 
 interface TaskShortProps {
@@ -85,7 +85,7 @@ export default function TaskShort({
         </div>
       </div>
       {isModalOpen && (
-        <TaskUpdateModal
+        <UpdateTaskModal
           task={task}
           projectId={task.projectId}
           onClose={() => setIsModalOpen(false)}

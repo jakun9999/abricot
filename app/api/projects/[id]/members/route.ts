@@ -5,12 +5,12 @@ import { ProjectMember } from "@/schemas/project-member-schema";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ projectId: string }> },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { projectId } = await params;
+    const { id } = await params;
 
-    const response = await fetchServer(`/projects/${projectId}`);
+    const response = await fetchServer(`/projects/${id}`);
     const payload = await response.json().catch(() => null);
 
     if (!response.ok) {

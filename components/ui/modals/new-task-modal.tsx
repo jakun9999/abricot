@@ -6,48 +6,28 @@ import FormInput from "@/components/ui/inputs/form-input";
 import DateSelectorInput from "@/components/ui/inputs/date-selector-input";
 import AssigneeSelectorInput from "@/components/ui/inputs/assignee-selector-input";
 import SelectorInput from "@/components/ui/inputs/selector-input";
-import TaskStatusSelectorInput from "@/components/ui/inputs/task-status-selector-input";
 import AbrButton from "@/components/ui/buttons/abr-button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export default function TaskUpdateModal({
-  task,
+export default function NewTaskModal({
   projectId,
   onClose,
-  onUpdate,
 }: {
-  task: Task;
   projectId: string;
   onClose: () => void;
-  onUpdate: (updatedTask: Task) => void;
+  onUpdate?: (createdTask: Task) => void;
 }) {
   const router = useRouter();
-  const [title, setTitle] = useState(task.title);
-  const [description, setDescription] = useState(task.description || "");
-  const [priority, setPriority] = useState<Task["priority"]>(task.priority);
-  const [dueDate, setDueDate] = useState(task.dueDate || "");
-  const [assigneeIds, setAssigneeIds] = useState<string[]>(
-    (task.assignees ?? [])
-      .map((assignee) => assignee.userId ?? assignee.user?.id ?? "")
-      .filter(Boolean),
-  );
-  const [status, setStatus] = useState<Task["status"]>(task.status);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState<Task["priority"] | "">("");
+  const [dueDate, setDueDate] = useState("");
+  const [assigneeIds, setAssigneeIds] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const initialAssigneeIds = (task.assignees ?? [])
-    .map((assignee) => assignee.userId ?? assignee.user?.id ?? "")
-    .filter(Boolean);
-
-  const hasChanges =
-    title !== task.title ||
-    description !== (task.description ?? "") ||
-    priority !== task.priority ||
-    dueDate !== (task.dueDate ?? "") ||
-    status !== task.status ||
-    JSON.stringify([...assigneeIds].sort()) !==
-      JSON.stringify([...initialAssigneeIds].sort());
+  const hasChanges = title !== "" && description !== "";
 
   const toIsoDate = (value: string) => {
     if (!value) return "";
@@ -61,40 +41,33 @@ export default function TaskUpdateModal({
     return Number.isFinite(parsed.getTime()) ? parsed.toISOString() : "";
   };
 
-  const handleUpdate = async () => {
+  const handleNewTask = async () => {
     setIsSubmitting(true);
     setError(null);
 
     try {
-      const response = await fetch(
-        `/api/projects/${projectId}/tasks/${task.id}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            title,
-            description,
-            status,
-            priority,
-            dueDate,
-            assigneeIds: assigneeIds,
-          }),
-        },
-      );
+      const response = await fetch(`/api/tasks`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          projectId,
+          title,
+          description,
+          priority,
+          dueDate,
+          assigneeIds,
+        }),
+      });
 
       const payload = await response.json().catch(() => null);
 
       if (!response.ok) {
         throw new Error(
           payload?.message ??
-            "Impossible de mettre à jour la tâche. Veuillez réessayer.",
+            "Impossible de créer la tâche. Veuillez réessayer.",
         );
       }
 
-      const updatedTask: Task = (payload?.data?.task ??
-        payload?.task ??
-        payload) as Task;
-      onUpdate(updatedTask);
       onClose();
       router.refresh();
     } catch (err) {
@@ -128,7 +101,7 @@ export default function TaskUpdateModal({
           />
         </div>
         <div className="flex flex-col py-[27.67px] px-5">
-          <h4 className="text-abr-grey-800">Modifier</h4>
+          <h4 className="text-abr-grey-800">Créer une tâche</h4>
           <form className="flex flex-col gap-6 mt-10">
             <FormInput
               inputId="title"
@@ -137,6 +110,7 @@ export default function TaskUpdateModal({
               placeHolder="Titre de la tâche"
               label="Titre"
               inputType="text"
+              mandatory={true}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -147,6 +121,7 @@ export default function TaskUpdateModal({
               placeHolder="Description de la tâche"
               label="Description"
               inputType="text"
+              mandatory={true}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -157,7 +132,6 @@ export default function TaskUpdateModal({
               value={dueDate}
               onChange={(e) => setDueDate(toIsoDate(e.target.value))}
             />
-
             <AssigneeSelectorInput
               projectId={projectId}
               label="Assigné à"
@@ -171,7 +145,7 @@ export default function TaskUpdateModal({
               width="max-[452px]"
               height="h-13.25"
               label="Priorité"
-              value={priority}
+              value={priority || undefined}
               placeHolder="Sélectionner une priorité"
               onChange={(value) => setPriority(value as Task["priority"])}
               options={[
@@ -181,17 +155,12 @@ export default function TaskUpdateModal({
                 { value: "URGENT", text: "Urgente" },
               ]}
             />
-            <TaskStatusSelectorInput
-              label="Statut :"
-              value={status}
-              onChange={setStatus}
-            />
             <AbrButton
               type="button"
-              className="w-61 mt-8"
+              className="w-45.25 mt-8"
               color="black"
-              label={isSubmitting ? "Mise à jour..." : "Enregistrer"}
-              onClick={handleUpdate}
+              label={isSubmitting ? "Enregistrement..." : "Ajouter une tâche"}
+              onClick={handleNewTask}
               disabled={isSubmitting || !hasChanges}
             />
             {error && <p className="text-red-500 text-sm mt-2">{error}</p>}

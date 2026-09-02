@@ -1,8 +1,8 @@
 import { Project } from "@/schemas/project-schema";
 import { Task } from "@/schemas/task-schema";
-import AbrButton from "@/components/ui/buttons/abr-button";
 import IconButton from "@/components/ui/buttons/icon-button";
 import AiSquareButton from "@/components/ui/buttons/ai-square-button";
+import NewTaskButton from "@/components/ui/buttons/new-task-button";
 import { getUserInitials } from "@/lib/utils";
 import Link from "next/link";
 import TaskDetailed from "@/components/ui/cards/task-detailed";
@@ -10,14 +10,7 @@ import ProjectMenu from "@/components/ui/dashboard/project-menu";
 import SearchInput from "@/components/ui/inputs/search-input";
 import SelectorInput from "@/components/ui/inputs/selector-input";
 import { fetchServer } from "@/lib/api-server";
-
-// for (let i = 0; i < 4; i++) {
-//   elements.push(
-//     <div key={i}>
-//       <TaskDetailed taskId={i} />
-//     </div>,
-//   );
-// }
+import UpdateProjectButton from "@/components/ui/buttons/update-project-button";
 
 interface PageProps {
   params: Promise<{
@@ -68,23 +61,14 @@ export default async function Page({ params }: PageProps) {
             <h1 aria-label={`Projet ${project.name}`} className="sr-only"></h1>
             <div className="flex items-center gap-3.5">
               <h4>{project.name}</h4>
-              <Link
-                href=""
-                className="text-abr-dark-orange text-body-s underline mb-1"
-              >
-                Modifier
-              </Link>
+              <UpdateProjectButton project={project} />
             </div>
             <p className="text-body-l">{project.description}</p>
           </div>
         </div>
         {/* Buttons (create task and AI) */}
         <div className="flex gap-3">
-          <AbrButton
-            color="black"
-            label="Créer un tâche"
-            className="w-35.25 h-12.5 shrink-0"
-          />
+          <NewTaskButton projectId={id} />
           <AiSquareButton className="w-23.5 shrink-0" color="dark" label="IA" />
         </div>
       </div>
