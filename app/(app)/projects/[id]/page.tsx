@@ -8,7 +8,7 @@ import Link from "next/link";
 import TaskDetailed from "@/components/ui/cards/task-detailed";
 import ProjectMenu from "@/components/ui/dashboard/project-menu";
 import SearchInput from "@/components/ui/inputs/search-input";
-import SelectorInput from "@/components/ui/inputs/selector-input";
+import StatusFilterInput from "@/components/ui/inputs/status-filter-input";
 import { fetchServer } from "@/lib/api-server";
 import UpdateProjectButton from "@/components/ui/buttons/update-project-button";
 
@@ -16,10 +16,17 @@ interface PageProps {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{
+    search?: string;
+    status?: string;
+  }>;
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
   const { id } = await params;
+  const { search, status } = await searchParams;
+  const searchQuery = search?.toLowerCase() ?? "";
+  const statusQuery = status ?? "";
 
   const projectResponse = await fetchServer(`/projects/${id}`);
   if (!projectResponse.ok) {
@@ -44,6 +51,31 @@ export default async function Page({ params }: PageProps) {
 
   const tasksRes = await tasksResponse.json();
   const tasks: Task[] = tasksRes?.data?.tasks ?? [];
+
+  const PRIORITY_ORDER: Record<Task["priority"], number> = {
+    LOW: 3,
+    MEDIUM: 2,
+    HIGH: 1,
+    URGENT: 0,
+  };
+
+  const sortedTasks = [...tasks].sort(
+    (a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority],
+  );
+
+  const filteredTasks = sortedTasks.filter((task) => {
+    const matchesStatus =
+      !statusQuery || statusQuery === "ALL" || task.status === statusQuery;
+    if (!matchesStatus) return false;
+
+    if (!searchQuery) return true;
+    return (
+      task.title.toLowerCase().includes(searchQuery) ||
+      task.description?.toLowerCase().includes(searchQuery) ||
+      project.name.toLowerCase().includes(searchQuery) ||
+      task.status.toLowerCase().includes(searchQuery)
+    );
+  });
 
   const nonOwnerMembers = project.members.filter(
     (member) => member.user.name !== project.owner.name,
@@ -127,17 +159,7 @@ export default async function Page({ params }: PageProps) {
 
             {/* Toolbar filters */}
             <div className="flex flex-col md:flex-row lg:items-center gap-4">
-              <SelectorInput
-                id="task-selector"
-                width={171.75}
-                placeHolder="Statut"
-                options={[
-                  { value: "TODO", text: "À faire" },
-                  { value: "IN_PROGRESS", text: "En cours" },
-                  { value: "DONE", text: "Terminé" },
-                  { value: "CANCELLED", text: "Annulé" },
-                ]}
-              />
+              <StatusFilterInput width={171.75} />
               <SearchInput
                 width="w-65.75 min-w-50"
                 placeHolder="Rechercher un tâche"
@@ -146,9 +168,17 @@ export default async function Page({ params }: PageProps) {
           </div>
           {/* Tasks list */}
           <div className="flex flex-col mt-10.25 gap-4.25 lg:px-10">
-            {tasks.map((task) => (
-              <TaskDetailed key={task.id} task={task} projectId={id} />
-            ))}
+            {tasks.length === 0 ? (
+              <p className="text-abr-grey-600">Aucune tâche sur ce projet.</p>
+            ) : filteredTasks.length === 0 ? (
+              <p className="text-abr-grey-600">
+                Aucune tâche ne correspond à votre recherche.
+              </p>
+            ) : (
+              filteredTasks.map((task) => (
+                <TaskDetailed key={task.id} task={task} projectId={id} />
+              ))
+            )}
           </div>
         </div>
       </div>
