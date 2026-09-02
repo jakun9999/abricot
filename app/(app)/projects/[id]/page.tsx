@@ -147,7 +147,7 @@ export default async function Page({ params }: PageProps) {
           {/* Tasks list */}
           <div className="flex flex-col mt-10.25 gap-4.25 lg:px-10">
             {tasks.map((task) => (
-              <TaskDetailed key={task.id} task={task} />
+              <TaskDetailed key={task.id} task={task} projectId={id} />
             ))}
           </div>
         </div>

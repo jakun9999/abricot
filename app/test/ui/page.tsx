@@ -142,7 +142,7 @@ export default function Page() {
         </div>
         <div className="flex flex-row items-center justify-center gap-10">
           <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-blue-400 border-dashed p-4 bg-gray-100">
-            <Comments />
+            <Comments projectId="demo" taskId="demo" />
           </div>
         </div>
         <div className="flex flex-row items-center justify-center gap-10">

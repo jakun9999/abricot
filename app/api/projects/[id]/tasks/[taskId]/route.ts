@@ -3,13 +3,13 @@ import { fetchServer } from "@/lib/api-server";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ projectId: string; taskId: string }> },
+  { params }: { params: Promise<{ id: string; taskId: string }> },
 ) {
   try {
-    const { projectId, taskId } = await params;
+    const { id, taskId } = await params;
     const body = await request.json();
     const response = await fetchServer(
-      `/projects/${projectId}/tasks/${taskId}`,
+      `/projects/${id}/tasks/${taskId}`,
       {
         method: "PUT",
         headers: {

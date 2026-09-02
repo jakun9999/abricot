@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   BottomarrowIcon,
   UparrowIcon,
@@ -8,17 +8,21 @@ import {
 } from "@/components/ui/icons";
 import Label from "@/components/ui/labels/label";
 import { Task } from "@/schemas/task-schema";
+import { Comment } from "@/schemas/comment-schema";
 import { getUserInitials, formatDateShort } from "@/lib/utils";
 import Comments from "../comments/comments";
 import IconButton from "../buttons/icon-button";
 
 interface TaskProps {
   task: Task;
+  projectId?: string;
 }
 
-export default function TaskDetailed({ task }: TaskProps) {
+export default function TaskDetailed({ task, projectId }: TaskProps) {
   const [showComments, setShowComments] = useState(false);
-  const commentsCount = task.comments?.length ?? 0;
+  const [comments, setComments] = useState<Comment[]>(task.comments ?? []);
+  const commentsCount = comments.length;
+  const resolvedProjectId = projectId ?? task.projectId;
 
   return (
     <div className="max-w-255.5 flex flex-col justify-between py-6.25 px-2.5 lg:px-10 bg-white rounded-[10px] border border-abr-grey-200">
@@ -90,7 +94,16 @@ export default function TaskDetailed({ task }: TaskProps) {
             )}
           </div>
         </button>
-        {showComments && <Comments initialComments={task.comments} />}
+        {showComments && task.id && resolvedProjectId && (
+          <Comments
+            projectId={resolvedProjectId}
+            taskId={task.id}
+            comments={comments}
+            onCommentAdded={(comment) =>
+              setComments((previousComments) => [...previousComments, comment])
+            }
+          />
+        )}
       </div>
     </div>
   );
