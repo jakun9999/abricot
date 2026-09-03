@@ -12,6 +12,7 @@ import { Comment } from "@/schemas/comment-schema";
 import { getUserInitials, formatDateShort } from "@/lib/utils";
 import Comments from "../comments/comments";
 import IconButton from "../buttons/icon-button";
+import UpdateTaskModal from "../modals/update-task-modal";
 
 interface TaskProps {
   task: Task;
@@ -23,8 +24,10 @@ export default function TaskDetailed({ task, projectId }: TaskProps) {
   const [comments, setComments] = useState<Comment[]>(task.comments ?? []);
   const commentsCount = comments.length;
   const resolvedProjectId = projectId ?? task.projectId;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
+    <>
     <div className="max-w-255.5 flex flex-col justify-between py-6.25 px-2.5 lg:px-10 bg-white rounded-[10px] border border-abr-grey-200">
       {/* Top area */}
       <div className="flex flex-col gap-6">
@@ -48,7 +51,7 @@ export default function TaskDetailed({ task, projectId }: TaskProps) {
             </div>
             <p className="text-body-s text-abr-grey-600">{task.description}</p>
           </div>
-          <IconButton label="points" />
+          <IconButton label="points" onClick={() => setIsModalOpen(true)} />
         </div>
 
         {/* Task deadline */}
@@ -106,5 +109,14 @@ export default function TaskDetailed({ task, projectId }: TaskProps) {
         )}
       </div>
     </div>
+    {isModalOpen && (
+        <UpdateTaskModal
+          task={task}
+          projectId={task.projectId}
+          onClose={() => setIsModalOpen(false)}
+          onUpdate={() => setIsModalOpen(false)}
+        />
+      )}
+      </>
   );
 }
