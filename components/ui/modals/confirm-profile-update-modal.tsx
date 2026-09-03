@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import AbrButton from "@/components/ui/buttons/abr-button";
+import ModalOverlay from "@/components/ui/modals/modal-overlay";
 
 interface ConfirmModalProps {
   requiresCurrentPassword: boolean;
@@ -46,12 +47,12 @@ export default function ConfirmProfilUpdateModal({
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      onClick={() => !isSubmitting && handleCancel()}
+    <ModalOverlay
+      onClose={handleCancel}
+      onBackdropClick={() => !isSubmitting && handleCancel()}
     >
       <div
-        className="bg-white rounded-[10px] px-7 py-6 w-full max-w-107.5 shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+        className="bg-white rounded-[10px] px-5 lg:px-7 py-6 w-full max-w-107.5 shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -95,7 +96,7 @@ export default function ConfirmProfilUpdateModal({
           </p>
         )}
 
-        <div className="flex justify-end gap-2 mt-2">
+        <div className="flex flex-wrap justify-end gap-2 mt-2">
           <AbrButton
             type="button"
             onClick={handleCancel}
@@ -114,6 +115,6 @@ export default function ConfirmProfilUpdateModal({
           />
         </div>
       </div>
-    </div>
+    </ModalOverlay>
   );
 }

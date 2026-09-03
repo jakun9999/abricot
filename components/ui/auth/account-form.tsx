@@ -174,7 +174,7 @@ export default function AccountForm() {
           type="submit"
           label="Modifier les informations"
           color="black"
-          className="w-60.5"
+          className="w-60.5 max-w-full"
           disabled={isSubmitDisabled}
         />
       </form>

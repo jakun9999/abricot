@@ -24,7 +24,7 @@ export default function TaskShort({
   return (
     <>
       <div
-        className={`${className} w-full flex flex-col justify-between py-6.25 px-10 bg-white rounded-[10px] border border-abr-grey-200`}
+        className={`${className} w-full flex flex-col justify-between py-6.25 px-6 lg:px-10 bg-white rounded-[10px] border border-abr-grey-200`}
       >
         {/* h-[229.54px] */}
         {/* Top area */}
@@ -32,8 +32,10 @@ export default function TaskShort({
           {/* Task info */}
 
           <div className="flex flex-col gap-1.75">
-            <div className="flex justify-between items-start">
-              <h5 className="font-semibold">{task.title}</h5>
+            <div className="flex justify-between items-start gap-2 min-w-0">
+              <h5 className="font-semibold min-w-0 wrap-break-word">
+                {task.title}
+              </h5>
               <div className="text-body-s shrink-0">
                 {task.status === "TODO" && <Label color="red" text="À faire" />}
                 {task.status === "IN_PROGRESS" && (
@@ -51,7 +53,7 @@ export default function TaskShort({
           </div>
 
           {/* Task addition info (project name, date, comments) */}
-          <div className="flex items-center gap-3.75 text-abr-grey-600 text-body-xs -mr-7">
+          <div className="flex flex-wrap items-center gap-3.75 text-abr-grey-600 text-body-xs -mr-7">
             <p className="flex items-center gap-2">
               <span className="text-abr-grey-400!">
                 <FolderIcon className="w-4.5 h-3.5" />

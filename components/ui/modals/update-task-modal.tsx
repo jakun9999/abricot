@@ -8,6 +8,9 @@ import AssigneeSelectorInput from "@/components/ui/inputs/assignee-selector-inpu
 import SelectorInput from "@/components/ui/inputs/selector-input";
 import TaskStatusSelectorInput from "@/components/ui/inputs/task-status-selector-input";
 import AbrButton from "@/components/ui/buttons/abr-button";
+import ModalOverlay, {
+  modalPanelClassName,
+} from "@/components/ui/modals/modal-overlay";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -110,9 +113,9 @@ export default function UpdateTaskModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <ModalOverlay onClose={handleCancel}>
       <div
-        className="flex flex-col bg-white rounded-[10px] lg:w-149.5 pt-9.25 pb-19.75 px-[38.67px]"
+        className={modalPanelClassName}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -127,12 +130,12 @@ export default function UpdateTaskModal({
             onClick={handleCancel}
           />
         </div>
-        <div className="flex flex-col py-[27.67px] px-5">
+        <div className="flex flex-col py-[27.67px] px-0 lg:px-5">
           <h4 className="text-abr-grey-800">Modifier</h4>
           <form className="flex flex-col gap-6 mt-10">
             <FormInput
               inputId="title"
-              width="max-[452px]"
+              inputWidth="max-w-[280px]"
               className="w-full"
               placeHolder="Titre de la tâche"
               label="Titre"
@@ -142,7 +145,7 @@ export default function UpdateTaskModal({
             />
             <FormInput
               inputId="description"
-              width="max-[452px]"
+              inputWidth="max-w-[280px]"
               className="w-full"
               placeHolder="Description de la tâche"
               label="Description"
@@ -151,7 +154,7 @@ export default function UpdateTaskModal({
               onChange={(e) => setDescription(e.target.value)}
             />
             <DateSelectorInput
-              width="max-[452px]"
+              width="max-w-[280px]"
               placeHolder="Sélectionner une date"
               label="Échéance"
               value={dueDate}
@@ -168,7 +171,7 @@ export default function UpdateTaskModal({
             />
             <SelectorInput
               id="priority"
-              width="max-[452px]"
+              width={280}
               height="h-13.25"
               label="Priorité"
               value={priority}
@@ -188,7 +191,7 @@ export default function UpdateTaskModal({
             />
             <AbrButton
               type="button"
-              className="w-61 mt-8"
+              className="w-61 mt-8 max-w-full"
               color="black"
               label={isSubmitting ? "Mise à jour..." : "Enregistrer"}
               onClick={handleUpdate}
@@ -198,6 +201,6 @@ export default function UpdateTaskModal({
           </form>
         </div>
       </div>
-    </div>
+    </ModalOverlay>
   );
 }

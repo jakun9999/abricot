@@ -13,7 +13,7 @@ export default function AiTaskDraftCard({
   onEdit: () => void;
 }) {
   return (
-    <div className="w-full flex flex-col justify-between gap-8 py-6.25 pl-10 pr-6 bg-white rounded-[10px] border border-abr-grey-200">
+    <div className="w-full flex flex-col justify-between gap-8 py-6.25 pl-6 pr-4 lg:pl-10 lg:pr-6 bg-white rounded-[10px] border border-abr-grey-200">
       <div className="flex flex-col gap-1.75">
         <h5 className="font-semibold">{task.title}</h5>
         <p className="text-body-s text-abr-grey-600 line-clamp-2">

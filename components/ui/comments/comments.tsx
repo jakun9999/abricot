@@ -75,8 +75,8 @@ export default function Comments({
             {item.author?.name ? getUserInitials(item.author.name) : "?"}
           </div>
 
-          <div className="flex-1 rounded-[10px] bg-gray-100 px-3.5 py-4.5  min-h-2.75">
-            <div className="flex items-center justify-between mb-2">
+          <div className="flex-1 rounded-[10px] bg-gray-100 px-3.5 py-4.5  min-h-2.75 min-w-0">
+            <div className="flex flex-wrap items-center justify-between gap-1 mb-2">
               <span className="text-body-s text-black">
                 {item.author?.name ?? "Utilisateur"}
               </span>
@@ -119,7 +119,7 @@ export default function Comments({
             type="button"
             color="black"
             label={isSubmitting ? "Envoi..." : "Envoyer"}
-            className="place-self-end w-52.25 mt-4"
+            className="place-self-end w-52.25 max-w-full mt-4"
             onClick={() => void handleAddComment()}
             disabled={isSubmitting || !newComment.trim()}
           />

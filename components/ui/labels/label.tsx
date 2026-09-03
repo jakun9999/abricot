@@ -51,7 +51,11 @@ export default function Label({
       {...props}
       className={`flex items-center justify-center h-6.25 px-4 rounded-[50px] ${mode} ${className}`}
     >
-      {text && <span className="text-body-s">{text}</span>}
+      {text && (
+        <span className="text-body-xs lg:text-body-s whitespace-nowrap">
+          {text}
+        </span>
+      )}
     </span>
   );
 }

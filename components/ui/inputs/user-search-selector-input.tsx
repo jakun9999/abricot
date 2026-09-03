@@ -239,7 +239,7 @@ export default function UserSearchSelectorInput({
         </button>
 
         {isOpen && (
-          <div className="absolute left-0 top-[calc(100%+8px)] z-50 w-90 rounded-lg border border-abr-grey-200 bg-white p-3 shadow-md">
+          <div className="absolute left-0 top-[calc(100%+8px)] z-50 w-full max-w-90 lg:w-90 rounded-lg border border-abr-grey-200 bg-white p-3 shadow-md">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-body-s text-abr-grey-800">
                 Sélectionner

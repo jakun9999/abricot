@@ -40,26 +40,29 @@ export default async function ProjectLayout({ children, params }: LayoutProps) {
   return (
     <div className="mt-19.5 flex flex-col items-center w-full">
       <div className="flex flex-col md:flex-row gap-5 md:gap-0 md:justify-between md:items-end w-full pl-4 pr-4 lg:pl-11 lg:pr-28.25 box-border">
-        <div className="flex items-start gap-4">
-          <Link href="/projects" className="mt-1.5 hover:cursor-pointer">
+        <div className="flex items-start gap-4 min-w-0">
+          <Link
+            href="/projects"
+            className="mt-1.5 hover:cursor-pointer shrink-0"
+          >
             <IconButton label="back" />
           </Link>
-          <div className="flex flex-col gap-3.5">
+          <div className="flex flex-col gap-3.5 min-w-0">
             <h1 aria-label={`Projet ${project.name}`} className="sr-only"></h1>
-            <div className="flex items-center gap-3.5">
-              <h4>{project.name}</h4>
+            <div className="flex flex-wrap items-center gap-3.5 min-w-0">
+              <h4 className="min-w-0 wrap-break-word">{project.name}</h4>
               <UpdateProjectButton project={project} />
             </div>
-            <p className="text-body-l">{project.description}</p>
+            <p className="text-body-l wrap-break-word">{project.description}</p>
           </div>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <NewTaskButton projectId={id} />
           <AiTaskButton projectId={id} />
         </div>
       </div>
       <div className="mt-12.25 flex w-full pl-4 pr-4 lg:pl-28 lg:pr-28.25 box-border">
-        <div className="flex flex-col lg:flex-row lg:items-center w-full gap-2 md:gap-0 h-auto md:h-40 lg:h-16.75 bg-abr-grey-100 px-12.5 py-5 rounded-[10px] justify-evenly lg:justify-between">
+        <div className="flex flex-col lg:flex-row lg:items-center w-full gap-2 md:gap-0 h-auto lg:h-16.75 bg-abr-grey-100 px-4 md:px-8 lg:px-12.5 py-5 rounded-[10px] justify-evenly lg:justify-between">
           <div className="flex flex-col md:flex-row md:items-center gap-2">
             <h5 className="text-abr-grey-800">Contributeurs</h5>
             <p className="mt-px text-abr-grey-600 text-body-m">{`${project.members.length} ${project.members.length > 1 ? "personnes" : "personne"}`}</p>
@@ -73,7 +76,7 @@ export default async function ProjectLayout({ children, params }: LayoutProps) {
                 Propriétaire
               </span>
             </div>
-            <div className="flex flex-col lg:flex-row gap-2">
+            <div className="flex flex-col lg:flex-row gap-2 flex-wrap min-w-0">
               {nonOwnerMembers.map((member, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <span className="flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-abr-grey-200 text-[10px] font-normal">
@@ -102,10 +105,10 @@ export default async function ProjectLayout({ children, params }: LayoutProps) {
                 <ProjectMenu projectId={id} />
               </div>
             </div>
-            <div className="flex flex-col md:flex-row lg:items-center gap-4">
+            <div className="flex flex-col md:flex-row lg:items-center gap-4 min-w-0 w-full lg:w-auto">
               <StatusFilterInput width={171.75} />
               <SearchInput
-                width="w-65.75 min-w-50"
+                width="w-full min-w-0 lg:w-65.75 lg:min-w-50"
                 placeHolder="Rechercher un tâche"
               />
             </div>

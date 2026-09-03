@@ -17,15 +17,15 @@ export default function AuthWrapper({
   return (
     <div className="flex min-h-screen w-full bg-white">
       {/* Form column */}
-      <div className="flex w-full flex-col justify-between max-h-256 items-center py-[111.92] lg:w-[40%]">
+      <div className="flex w-full flex-col gap-10 md:gap-0 md:justify-between max-h-256 items-center py-[111.92] px-4 lg:px-0 lg:w-[40%]">
         <AbricotIcon
-          className="w-[252.57px] h-[32.17px] text-abr-dark-orange"
+          className="w-[252.57px] max-w-full h-[32.17px] text-abr-dark-orange"
           aria-label="Logo Abricot"
           role="img"
         />
         {children}
         {login ? (
-          <p className="flex item-center text-body-s">
+          <p className="flex flex-wrap items-center justify-center text-center text-body-s px-2">
             Pas encore de compte ?
             <Link
               href="/signin"
@@ -35,7 +35,7 @@ export default function AuthWrapper({
             </Link>
           </p>
         ) : (
-          <p className="flex item-center text-body-s">
+          <p className="flex flex-wrap items-center justify-center text-center text-body-s px-2">
             Déjà inscrit ?
             <Link
               href="/login"

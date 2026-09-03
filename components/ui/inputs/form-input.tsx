@@ -37,13 +37,13 @@ export default function FormInput({
 }: FormInputProps) {
   // Generic css classes to include whatever the input type
   const baseLabelCss = "text-body-s text-black";
-  const baseInputCss = `flex items-center justify-start h-[53px] ${inputWidth} 
+  const baseInputCss = `flex items-center justify-start h-[53px] ${inputWidth} max-w-full
     px-[17px] bg-white border rounded-[4px] border-abr-grey-200 text-body-s 
     text-abr-grey-600 placeholder:text-abr-grey-300 focus:outline-abr-dark-orange 
     focus:outline focus:outline-offset-0 focus:outline focus:outline-solid`;
 
   return (
-    <div className="flex flex-col gap-1.75">
+    <div className="flex flex-col gap-1.75 max-w-full">
       <label htmlFor={inputId} className={`${baseLabelCss}`}>
         {label}
         {mandatory ? "*" : ""}

@@ -85,6 +85,12 @@
   --color-abr-warning-orange-light: #fff0d7;
 }
 
+@media (max-width: 1023px) {
+  html {
+    overflow-x: hidden;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

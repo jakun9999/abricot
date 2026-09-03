@@ -5,6 +5,9 @@ import { Project } from "@/schemas/project-schema";
 import FormInput from "@/components/ui/inputs/form-input";
 import UserSearchSelectorInput from "@/components/ui/inputs/user-search-selector-input";
 import AbrButton from "@/components/ui/buttons/abr-button";
+import ModalOverlay, {
+  modalPanelClassName,
+} from "@/components/ui/modals/modal-overlay";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -66,9 +69,9 @@ export default function UpdateProjectModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <ModalOverlay onClose={handleCancel}>
       <div
-        className="flex flex-col bg-white rounded-[10px] lg:w-149.5 pt-9.25 pb-19.75 px-[38.67px]"
+        className={modalPanelClassName}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -83,12 +86,12 @@ export default function UpdateProjectModal({
             onClick={handleCancel}
           />
         </div>
-        <div className="flex flex-col py-[27.67px] px-5">
+        <div className="flex flex-col py-[27.67px] px-0 lg:px-5">
           <h4 className="text-abr-grey-800">Modifier un projet</h4>
           <form className="flex flex-col gap-6 mt-10">
             <FormInput
               inputId="name"
-              width="max-[452px]"
+              inputWidth="max-w-[280px]"
               className="w-full"
               placeHolder="Titre du projet"
               label="Titre"
@@ -99,7 +102,7 @@ export default function UpdateProjectModal({
             />
             <FormInput
               inputId="description"
-              width="max-[452px]"
+              inputWidth="max-w-[280px]"
               className="w-full"
               placeHolder="Description de la tâche"
               label="Description"
@@ -117,7 +120,7 @@ export default function UpdateProjectModal({
             />
             <AbrButton
               type="button"
-              className="w-45.25 mt-8"
+              className="w-45.25 mt-8 max-w-full"
               color="black"
               label={isSubmitting ? "Enregistrement..." : "Enregistrer"}
               onClick={handleUpdateProject}
@@ -127,6 +130,6 @@ export default function UpdateProjectModal({
           </form>
         </div>
       </div>
-    </div>
+    </ModalOverlay>
   );
 }

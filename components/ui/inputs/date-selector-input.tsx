@@ -137,7 +137,10 @@ export default function DateSelectorInput({
         </label>
       ) : null}
 
-      <div ref={containerRef} className={`relative inline-block ${width}`}>
+      <div
+        ref={containerRef}
+        className={`relative inline-block max-w-full ${width}`}
+      >
         <button
           id={inputId}
           type="button"
@@ -165,7 +168,7 @@ export default function DateSelectorInput({
         </button>
 
         {isOpen && (
-          <div className="absolute left-0 top-[calc(100%+8px)] z-50 w-70 rounded-lg border border-abr-grey-200 bg-white p-3 shadow-md">
+          <div className="absolute left-0 top-[calc(100%+8px)] z-50 w-70 max-w-full rounded-lg border border-abr-grey-200 bg-white p-3 shadow-md">
             <div className="mb-3 flex items-center justify-between gap-2 text-body-xs text-abr-grey-800">
               <button
                 type="button"

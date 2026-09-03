@@ -8,7 +8,7 @@ export default function MainAppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="app-container max-w-360 min-h-screen w-full mx-auto flex flex-col items-center">
+    <div className="app-container max-w-360 min-h-screen w-full mx-auto flex flex-col items-center overflow-x-hidden lg:overflow-x-visible">
       <Header />
       <main className="bg-abr-grey-50 w-full">{children}</main>
       <Footer />

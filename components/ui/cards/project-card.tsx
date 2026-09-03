@@ -23,7 +23,7 @@ export default function ProjectCard({
   );
 
   return (
-    <div className="max-w-95 h-87.75 flex flex-col bg-white rounded-[10px] border border-abr-grey-200 gap-14 px-8.5 py-7.5">
+    <div className="w-full max-w-95 h-87.75 flex flex-col bg-white rounded-[10px] border border-abr-grey-200 gap-14 px-8.5 py-7.5">
       {/* Project info */}
       <div className="shrink-0">
         <h5 className="line-clamp-1">{project.name}</h5>

@@ -10,6 +10,9 @@ import FormInput from "@/components/ui/inputs/form-input";
 import DateSelectorInput from "@/components/ui/inputs/date-selector-input";
 import SelectorInput from "@/components/ui/inputs/selector-input";
 import StarIcon from "@/components/ui/icons/star-icon";
+import ModalOverlay, {
+  modalPanelClassName,
+} from "@/components/ui/modals/modal-overlay";
 import {
   AiGeneratedTask,
   normalizeDueDate,
@@ -165,102 +168,107 @@ export default function AiTaskModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div
-        className="flex flex-col bg-white rounded-[10px] w-[min(100%-2rem,598px)] h-[min(90vh,760px)] pt-9.25 pb-8 px-[38.67px]"
-        onClick={(e) => e.stopPropagation()}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="ai-task-modal-title"
-      >
-        <div className="flex flex-col items-end w-full">
-          <Image
-            src="/close.svg"
-            alt="Fermer"
-            className="self-end cursor-pointer text-abr-grey-600"
-            width={14.33}
-            height={14.33}
-            onClick={handleCancel}
-          />
-        </div>
-
-        <div className="flex items-center gap-2.5 mt-4 px-5">
-          <StarIcon className="size-5 text-abr-dark-orange" />
-          <h4 id="ai-task-modal-title" className="text-abr-grey-800">
-            {hasDrafts ? "Vos tâches..." : "Créer une tâche"}
-          </h4>
-        </div>
-
+    <>
+      <ModalOverlay onClose={handleCancel}>
         <div
-          className={`flex flex-1 flex-col min-h-0 mt-6 px-5 ${hasDrafts ? "overflow-y-auto" : ""}`}
-          aria-busy={isGenerating}
+          className={`${modalPanelClassName} h-[min(90vh,760px)] lg:h-[min(90vh,760px)] pb-8`}
+          onClick={(e) => e.stopPropagation()}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ai-task-modal-title"
         >
-          {hasDrafts ? (
-            <div
-              className={`flex flex-col gap-4 ${isGenerating ? "opacity-60" : ""}`}
-            >
-              {drafts.map((draft) => (
-                <AiTaskDraftCard
-                  key={draft.localId}
-                  task={draft}
-                  onDelete={() =>
-                    setDrafts((current) =>
-                      current.filter((item) => item.localId !== draft.localId),
-                    )
-                  }
-                  onEdit={() => setEditingDraft(draft)}
-                />
-              ))}
-              <div className="flex justify-center py-4">
-                <AbrButton
-                  type="button"
-                  color="black"
-                  className="w-61"
-                  label={isCreating ? "Ajout..." : "+ Ajouter les tâches"}
-                  onClick={handleAccept}
-                  disabled={isCreating || isGenerating || drafts.length === 0}
-                />
+          <div className="flex flex-col items-end w-full">
+            <Image
+              src="/close.svg"
+              alt="Fermer"
+              className="self-end cursor-pointer text-abr-grey-600"
+              width={14.33}
+              height={14.33}
+              onClick={handleCancel}
+            />
+          </div>
+
+          <div className="flex items-center gap-2.5 mt-4 px-0 lg:px-5">
+            <StarIcon className="size-5 text-abr-dark-orange" />
+            <h4 id="ai-task-modal-title" className="text-abr-grey-800">
+              {hasDrafts ? "Vos tâches..." : "Créer une tâche"}
+            </h4>
+          </div>
+
+          <div
+            className={`flex flex-1 flex-col min-h-0 mt-6 px-0 lg:px-5 ${hasDrafts ? "overflow-y-auto" : ""}`}
+            aria-busy={isGenerating}
+          >
+            {hasDrafts ? (
+              <div
+                className={`flex flex-col gap-4 ${isGenerating ? "opacity-60" : ""}`}
+              >
+                {drafts.map((draft) => (
+                  <AiTaskDraftCard
+                    key={draft.localId}
+                    task={draft}
+                    onDelete={() =>
+                      setDrafts((current) =>
+                        current.filter(
+                          (item) => item.localId !== draft.localId,
+                        ),
+                      )
+                    }
+                    onEdit={() => setEditingDraft(draft)}
+                  />
+                ))}
+                <div className="flex justify-center py-4">
+                  <AbrButton
+                    type="button"
+                    color="black"
+                    className="w-61 max-w-full"
+                    label={isCreating ? "Ajout..." : "+ Ajouter les tâches"}
+                    onClick={handleAccept}
+                    disabled={isCreating || isGenerating || drafts.length === 0}
+                  />
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="flex flex-1 items-center justify-center">
-              {isGenerating && (
-                <p className="text-body-m text-abr-grey-600">
-                  Génération en cours...
-                </p>
-              )}
-            </div>
+            ) : (
+              <div className="flex flex-1 items-center justify-center">
+                {isGenerating && (
+                  <p className="text-body-m text-abr-grey-600">
+                    Génération en cours...
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {error && (
+            <p className="px-0 lg:px-5 mt-3 text-red-500 text-sm">{error}</p>
           )}
+
+          <form
+            className="mt-4 mx-0 lg:mx-5 flex items-center gap-2 rounded-full bg-abr-grey-100 pl-4 lg:pl-5 pr-1.5 py-1.5"
+            onSubmit={handleGenerate}
+          >
+            <input
+              className="flex-1 min-w-0 bg-transparent text-body-s text-abr-grey-800 placeholder:text-abr-grey-400 outline-none"
+              placeholder="Décrivez les tâches que vous souhaitez ajouter..."
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              disabled={isGenerating || isCreating}
+              aria-label="Prompt de génération de tâches"
+            />
+            <AiButton
+              type="submit"
+              color="dark"
+              aria-label="Générer les tâches"
+              disabled={isGenerating || isCreating || !prompt.trim()}
+              className={
+                isGenerating || isCreating || !prompt.trim()
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
+              }
+            />
+          </form>
         </div>
-
-        {error && <p className="px-5 mt-3 text-red-500 text-sm">{error}</p>}
-
-        <form
-          className="mt-4 mx-5 flex items-center gap-2 rounded-full bg-abr-grey-100 pl-5 pr-1.5 py-1.5"
-          onSubmit={handleGenerate}
-        >
-          <input
-            className="flex-1 min-w-0 bg-transparent text-body-s text-abr-grey-800 placeholder:text-abr-grey-400 outline-none"
-            placeholder="Décrivez les tâches que vous souhaitez ajouter..."
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            disabled={isGenerating || isCreating}
-            aria-label="Prompt de génération de tâches"
-          />
-          <AiButton
-            type="submit"
-            color="dark"
-            aria-label="Générer les tâches"
-            disabled={isGenerating || isCreating || !prompt.trim()}
-            className={
-              isGenerating || isCreating || !prompt.trim()
-                ? "opacity-50 cursor-not-allowed"
-                : ""
-            }
-          />
-        </form>
-      </div>
-
+      </ModalOverlay>
       {editingDraft && (
         <DraftEditModal
           draft={editingDraft}
@@ -268,7 +276,7 @@ export default function AiTaskModal({
           onSave={handleSaveDraft}
         />
       )}
-    </div>
+    </>
   );
 }
 
@@ -287,9 +295,9 @@ function DraftEditModal({
   const [dueDate, setDueDate] = useState(draft.dueDate);
 
   return (
-    <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50">
+    <ModalOverlay onClose={onClose} zClassName="z-60">
       <div
-        className="flex flex-col bg-white rounded-[10px] lg:w-149.5 pt-9.25 pb-10 px-[38.67px]"
+        className={modalPanelClassName}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -304,12 +312,12 @@ function DraftEditModal({
             onClick={onClose}
           />
         </div>
-        <div className="flex flex-col py-[27.67px] px-5">
+        <div className="flex flex-col py-[27.67px] px-0 lg:px-5">
           <h4 className="text-abr-grey-800">Modifier</h4>
           <form className="flex flex-col gap-6 mt-10">
             <FormInput
               inputId="ai-draft-title"
-              width="max-[452px]"
+              inputWidth="w-full lg:w-[280px]"
               className="w-full"
               placeHolder="Titre de la tâche"
               label="Titre"
@@ -320,7 +328,7 @@ function DraftEditModal({
             />
             <FormInput
               inputId="ai-draft-description"
-              width="max-[452px]"
+              inputWidth="w-full lg:w-[280px]"
               className="w-full"
               placeHolder="Description de la tâche"
               label="Description"
@@ -329,7 +337,7 @@ function DraftEditModal({
               onChange={(e) => setDescription(e.target.value)}
             />
             <DateSelectorInput
-              width="max-[452px]"
+              width="w-full lg:w-[280px]"
               placeHolder="Sélectionner une date"
               label="Échéance"
               value={dueDate}
@@ -337,7 +345,7 @@ function DraftEditModal({
             />
             <SelectorInput
               id="ai-draft-priority"
-              width="max-[452px]"
+              width={280}
               height="h-13.25"
               label="Priorité"
               value={priority}
@@ -352,7 +360,7 @@ function DraftEditModal({
             />
             <AbrButton
               type="button"
-              className="w-61 mt-8"
+              className="w-61 mt-8 max-w-full"
               color="black"
               label="Enregistrer"
               onClick={() =>
@@ -369,6 +377,6 @@ function DraftEditModal({
           </form>
         </div>
       </div>
-    </div>
+    </ModalOverlay>
   );
 }

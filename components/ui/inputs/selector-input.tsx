@@ -33,7 +33,10 @@ export default function SelectorInput({
   const widthValue = typeof width === "number" ? `${width}px` : width;
 
   return (
-    <div style={{ width: widthValue }} className={`inline-block ${className}`}>
+    <div
+      style={{ width: widthValue }}
+      className={`inline-block max-w-full ${className}`}
+    >
       {label && <label className="text-body-s text-black">{label}</label>}
       <Select.Root
         value={value}

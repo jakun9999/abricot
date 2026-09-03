@@ -22,7 +22,8 @@ export default function SigninForm() {
     const validation = SigninSchema.safeParse({ email, password });
     if (!validation.success) {
       setError(
-        validation.error.issues[0]?.message ?? "Données d'inscription invalides",
+        validation.error.issues[0]?.message ??
+          "Données d'inscription invalides",
       );
       setIsLoading(false);
       return;
@@ -65,7 +66,7 @@ export default function SigninForm() {
         label="Email"
         inputId="email"
         inputType="email"
-        className="w-70.5"
+        className="w-70.5 max-w-full"
         autoComplete="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -74,14 +75,14 @@ export default function SigninForm() {
         label="Mot de passe"
         inputId="password"
         inputType="password"
-        className="w-70.5"
+        className="w-70.5 max-w-full"
         autoComplete="new-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <button
         type="submit"
-        className="w-62.25 h-12.5 rounded-[10px] bg-black text-abr-white text-body-m"
+        className="w-62.25 max-w-full h-12.5 rounded-[10px] bg-black text-abr-white text-body-m"
         disabled={isLoading}
       >
         {isLoading ? "Inscription..." : "S'inscrire"}

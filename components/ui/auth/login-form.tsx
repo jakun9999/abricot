@@ -34,8 +34,8 @@ export default function LoginForm() {
       setUser(result.user);
       router.push("/dashboard");
       router.refresh();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Identifiants incorrects");
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +56,7 @@ export default function LoginForm() {
         label="Email"
         inputId="email"
         inputType="email"
-        className="w-70.5"
+        className="w-70.5 max-w-full"
         autoComplete="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -65,14 +65,14 @@ export default function LoginForm() {
         label="Mot de passe"
         inputId="password"
         inputType="password"
-        className="w-70.5"
+        className="w-70.5 max-w-full"
         autoComplete="current-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <button
         type="submit"
-        className="w-62.25 h-12.5 rounded-[10px] bg-black text-abr-white text-body-m"
+        className="w-62.25 max-w-full h-12.5 rounded-[10px] bg-black text-abr-white text-body-m"
       >
         {isLoading ? "Connexion..." : "Se connecter"}
       </button>
