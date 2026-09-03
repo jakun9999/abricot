@@ -3,6 +3,7 @@ import { z } from "zod";
 import { fetchServer } from "@/lib/api-server";
 import { Task } from "@/schemas/task-schema";
 
+/** `priority` peut arriver en `""` depuis le select : Zod le convertit en `undefined`. */
 const TaskCreateSchema = z
   .object({
     projectId: z.string().min(1),

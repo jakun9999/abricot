@@ -3,6 +3,11 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SelectorInput from "@/components/ui/inputs/selector-input";
 
+/**
+ * Filtre les tâches via `?status=` (valeur `ALL` = suppression du paramètre).
+ *
+ * @param width - Largeur passée à {@link SelectorInput}.
+ */
 export default function StatusFilterInput({
   width = 171.75,
 }: {

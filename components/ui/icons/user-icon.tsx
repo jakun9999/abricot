@@ -1,18 +1,18 @@
 export interface UserIconProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * UserIcon variant colors.
-   * - `dark` : Orange Dark BG with white text.
-   * - `light` : Light orange BG with black text.
+   * Variante. `dark` = compte actif, `light` = inactif (hover vers dark).
    */
   color: "dark" | "light";
+  /** Initiales (tronquées à 2 caractères, mises en majuscules). */
   label: string;
 }
 
 /**
- * Circular user icon (40x40px) containing the user's initials.
+ * Avatar circulaire avec initiales. Taille par défaut 65×65 (`h-16.25`), cote Figma header.
+ *
  * @example
  * ```tsx
- * <UserIcon aria-label="User initials" color="dark" label="AB"/>
+ * <UserIcon color="dark" label="ML" />
  * ```
  */
 export default function UserIcon({
@@ -26,7 +26,6 @@ export default function UserIcon({
       ? "bg-abr-dark-orange text-white"
       : "bg-abr-light-orange text-black hover:bg-abr-dark-orange hover:text-white transition-colors duration-500";
 
-  // We make sure that initials are trimmed, uppercased, and limited to 2 characters.
   const initials = label.trim().toUpperCase().slice(0, 2);
 
   return (

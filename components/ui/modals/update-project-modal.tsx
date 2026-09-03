@@ -11,6 +11,7 @@ import ModalOverlay, {
 import ModalCloseButton from "@/components/ui/modals/modal-close-button";
 import { useRouter } from "next/navigation";
 
+/** Modale d’édition de projet (owner / admin). */
 export default function UpdateProjectModal({
   project,
   onClose,

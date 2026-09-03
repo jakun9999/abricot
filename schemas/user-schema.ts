@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+/** Utilisateur exposé par l’API (jamais de mot de passe). */
 export const UserSchema = z.object({
   id: z.string(),
   email: z.email(),

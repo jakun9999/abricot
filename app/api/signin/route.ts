@@ -4,6 +4,7 @@ import { UserSchema } from "@/schemas/user-schema";
 import { SigninSchema } from "@/schemas/signin-schema";
 import { z } from "zod";
 
+/** Inscription : pose les mêmes cookies que `POST /api/login`. */
 export async function POST(request: Request) {
   try {
     const body = await request.json();

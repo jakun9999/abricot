@@ -1,15 +1,17 @@
 import { z } from "zod";
 import { PasswordComplexitySchema } from "./password-complexity-schema";
 
-// Schéma du formulaire (name, email, newPassword) — utilisé avec zodResolver dans AccountForm
+/** Champs du formulaire compte. `newPassword` vide = ne pas changer le mot de passe. */
 export const UpdateProfileSchema = z.object({
   name: z.string().min(2),
   email: z.email("Email format is incorrect"),
   newPassword: PasswordComplexitySchema.optional().or(z.literal("")),
 });
 
-// Schéma du payload complet envoyé à /api/profile — inclut currentPassword,
-// requis uniquement si newPassword est renseigné
+/**
+ * Payload `POST /api/profile`. `currentPassword` n’est exigé que si
+ * `newPassword` est renseigné (`refine`).
+ */
 export const UpdateProfilePayloadSchema = UpdateProfileSchema.extend({
   currentPassword: z.string().optional(),
 }).refine((data) => !data.newPassword || Boolean(data.currentPassword), {

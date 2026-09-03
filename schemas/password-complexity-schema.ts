@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+/** Règles de complexité mot de passe (création / changement). */
 export const PasswordComplexitySchema = z
   .string()
   .min(8, "Le mot de passe doit contenir au moins 8 caractères")

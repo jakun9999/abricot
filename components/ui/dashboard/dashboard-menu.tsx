@@ -7,6 +7,7 @@ export interface DashboardMenuProps {
   className?: string;
 }
 
+/** Navigation Liste / Kanban du tableau de bord. */
 export default function DashboardMenu({ className = "" }: DashboardMenuProps) {
   const pathName = usePathname();
 

@@ -2,6 +2,10 @@
 
 import Image from "next/image";
 
+/**
+ * Croix de fermeture des modales. Zone cliquable min 24×24 (WCAG 2.5.8) sans
+ * agrandir l’icône Figma (14 px).
+ */
 export default function ModalCloseButton({
   onClick,
 }: {

@@ -8,12 +8,16 @@ import { formatDateShort } from "@/lib/utils";
 import UpdateTaskModal from "@/components/ui/modals/update-task-modal";
 import { useState } from "react";
 
-interface TaskLongProps {
+export interface TaskLongProps {
   task: Task;
   projectName: string;
   className?: string;
 }
 
+/**
+ * Carte tâche horizontale (desktop). `min-h-40.5` et marges en px Figma
+ * (`my-[32.23px]`) pour coller la maquette, pas une grille CSS.
+ */
 export default function TaskLong({
   task,
   projectName,
@@ -26,14 +30,11 @@ export default function TaskLong({
       <div
         className={`${className} w-full min-h-40.5 flex justify-between bg-white rounded-[10px] border border-abr-grey-200`}
       >
-        {/* Left area */}
         <div className="flex flex-col gap-8 ml-7.5 my-[32.23px] min-w-0">
-          {/* Task info */}
           <div className="flex flex-col gap-1.75">
             <h5>{task.title}</h5>
             <p className="text-body-s text-abr-grey-600">{task.description}</p>
           </div>
-          {/* Task addition info (project name, date, comments) */}
           <div className="flex flex-wrap items-center gap-3.75 text-abr-grey-600 text-body-xs">
             <p className="flex items-center gap-2">
               <span className="text-abr-grey-400!" aria-hidden="true">

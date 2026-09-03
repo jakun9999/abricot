@@ -3,18 +3,20 @@ import PointsIcon from "@/components/ui/icons/points-icon";
 
 export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * IconButton predifined label.
-   * - `back` : Icon which indicates to the user to go back to previous page.
-   * - `points` : Icon which indicates to the user to have more details.
+   * Pictogramme affiché. Le nom accessible est déduit si `aria-label` n’est pas fourni.
+   * - `back` : retour (flèche).
+   * - `points` : actions supplémentaires (trois points).
    */
   label: "back" | "points";
 }
 
 /**
- * Circular icon button (40x40px) containing the specified label.
+ * Bouton icône bordé (carré arrondi). Taille par défaut 57×57 (`h-14.25`), pas 40×40 :
+ * c’est la cote Figma du bouton « retour / plus ».
+ *
  * @example
  * ```tsx
- * <IconButton aria-label="Retour à la liste des projets" label="back"/>
+ * <IconButton label="back" aria-label="Retour à la liste des projets" />
  * ```
  */
 export default function IconButton({

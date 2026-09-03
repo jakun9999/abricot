@@ -1,3 +1,6 @@
+/**
+ * Pictogrammes SVG Abricot (`currentColor`). Générés via `npm run generate:icons`.
+ */
 export { default as BinIcon } from "./bin-icon";
 export { default as ModifyIcon } from "./modify-icon";
 export { default as AbricotIcon } from "./abricot-icon";

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+/** Corps d’inscription : mot de passe complexe (aligné sur le backend). */
 export const SigninSchema = z.object({
   email: z.email("Format d'email invalide"),
   password: z

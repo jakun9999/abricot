@@ -4,17 +4,18 @@ import { UserSchema } from "@/schemas/user-schema";
 import { LoginSchema } from "@/schemas/login-schema";
 import { z } from "zod";
 
+/**
+ * Authentifie via le backend, pose `token` (HttpOnly) et `user_data` (lisible
+ * en JS pour le header). Deux cookies : le JWT ne doit pas être accessible au
+ * JS ; le profil si, pour éviter un round-trip au refresh.
+ */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // We transfer auth data to the backend
-    // but with a validation of what is sent to our
-    // nextjs API /api/login
     const authDataValidation = LoginSchema.safeParse(body);
 
     if (!authDataValidation.success) {
-      // We reject incoming body as it doens't fit zod loginSchema
       return NextResponse.json(
         {
           message: "Données d'identification incorrectes",
@@ -41,8 +42,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // As for data sent to our API, we also check data coming
-    // from backend API to ensure we receive only good data
     const userValidation = UserSchema.safeParse(result.data.user);
 
     if (!userValidation.success) {
@@ -59,28 +58,22 @@ export async function POST(request: Request) {
 
     const cookieStore = await cookies();
 
-    // We set the HttpOnly cookie for the token
     cookieStore.set("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
-      path: "/",
-    });
-
-    // And a separate cookie to store user profile but also
-    // with a check of data schema with zod UserSchema
-
-    cookieStore.set("user_data", JSON.stringify(result.data.user), {
-      httpOnly: false, // Usable locally by the client once authenticated
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60,
       path: "/",
     });
 
-    // We return to the client (browser) the user profil info
-    // the cookie will be sent also by nextjs server part.
+    cookieStore.set("user_data", JSON.stringify(result.data.user), {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60,
+      path: "/",
+    });
+
     return NextResponse.json({
       success: true,
       user: safeUser,

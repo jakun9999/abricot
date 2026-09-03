@@ -1,24 +1,31 @@
 export interface LabelProps extends React.HTMLAttributes<HTMLParagraphElement> {
   /**
-   * Label variant colors.
-   * - `green` : Light Green BG with Success green text.
-   * - `red` : Error Red Light BG with Error Red text.
-   * - `blue` : Info Blue Light BG with Info Blue text.
-   * - `warningOrangeLight` : Warning orange light BG with warning orange text.
-   * - `lightOrange` : Light orange BG with dark orange text.
-   * - `grey` : Gray 200 BG with gray 600 text.
+   * Couleur sémantique (jetons Figma, contrastes non ajustés volontairement).
+   * - `green` : terminé.
+   * - `red` : à faire.
+   * - `blue` : info.
+   * - `warningOrangeLight` : en cours.
+   * - `lightOrange` : mise en avant marque.
+   * - `grey` : neutre / compteur.
    */
   color:
-    "green" | "red" | "blue" | "warningOrangeLight" | "lightOrange" | "grey";
+    | "green"
+    | "red"
+    | "blue"
+    | "warningOrangeLight"
+    | "lightOrange"
+    | "grey";
+  /** Texte affiché dans la pastille. */
   text?: string;
 }
 
 /**
- * Label containing text and a background color.
+ * Pastille de statut (tâche, compteur kanban). Le texte passe de `body-xs` à
+ * `body-s` à partir de `lg` : en-dessous, « À faire » débordait de la pastille.
  *
  * @example
  * ```tsx
- * <Label aria-label="My label" color="green" "/>
+ * <Label color="red" text="À faire" />
  * ```
  */
 export default function Label({

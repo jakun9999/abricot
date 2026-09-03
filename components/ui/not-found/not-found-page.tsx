@@ -6,6 +6,10 @@ import Footer from "@/components/ui/footer/footer";
 import { AbricotIcon } from "@/components/ui/icons";
 import { useAuth } from "@/context/auth-context";
 
+/**
+ * 404 : chrome app (header/footer) seulement après lecture de `user_data`.
+ * Sans ça, un utilisateur connecté verrait d’abord la version « guest ».
+ */
 export default function NotFoundPage() {
   const { user, isReady } = useAuth();
 

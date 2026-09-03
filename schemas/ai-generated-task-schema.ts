@@ -26,6 +26,13 @@ export const AiGeneratedTasksResponseSchema = z.object({
 
 export type AiGeneratedTask = z.infer<typeof AiGeneratedTaskSchema>;
 
+/**
+ * Normalise une échéance LLM (`YYYY-MM-DD` ou ISO) vers ISO UTC à midi.
+ * Midi UTC évite le décalage d’un jour quand on parse une date « date-only » en Europe.
+ *
+ * @param value - Date brute renvoyée par le modèle.
+ * @returns ISO string, ou `""` si invalide.
+ */
 export function normalizeDueDate(value: string): string {
   if (!value?.trim()) return "";
 

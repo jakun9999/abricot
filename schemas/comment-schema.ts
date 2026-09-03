@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { UserSchema } from "@/schemas/user-schema";
 
+/** Commentaire de tâche, avec auteur dénormalisé. */
 export const CommentSchema = z.object({
   id: z.string().optional(),
   content: z.string(),

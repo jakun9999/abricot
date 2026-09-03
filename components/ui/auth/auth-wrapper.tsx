@@ -5,10 +5,15 @@ import Link from "next/link";
 
 interface AuthWrapperProps {
   children: React.ReactNode;
+  /** Image de fond de la colonne droite (`/login-hd.jpg`, `/signin-hd.jpg`). */
   backgroundImage: string;
+  /** `true` = liens « créer un compte », `false` = « se connecter ». */
   login: boolean;
 }
 
+/**
+ * Shell des pages login / inscription : formulaire à gauche, visuel à droite dès `lg`.
+ */
 export default function AuthWrapper({
   children,
   backgroundImage,
@@ -16,7 +21,7 @@ export default function AuthWrapper({
 }: AuthWrapperProps) {
   return (
     <div className="flex min-h-screen w-full bg-white">
-      {/* Form column */}
+      {/* Colonne formulaire : pleine largeur jusqu’à lg, 40 % ensuite (maquette split). */}
       <div className="flex w-full flex-col gap-10 md:gap-0 md:justify-between max-h-256 items-center py-[111.92] px-4 lg:px-0 lg:w-[40%]">
         <AbricotIcon
           className="w-[252.57px] max-w-full h-[32.17px] text-abr-dark-orange"
@@ -46,7 +51,7 @@ export default function AuthWrapper({
           </p>
         )}
       </div>
-      {/* Image container for dynamic background */}
+      {/* Illustration décorative : masquée sous lg (pas d’espace perdu sur mobile). */}
       <div className="relative hidden lg:block lg:w-[60%]">
         <Image
           src={backgroundImage}

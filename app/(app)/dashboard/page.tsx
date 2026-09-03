@@ -33,8 +33,6 @@ export default async function Page({
   const projectRes = await projectsResponse.json();
   const projects: Project[] = projectRes.data.projects;
 
-  // Create a map of project IDs to project names for easy lookup
-  // This will help us display the project name for each task
   const projectMap = new Map<string, string>(
     projects
       .filter((project): project is Project & { id: string } =>
@@ -45,8 +43,6 @@ export default async function Page({
   const taskRes = await tasksResponse.json();
   const tasks: Task[] = taskRes.data.tasks;
 
-  // Tasks need to be sorted by priority, with the highest priority first.
-  // We can define a mapping of priority levels to numbers for sorting purposes.
   const PRIORITY_ORDER: Record<Task["priority"], number> = {
     LOW: 3,
     MEDIUM: 2,
@@ -54,15 +50,12 @@ export default async function Page({
     URGENT: 0,
   };
 
-  // Sort tasks by priority using the defined order
   const sortedTasks = [...tasks].sort(
     (a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority],
   );
 
-  // Finally we manage the search functionality by filtering
-  // the sorted tasks based on the search input.
   const filteredTasks = sortedTasks.filter((task) => {
-    if (!searchQuery) return true; // If no search query, include all tasks
+    if (!searchQuery) return true;
     return (
       task.title.toLowerCase().includes(searchQuery) ||
       task.description?.toLowerCase().includes(searchQuery) ||
@@ -97,6 +90,7 @@ export default async function Page({
                 projectMap.get(task.projectId) ?? "Projet incoonu";
               return (
                 <div key={task.id}>
+                  {/* Liste : carte longue dès md, carte courte en dessous (largeur insuffisante). */}
                   <TaskLong
                     task={task}
                     projectName={projectName}

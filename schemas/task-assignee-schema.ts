@@ -1,7 +1,7 @@
-// @/schemas/task-assignee.ts
 import { z } from "zod";
 import { UserSchema } from "@/schemas/user-schema";
 
+/** Liaison tâche ↔ utilisateur assigné. */
 export const TaskAssigneeSchema = z.object({
   id: z.string().optional(),
   userId: z.string(),

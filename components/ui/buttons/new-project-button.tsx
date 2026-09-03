@@ -4,6 +4,7 @@ import AbrButton from "@/components/ui/buttons/abr-button";
 import NewProjectModal from "@/components/ui/modals/new-project-modal";
 import { useState } from "react";
 
+/** Ouvre {@link NewProjectModal}. */
 export default function NewProjectButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -6,9 +6,13 @@ import { Task } from "@/schemas/task-schema";
 import { getUserInitials } from "@/lib/utils";
 import UpdateTaskModal from "@/components/ui/modals/update-task-modal";
 
-interface TaskCalendarProps {
+export interface TaskCalendarProps {
   task: Task;
   projectId: string;
+  /**
+   * Vue mois : titre + point de statut (la couleur seule ne suffit pas en a11y :
+   * le `aria-label` du bouton reprend le statut).
+   */
   compact?: boolean;
 }
 
@@ -26,6 +30,9 @@ const STATUS_LABEL: Record<Task["status"], string> = {
   CANCELLED: "Annulé",
 };
 
+/**
+ * Tâche dans une cellule de calendrier. `compact` pour la vue mois (peu de place).
+ */
 export default function TaskCalendar({
   task,
   projectId,

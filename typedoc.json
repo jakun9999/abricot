@@ -1,0 +1,49 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "Abricot",
+  "tsconfig": "./tsconfig.typedoc.json",
+  "entryPoints": [
+    "components",
+    "hooks",
+    "lib",
+    "schemas",
+    "types",
+    "context",
+    "middleware.ts",
+    "app/api"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "docs",
+  "exclude": [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/app/test/**",
+    "**/app/**/page.tsx",
+    "**/app/**/layout.tsx",
+    "**/app/not-found.tsx",
+    "**/next-env.d.ts",
+    "**/next.config.ts",
+    "**/components/ui/cards/task-simple.tsx"
+  ],
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeReferences": true,
+  "skipErrorChecking": true,
+  "includeVersion": true,
+  "readme": "none",
+  "lang": "fr",
+  "pretty": true,
+  "hideGenerator": true,
+  "navigation": {
+    "includeFolders": true,
+    "compactFolders": false,
+    "excludeReferences": true
+  },
+  "sort": ["source-order", "alphabetical"],
+  "validation": {
+    "notExported": false,
+    "invalidLink": true,
+    "notDocumented": false
+  }
+}

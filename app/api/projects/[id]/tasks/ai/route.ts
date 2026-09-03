@@ -23,6 +23,10 @@ const RequestSchema = z.object({
   existingTasks: z.array(AiGeneratedTaskSchema).optional().default([]),
 });
 
+/**
+ * Génère des brouillons de tâches via Mistral (`generateText` + schéma Zod).
+ * `maxDuration` 60 s : l’appel LLM dépasse souvent le timeout serverless par défaut.
+ */
 export async function POST(request: Request, { params }: RouteProps) {
   try {
     if (!process.env.MISTRAL_API_KEY) {

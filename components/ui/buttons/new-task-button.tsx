@@ -4,6 +4,11 @@ import AbrButton from "@/components/ui/buttons/abr-button";
 import NewTaskModal from "@/components/ui/modals/new-task-modal";
 import { useState } from "react";
 
+/**
+ * Ouvre {@link NewTaskModal} pour le projet courant.
+ *
+ * @param projectId - Identifiant du projet cible.
+ */
 export default function NewTaskButton({ projectId }: { projectId: string }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

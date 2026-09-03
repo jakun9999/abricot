@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   description: "Tableau de bord Kanban Abricot - Suivi des tâches",
 };
 
+/**
+ * Kanban 3 colonnes. Cartes : `TaskShort` en 1 col et en 3 cols (xl, colonnes
+ * trop étroites pour `TaskLong`) ; `TaskLong` seulement entre `lg` et `xl`.
+ */
 export default async function Kanban() {
   const [tasksResponse, projectsResponse] = await Promise.all([
     fetchServer("/dashboard/assigned-tasks"),
@@ -28,8 +32,6 @@ export default async function Kanban() {
   const projectRes = await projectsResponse.json();
   const projects: Project[] = projectRes.data.projects;
 
-  // Create a map of project IDs to project names for easy lookup
-  // This will help us display the project name for each task
   const projectMap = new Map<string, string>(
     projects
       .filter((project): project is Project & { id: string } =>
@@ -40,8 +42,6 @@ export default async function Kanban() {
   const taskRes = await tasksResponse.json();
   const tasks: Task[] = taskRes.data.tasks;
 
-  // Tasks need to be sorted by priority, with the highest priority first.
-  // We can define a mapping of priority levels to numbers for sorting purposes.
   const PRIORITY_ORDER: Record<Task["priority"], number> = {
     LOW: 3,
     MEDIUM: 2,
@@ -49,7 +49,6 @@ export default async function Kanban() {
     URGENT: 0,
   };
 
-  // Sort tasks by priority using the defined order
   const sortedTasks = [...tasks].sort(
     (a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority],
   );

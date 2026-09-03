@@ -4,14 +4,22 @@ import * as Select from "@radix-ui/react-select";
 import { BottomarrowIcon } from "@/components/ui/icons";
 
 export interface SelectorInputProps {
+  /** Identifiant du déclencheur (label `aria-labelledby` = `${id}-label`). */
   id: string;
+  /** Texte affiché tant qu’aucune option n’est choisie. */
   placeHolder: string;
+  /** Libellé visible. Absent sur le filtre Statut (WAVE « Missing label » : ce n’est pas un `<select>` natif). */
   label?: string;
+  /** Valeur contrôlée (`option.value`). */
   value?: string;
+  /** Valeur initiale en mode non contrôlé. */
   defaultValue?: string;
+  /** Largeur CSS (`number` → px, sinon classe / valeur CSS). */
   width?: number | string;
+  /** Classe de hauteur du déclencheur. */
   height?: number | string;
   className?: string;
+  /** Callback à la sélection. */
   onChange?: (value: string) => void;
   options: {
     value: string;
@@ -19,6 +27,22 @@ export interface SelectorInputProps {
   }[];
 }
 
+/**
+ * Liste déroulante Radix (combobox), pas un `<select>` HTML : la liste ouverte
+ * suit la maquette (survol orange). WAVE signale « Missing label » ; le nom
+ * accessible est fourni via `aria-label` / `aria-labelledby`.
+ *
+ * @example
+ * ```tsx
+ * <SelectorInput
+ *   id="priority"
+ *   label="Priorité"
+ *   placeHolder="Sélectionner une priorité"
+ *   options={[{ value: "HIGH", text: "Haute" }]}
+ *   onChange={setPriority}
+ * />
+ * ```
+ */
 export default function SelectorInput({
   id,
   placeHolder,

@@ -13,6 +13,8 @@ const toSafeDate = (value: unknown, fallback = new Date()) => {
   if (typeof value === "string" && value.trim()) {
     const trimmed = value.trim();
 
+    // Le backend envoie de l’ISO, le champ du calendrier du YYYY-MM-DD.
+    // Sans le `T12:00:00`, `new Date("2026-03-23")` est minuit UTC et recule d’un jour en FR.
     const candidates = [
       trimmed,
       trimmed.includes("T") ? trimmed : `${trimmed}T12:00:00`,
@@ -56,6 +58,7 @@ const getCalendarDays = (monthDate: Date) => {
     monthDate.getMonth(),
     1,
   );
+  // getDay() : dimanche = 0. +6 % 7 aligne la grille sur lundi (maquette FR).
   const firstWeekDay = (firstDayOfMonth.getDay() + 6) % 7;
   const start = new Date(firstDayOfMonth);
   start.setDate(firstDayOfMonth.getDate() - firstWeekDay);
@@ -71,12 +74,24 @@ export interface DateSelectorInputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   "type"
 > {
+  /** Libellé visible, associé au bouton via `htmlFor`. */
   label?: string;
+  /** Classe de largeur Tailwind. */
   width?: string;
   placeHolder?: string;
+  /** `id` du bouton ; généré si omis. */
   inputId?: string;
 }
 
+/**
+ * Sélecteur de date custom (pas un `<input type="date">` : le calendrier suit Figma).
+ * `onChange` émet un événement synthétique dont `target.value` est `YYYY-MM-DD`.
+ *
+ * @example
+ * ```tsx
+ * <DateSelectorInput label="Échéance" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+ * ```
+ */
 export default function DateSelectorInput({
   label = "",
   inputId,

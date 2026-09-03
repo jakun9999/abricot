@@ -7,17 +7,20 @@ interface AuthContextType {
   user: User | null;
   setUser: (user: User | null) => void;
   logout: () => void;
+  /** `false` tant que le cookie `user_data` n’a pas été lu (évite un flash 404 / header). */
   isReady: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+/**
+ * Auth client. Le JWT est en cookie HttpOnly (`token`) ; le profil est dans
+ * `user_data` (lisible en JS) pour hydrater le header sans appel API.
+ */
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isReady, setIsReady] = useState(false);
 
-  // When refreshing abricot or when connecting for the first time
-  // we check if the local cookie with user profil exists
   useEffect(() => {
     const getCookie = (name: string) => {
       const value = `; ${document.cookie}`;
@@ -49,6 +52,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Accès au contexte auth. À n’utiliser que sous {@link AuthProvider}.
+ */
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {

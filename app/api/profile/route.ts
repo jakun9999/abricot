@@ -5,6 +5,11 @@ import { UserSchema } from "@/schemas/user-schema";
 
 const API_URL = process.env.API_URL_INTERNAL;
 
+/**
+ * Mise à jour du profil. Deux appels backend : d’abord name/email, puis mot de
+ * passe seulement si `newPassword` est fourni (le backend n’accepte pas un PUT
+ * password à vide).
+ */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -37,7 +42,6 @@ export async function POST(request: NextRequest) {
       Authorization: `Bearer ${token}`,
     };
 
-    // Étape 1 : mise à jour name / email
     const profileRes = await fetch(`${API_URL}/auth/profile`, {
       method: "PUT",
       headers: authHeaders,
@@ -66,8 +70,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            "Profil renvoyé par l// Étape 2 : mise à jour du mot de passe si demandée serveur invalide",
+          message: "Profil renvoyé par le serveur invalide",
         },
         { status: 502 },
       );
@@ -108,7 +111,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       user: updatedUser,
-    }); // Étape 2 : mise à jour du mot de passe si demandé
+    });
   } catch (error) {
     console.error("Error in /api/profile route:", error);
     return NextResponse.json(

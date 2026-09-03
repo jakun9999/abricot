@@ -5,28 +5,33 @@ import Link from "next/link";
 
 export interface ChipsProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * Button variant icons.
-   * - `task` : Task icon.
-   * - `calendar` : Calendar icon.
-   * - `folder` : Folder icon.
-   *
-   * Button variant colors.
-   * - `light` : Light orange BG with dark orange icon and text.
-   * - `white` : White BG with dark orange icon and text.
+   * Pictogramme à gauche du libellé.
+   * - `task` : case cochée (vue liste).
+   * - `calendar` : calendrier / kanban.
+   * - `folder` : dossier (projets).
    */
   icon: "task" | "calendar" | "folder";
+  /**
+   * Fond. `light` = état actif (orange clair), `white` = inactif.
+   */
   color: "light" | "white";
+  /** Texte affiché à droite de l’icône. */
   text?: string;
+  /**
+   * Si fourni, le chip est un lien Next.js (évite un bouton dans un `<Link>`).
+   * Sinon c’est un `<button>`.
+   */
   href?: string;
+  /** Page courante : pose `aria-current="page"` sur le lien. */
   current?: boolean;
 }
 
 /**
- * Chips containing an icon (task, calendar, folder) and the feature name.
+ * Puce de navigation (Liste / Kanban / Calendrier). Lien si `href`, bouton sinon.
  *
  * @example
  * ```tsx
- * <Chips aria-label="Access your tasks" icon="task" color="white" onClick="{handleAiAction}"/>
+ * <Chips href="/dashboard" icon="task" text="Liste" color="light" current />
  * ```
  */
 export default function Chips({

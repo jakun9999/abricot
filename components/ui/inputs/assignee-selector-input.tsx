@@ -4,16 +4,29 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { BottomarrowIcon, CheckedboxIcon } from "@/components/ui/icons";
 import { ProjectMember } from "@/schemas/project-member-schema";
 
-interface AssigneeSelectorInputProps {
+export interface AssigneeSelectorInputProps {
+  /** Projet dont on charge les membres (`GET /api/projects/:id/members`). */
   projectId: string;
+  /** Libellé au-dessus du déclencheur. */
   label?: string;
+  /** Classe de largeur Tailwind. */
   width?: string;
+  /** Identifiants utilisateur déjà sélectionnés. */
   value?: string[];
   onChange?: (selectedIds: string[]) => void;
+  /** Texte du déclencheur quand la sélection est vide. */
   placeholder?: string;
   className?: string;
 }
 
+/**
+ * Multi-sélection des assignés d’une tâche, parmi les membres du projet.
+ *
+ * @example
+ * ```tsx
+ * <AssigneeSelectorInput projectId={id} value={ids} onChange={setIds} />
+ * ```
+ */
 export default function AssigneeSelectorInput({
   projectId,
   label = "Collaborateurs",

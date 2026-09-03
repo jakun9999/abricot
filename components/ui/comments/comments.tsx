@@ -6,13 +6,17 @@ import { getUserInitials, formatDateRelative } from "@/lib/utils";
 import { useAuth } from "@/context/auth-context";
 import AbrButton from "@/components/ui/buttons/abr-button";
 
-interface CommentsProps {
+export interface CommentsProps {
   projectId: string;
   taskId: string;
   comments?: Comment[];
   onCommentAdded?: (comment: Comment) => void;
 }
 
+/**
+ * Fil de commentaires d’une tâche. Enter seul va à la ligne ; Ctrl/Cmd+Enter envoie
+ * (habitude messagerie, évite les envois accidentels).
+ */
 export default function Comments({
   projectId,
   taskId,

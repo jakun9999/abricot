@@ -5,6 +5,10 @@ import { Project } from "@/schemas/project-schema";
 import { useAuth } from "@/context/auth-context";
 import { useState } from "react";
 
+/**
+ * Le backend distingue propriétaire (`ownerId`) et rôles membres ; les deux
+ * sources sont testées car les payloads ne sont pas toujours homogènes.
+ */
 function canUpdateProject(project: Project, userId?: string) {
   if (!userId) return false;
 
@@ -19,6 +23,10 @@ function canUpdateProject(project: Project, userId?: string) {
   );
 }
 
+/**
+ * Lien « Modifier » visible seulement pour owner / admin. `null` sinon
+ * (pas de bouton désactivé : la maquette ne le montre pas).
+ */
 export default function UpdateProjectButton({ project }: { project: Project }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useAuth();

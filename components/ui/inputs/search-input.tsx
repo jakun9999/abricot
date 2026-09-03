@@ -6,22 +6,24 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebounceCallback } from "usehooks-ts";
 
 export interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  /** Classe Tailwind de largeur du conteneur (ex. `w-full md:w-[357px]`). */
   width: string;
+  /** Placeholder et libellé accessible (`sr-only`) si aucun `aria-label` n’est passé. */
   placeHolder?: string;
 }
 
 /**
- * Component providing ready to use search input
+ * Champ de recherche synchronisé avec `?search=` (debounce 500 ms) pour éviter
+ * un `replace` à chaque frappe.
  *
  * @example
  * ```tsx
- * <SearchInput width="w-150" aria-label="Input for yyz" placeHolder="Tâche à rechercher"/>
+ * <SearchInput width="w-full md:w-[357px]" placeHolder="Rechercher une tâche" />
  * ```
  */
 export default function SearchInput({
   width,
   placeHolder = "",
-  // selectorOptions = [],
   className = "",
   ...props
 }: SearchInputProps) {

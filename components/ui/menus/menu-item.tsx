@@ -3,19 +3,20 @@ import FolderIcon from "@/components/ui/icons/folder-icon";
 
 export interface MenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * MenuItem variant colors.
-   * - `black` : Black BG with white text and icon.
-   * - `white` : White BG with dark orange text and icon.
+   * État visuel. `black` = page active, `white` = inactif (hover inverse les couleurs).
    */
   color: "black" | "white";
+  /** Entrée du header : tableau de bord ou liste des projets. */
   type: "dashboard" | "projects";
 }
 
 /**
- * Menu item for header navigation. It contains an icon and a label.
+ * Tuile de navigation du header. Rendu en `<div>` volontairement : le lien
+ * accessibles est le `<Link>` parent (évite un contrôle imbriqué).
+ *
  * @example
  * ```tsx
- * <MenuItem aria-label="Dashboard" color="black" type="dashboard"/>
+ * <Link href="/dashboard"><MenuItem color="black" type="dashboard" /></Link>
  * ```
  */
 export default function MenuItem({
@@ -34,7 +35,7 @@ export default function MenuItem({
       className={`flex items-center justify-center h-19.5 w-62 cursor-pointer text-body-m rounded-[10px] ${mode} ${className}`}
       {...props}
     >
-          {type === "dashboard" ? (
+      {type === "dashboard" ? (
         <>
           <DashboardIcon aria-hidden="true" />
           <span className="ml-4">Tableau de bord</span>

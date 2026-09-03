@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
 import { BinIcon, ModifyIcon } from "@/components/ui/icons";
 import { Task } from "@/types/task";
 
-interface TaskProps {
+interface TaskSimpleProps {
+  /** Ignoré : la carte sandbox n’appelle pas l’API. */
   taskId: string | number;
 }
 
@@ -46,39 +46,15 @@ const MOCK_TASK_DATA: Task = {
   status: "TODO",
 };
 
-export default function TaskSimple({ taskId }: TaskProps) {
-  // Initialisation directe avec les faux commentaires
+/**
+ * Carte sandbox (`/test/ui`) : données mock, pas d’API. Ne pas réutiliser en prod.
+ */
+export default function TaskSimple({ taskId: _taskId }: TaskSimpleProps) {
   const task = MOCK_TASK_DATA;
-
-  useEffect(() => {
-    /*
-        // --- CODE D'APPEL API EN ATTENTE ---
-        async function fetchComments() {
-          try {
-            setLoading(true);
-            const response = await fetch(`/api/tasks/${taskId}/comments`);
-            if (!response.ok) throw new Error('Erreur lors de la récupération');
-            
-            const data: CommentData[] = await response.json();
-            setComments(data);
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setLoading(false);
-          }
-        }
-    
-        if (taskId) {
-          fetchComments();
-        }
-        */
-  }, [taskId]);
 
   return (
     <div className="w-123.5 h-36.5 flex flex-col justify-between py-6.25 pl-10 bg-white rounded-[10px]">
-      {/* Top area */}
       <div className="flex flex-col gap-8">
-        {/* Task info */}
         <div className="flex justify-between">
           <div className="flex flex-col gap-1.75">
             <h5 className="font-semibold">{task.title}</h5>
@@ -86,7 +62,6 @@ export default function TaskSimple({ taskId }: TaskProps) {
           </div>
         </div>
 
-        {/* Task action (delete, modify) */}
         <div className="flex items-center gap-3.75 text-abr-grey-600 text-body-xs">
           <p className="flex items-center gap-2">
             <span className="text-abr-grey-400!">

@@ -8,12 +8,16 @@ import { formatDateShort } from "@/lib/utils";
 import UpdateTaskModal from "@/components/ui/modals/update-task-modal";
 import { useState } from "react";
 
-interface TaskShortProps {
+export interface TaskShortProps {
   task: Task;
   projectName: string;
   className?: string;
 }
 
+/**
+ * Carte tâche empilée (mobile / colonnes kanban étroites). Le parent bascule
+ * vers {@link components/ui/cards/task-long} à partir de `md` ou `lg` selon la page.
+ */
 export default function TaskShort({
   task,
   projectName,
@@ -26,11 +30,7 @@ export default function TaskShort({
       <div
         className={`${className} w-full flex flex-col justify-between py-6.25 px-6 lg:px-10 bg-white rounded-[10px] border border-abr-grey-200`}
       >
-        {/* h-[229.54px] */}
-        {/* Top area */}
         <div className="flex flex-col gap-8">
-          {/* Task info */}
-
           <div className="flex flex-col gap-1.75">
             <div className="flex justify-between items-start gap-2 min-w-0">
               <h5 className="font-semibold min-w-0 wrap-break-word">
@@ -52,7 +52,6 @@ export default function TaskShort({
             <p className="text-body-s text-abr-grey-600">{task.description}</p>
           </div>
 
-          {/* Task addition info (project name, date, comments) */}
           <div className="flex flex-wrap items-center gap-3.75 text-abr-grey-600 text-body-xs -mr-7">
             <p className="flex items-center gap-2">
               <span className="text-abr-grey-400!" aria-hidden="true">

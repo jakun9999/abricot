@@ -2,6 +2,7 @@ import React from "react";
 import Header from "@/components/ui/header/header";
 import Footer from "@/components/ui/footer/footer";
 
+/** Shell authentifié. `overflow-x-hidden` sous lg : les paddings Figma (pl-25…) débordent sinon. */
 export default function MainAppLayout({
   children,
 }: {

@@ -5,7 +5,8 @@
   --foreground: #171717;
 }
 
-/* Custom layer values for text to reduce usage of classes in html */
+/* Typographie et focus : les h1–h5 reprennent Figma (pas Tailwind prose).
+   Le contour focus utilise l’orange maquette (#d3590b), volontairement. */
 @layer base {
   body {
     letter-spacing: 0em;
@@ -56,7 +57,7 @@
   }
 }
 
-/* Custom Abricot theme values based on figma proto */
+/* Jetons Figma Abricot (ne pas « corriger » les contrastes ici). */
 @theme {
   --font-sans: var(--font-inter), sans-serif;
 

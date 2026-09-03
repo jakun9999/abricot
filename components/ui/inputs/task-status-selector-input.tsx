@@ -5,7 +5,8 @@ import Label from "@/components/ui/labels/label";
 
 export type TaskStatusValue = "TODO" | "IN_PROGRESS" | "DONE" | "CANCELLED";
 
-interface TaskStatusSelectorInputProps {
+export interface TaskStatusSelectorInputProps {
+  /** Libellé du groupe de radios. */
   label?: string;
   value: TaskStatusValue;
   onChange: (value: TaskStatusValue) => void;
@@ -23,6 +24,14 @@ const STATUS_OPTIONS: {
   { value: "CANCELLED", label: "Annulée", color: "grey" },
 ];
 
+/**
+ * Choix du statut d’une tâche via pastilles (`role="radiogroup"`).
+ *
+ * @example
+ * ```tsx
+ * <TaskStatusSelectorInput value={status} onChange={setStatus} />
+ * ```
+ */
 export default function TaskStatusSelectorInput({
   label = "Statut",
   value,

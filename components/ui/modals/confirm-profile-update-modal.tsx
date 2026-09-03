@@ -5,6 +5,7 @@ import AbrButton from "@/components/ui/buttons/abr-button";
 import ModalOverlay from "@/components/ui/modals/modal-overlay";
 
 interface ConfirmModalProps {
+  /** Affiche le champ mot de passe actuel (changement de MDP). */
   requiresCurrentPassword: boolean;
   isSubmitting: boolean;
   hasChanges: boolean;
@@ -13,6 +14,7 @@ interface ConfirmModalProps {
   onCancel: () => void;
 }
 
+/** Confirmation avant `POST /api/profile`. */
 export default function ConfirmProfilUpdateModal({
   requiresCurrentPassword,
   isSubmitting,

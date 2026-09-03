@@ -3,6 +3,9 @@
 import { BinIcon, ModifyIcon } from "@/components/ui/icons";
 import type { AiGeneratedTask } from "@/schemas/ai-generated-task-schema";
 
+/**
+ * Brouillon de tâche généré par l’IA, avant acceptation / édition.
+ */
 export default function AiTaskDraftCard({
   task,
   onDelete,

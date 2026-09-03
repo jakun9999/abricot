@@ -11,6 +11,7 @@ import ModalOverlay, {
 import ModalCloseButton from "@/components/ui/modals/modal-close-button";
 import { useRouter } from "next/navigation";
 
+/** Modale de création de projet. */
 export default function NewProjectModal({
   onClose,
 }: {

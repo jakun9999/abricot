@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+/**
+ * Garde les pages métier derrière le cookie `token`, et renvoie un utilisateur
+ * déjà connecté hors de `/login` et `/signin`. Les 404 hors matcher restent
+ * publiques (la page 404 décide elle-même d’afficher le chrome).
+ */
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const { pathname } = request.nextUrl;
 
-  // We check next route if it's a protected route
   const protectedPrefixes = ["/dashboard", "/projects", "/account"];
   const isProtectedRoute = protectedPrefixes.some((prefix) =>
     pathname.startsWith(prefix),
@@ -26,7 +30,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Configured protected route handled by next JS
 export const config = {
   matcher: [
     "/dashboard/:path*",

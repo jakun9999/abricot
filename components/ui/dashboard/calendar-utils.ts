@@ -1,5 +1,9 @@
+/** Vue calendrier (query `?view=`). */
 export type CalendarView = "day" | "week" | "month";
 
+/**
+ * Parse `?view=`. Toute valeur inconnue retombe sur `month` (vue Figma par défaut).
+ */
 export const parseCalendarView = (value?: string): CalendarView => {
   if (value === "day" || value === "week" || value === "month") {
     return value;
@@ -7,6 +11,10 @@ export const parseCalendarView = (value?: string): CalendarView => {
   return "month";
 };
 
+/**
+ * Sérialise une date locale en `YYYY-MM-DD` (pas `toISOString()`, qui est UTC
+ * et décale le jour en France).
+ */
 export const formatDateKey = (date: Date) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -14,6 +22,10 @@ export const formatDateKey = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
+/**
+ * Parse `YYYY-MM-DD` en date locale. Construit avec `new Date(y, m-1, d)`
+ * (pas `new Date("YYYY-MM-DD")`, interprété UTC).
+ */
 export const parseDateKey = (value?: string, fallback = new Date()) => {
   if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
     const [year, month, day] = value.split("-").map(Number);
@@ -57,6 +69,7 @@ export const addMonths = (date: Date, amount: number) => {
   return next;
 };
 
+/** Lundi de la semaine (JS : dimanche = 0). */
 export const startOfWeek = (date: Date) => {
   const firstWeekDay = (date.getDay() + 6) % 7;
   return addDays(date, -firstWeekDay);
@@ -67,6 +80,7 @@ export const getWeekDays = (date: Date) => {
   return Array.from({ length: 7 }, (_, index) => addDays(start, index));
 };
 
+/** Grille 6×7 (42 jours) pour afficher un mois type calendrier mural. */
 export const getMonthGrid = (monthDate: Date) => {
   const firstDayOfMonth = new Date(
     monthDate.getFullYear(),

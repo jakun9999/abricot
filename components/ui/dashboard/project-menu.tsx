@@ -8,6 +8,10 @@ export interface ProjectMenuProps {
   className?: string;
 }
 
+/**
+ * Vues Liste / Calendrier d’un projet. Les query `view` et `date` sont retirées
+ * du lien Liste : elles n’ont de sens que sur le calendrier.
+ */
 export default function ProjectMenu({
   className = "",
   projectId,

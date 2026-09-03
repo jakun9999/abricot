@@ -13,6 +13,7 @@ import ModalOverlay, {
 import ModalCloseButton from "@/components/ui/modals/modal-close-button";
 import { useRouter } from "next/navigation";
 
+/** Modale de création de tâche (POST `/api/tasks`). */
 export default function NewTaskModal({
   projectId,
   onClose,

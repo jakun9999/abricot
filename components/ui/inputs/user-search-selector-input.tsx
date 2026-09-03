@@ -4,15 +4,25 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { BottomarrowIcon, CheckedboxIcon } from "@/components/ui/icons";
 import { User } from "@/schemas/user-schema";
 
-interface UserSearchSelectorInputProps {
+export interface UserSearchSelectorInputProps {
   label?: string;
   width?: string;
+  /** Emails des contributeurs déjà choisis. */
   value?: string[];
   onChange?: (selectedEmails: string[]) => void;
   placeholder?: string;
   className?: string;
 }
 
+/**
+ * Recherche d’utilisateurs par nom/email pour les ajouter comme contributeurs
+ * d’un projet. La recherche API ne part qu’à partir de 2 caractères.
+ *
+ * @example
+ * ```tsx
+ * <UserSearchSelectorInput value={emails} onChange={setEmails} />
+ * ```
+ */
 export default function UserSearchSelectorInput({
   label = "Contributeurs",
   width = "w-[220px]",

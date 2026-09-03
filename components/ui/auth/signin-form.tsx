@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth-context";
 import { SigninSchema } from "@/schemas/signin-schema";
 
+/** Inscription. Validation Zod côté client avant `POST /api/signin`. */
 export default function SigninForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

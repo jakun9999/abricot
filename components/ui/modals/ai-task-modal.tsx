@@ -21,6 +21,10 @@ import { Task } from "@/schemas/task-schema";
 
 type DraftTask = AiGeneratedTask & { localId: string };
 
+/**
+ * Génération IA de tâches. Deux états Figma : prompt vide, puis liste de
+ * brouillons. `localId` sert de clé React (le LLM ne fournit pas d’id).
+ */
 export default function AiTaskModal({
   projectId,
   onClose,

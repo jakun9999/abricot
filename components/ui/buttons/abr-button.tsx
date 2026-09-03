@@ -2,21 +2,22 @@
 
 export interface AbrButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * AbrButton variant colors
-   * - `black` : default button mode.
-   * - `outline` : White BG and dark orange text and border.
-   * - `disabled` : Disabled button mode.
-   *
+   * Variante visuelle.
+   * - `black` : fond gris foncé, texte blanc (actions principales).
+   * - `outline` : fond blanc, bordure et texte orange.
+   * - `disabled` : conservé pour le typage Storybook ; passer aussi `disabled` HTML.
    */
   color: "black" | "outline" | "disabled";
+  /** Libellé affiché dans le bouton. */
   label: string;
 }
 
 /**
- * Button component for Abricot UI.
+ * Bouton d’action principal d’Abricot (création, soumission, navigation).
+ *
  * @example
  * ```tsx
- * <AbrButton aria-label="Back" color="dark" label="Button"/>
+ * <AbrButton type="button" color="black" label="Créer un projet" />
  * ```
  */
 export default function AbrButton({

@@ -4,19 +4,21 @@ import { StarIcon } from "@/components/ui/icons/star-icon";
 
 export interface AiSquareButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * Button variant colors.
-   * - `dark` : Orange BG with white icon.
-   * - `light` : Light orange BG with dark orange icon.
+   * Variante visuelle.
+   * - `dark` : fond orange, texte et icône blancs.
+   * - `light` : fond orange clair, texte orange.
    */
   color: "dark" | "light";
+  /** Libellé visible (ex. « IA »). */
   label: string;
 }
 
 /**
- * Button component for Abricot UI.
+ * Bouton IA avec icône étoile et libellé. Utilisé sur la fiche projet.
+ *
  * @example
  * ```tsx
- * <AiSquareButton aria-label="Générer avec IA" color="dark" label="IA"/>
+ * <AiSquareButton color="dark" label="IA" onClick={openAiModal} />
  * ```
  */
 export default function AiSquareButton({

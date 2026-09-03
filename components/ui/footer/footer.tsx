@@ -1,5 +1,6 @@
 import { AbricotIcon } from "@/components/ui/icons";
 
+/** Pied de page : logo décoratif + millésime. */
 export default function Footer() {
   return (
     <footer className="flex items-center justify-between h-17 mx-0 w-full max-w-360 px-4 lg:px-7.5 text-black">

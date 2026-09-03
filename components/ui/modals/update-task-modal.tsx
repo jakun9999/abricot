@@ -14,6 +14,7 @@ import ModalOverlay, {
 import ModalCloseButton from "@/components/ui/modals/modal-close-button";
 import { useRouter } from "next/navigation";
 
+/** Modale d’édition de tâche (PUT `/api/projects/:id/tasks/:taskId`). */
 export default function UpdateTaskModal({
   task,
   projectId,

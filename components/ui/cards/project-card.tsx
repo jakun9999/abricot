@@ -4,12 +4,22 @@ import { GroupIcon } from "@/components/ui/icons";
 import { Project } from "@/schemas/project-schema";
 import { getUserInitials } from "@/lib/utils";
 
-interface ProjectCardProps {
+export interface ProjectCardProps {
   project: Project;
+  /** Nombre de tâches prises en compte dans la jauge (terminées + actives). */
   totalTasks: number;
   finishedTasks: number;
 }
 
+/**
+ * Carte projet (liste). Hauteur fixe Figma `h-87.75` : la description est
+ * clampée à 2 lignes (`min-h-[2lh]`) pour aligner les cartes en grille.
+ *
+ * @example
+ * ```tsx
+ * <ProjectCard project={project} totalTasks={10} finishedTasks={3} />
+ * ```
+ */
 export default function ProjectCard({
   project,
   totalTasks,
@@ -24,20 +34,17 @@ export default function ProjectCard({
 
   return (
     <div className="w-full max-w-95 h-87.75 flex flex-col bg-white rounded-[10px] border border-abr-grey-200 gap-14 px-8.5 py-7.5">
-      {/* Project info */}
       <div className="shrink-0">
         <h5 className="line-clamp-1">{project.name}</h5>
         <p className="text-body-s text-abr-grey-600 line-clamp-2 min-h-[2lh]">
           {project.description}
         </p>
       </div>
-      {/* Progression */}
       <div className="shrink-0">
         <div className="flex justify-between mb-4 items-center">
           <span className="text-abr-grey-600 text-body-xs">Progression</span>
           <span className="text-abr-grey-800 text-body-xs">{progression}%</span>
         </div>
-        {/* Progress bar */}
         <div
           className="max-w-78 h-1.75 bg-abr-grey-200 rounded-[40px]"
           role="progressbar"
@@ -55,7 +62,6 @@ export default function ProjectCard({
           {finishedTasks}/{totalTasks} tâches terminées
         </p>
       </div>
-      {/* Team info */}
       <div className="flex shrink-0 flex-col gap-4">
         <div className="flex items-center gap-2 text-abr-grey-600">
           <GroupIcon className="w-[11.58px] h-2.75" aria-hidden="true" />

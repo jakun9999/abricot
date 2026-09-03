@@ -4,19 +4,20 @@ import StarIcon from "@/components/ui/icons/star-icon";
 
 export interface AiButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * Button variant colors.
-   * - `dark` : Orange BG with white icon.
-   * - `light` : Light orange BG with dark orange icon.
+   * Variante visuelle.
+   * - `dark` : fond orange, icône blanche.
+   * - `light` : fond orange clair, icône orange.
    */
   color: "dark" | "light";
 }
 
 /**
- * Circular IA action button (40x40px) containing a star icon.
+ * Bouton circulaire (40×40) pour lancer une action IA. Sans texte visible :
+ * fournir `aria-label` ou laisser le libellé par défaut « Générer avec l'IA ».
  *
  * @example
  * ```tsx
- * <AiButton aria-label="Generate with AI" color="dark" onClick="{handleAiAction}"/>
+ * <AiButton color="dark" aria-label="Générer des tâches" onClick={handleGenerate} />
  * ```
  */
 export default function AiButton({

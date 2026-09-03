@@ -13,6 +13,10 @@ import { z } from "zod";
 
 type ProfileFormData = z.infer<typeof UpdateProfileSchema>;
 
+/**
+ * Formulaire compte. La soumission n’envoie pas tout de suite : une modale
+ * demande confirmation (et le mot de passe actuel si on change le MDP).
+ */
 export default function AccountForm() {
   const { user, setUser } = useAuth();
   const router = useRouter();
@@ -58,8 +62,6 @@ export default function AccountForm() {
     setSubmitError(null);
 
     try {
-      // Only include password fields when the user actually enters a new password.
-      // This prevents stale values from being submitted and keeps the form clean after a successful update.
       const response = await fetch("/api/profile", {
         method: "POST",
         credentials: "include",
@@ -67,6 +69,7 @@ export default function AccountForm() {
         body: JSON.stringify({
           name: pendingData.name,
           email: pendingData.email,
+          // Ne pas envoyer les MDP si le champ est vide : le backend prendrait ça pour un changement.
           ...(passwordChanged
             ? {
                 currentPassword: currentPasswordInput,
@@ -84,7 +87,6 @@ export default function AccountForm() {
 
       setUser(result.user);
 
-      // Clear the password field after a successful update so the user cannot accidentally resend an old value.
       reset({
         name: result.user.name,
         email: result.user.email,
@@ -105,7 +107,6 @@ export default function AccountForm() {
   const handleCancel = () => {
     if (isSubmitting) return;
 
-    // Keep the form state consistent when the user cancels the confirmation dialog.
     reset({
       name: user?.name ?? "",
       email: user?.email ?? "",

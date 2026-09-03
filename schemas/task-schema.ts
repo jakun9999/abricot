@@ -1,8 +1,8 @@
-// @/schemas/task.ts
 import { z } from "zod";
 import { TaskAssigneeSchema } from "@/schemas/task-assignee-schema";
 import { CommentSchema } from "@/schemas/comment-schema";
 
+/** Tâche telle que renvoyée / attendue par l’API backend. */
 export const TaskSchema = z.object({
   id: z.string().optional(),
   title: z.string(),

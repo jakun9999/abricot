@@ -9,6 +9,10 @@ import { AbricotIcon, UserIcon } from "../icons";
 import { useAuth } from "@/context/auth-context";
 import { getUserInitials } from "@/lib/utils";
 
+/**
+ * Header applicatif. Burger uniquement sous `md` (les MenuItem Figma sont trop
+ * larges pour tenir à trois sur mobile).
+ */
 export default function Header() {
   const pathName = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

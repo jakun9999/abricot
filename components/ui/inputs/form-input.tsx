@@ -1,26 +1,32 @@
 "use client";
 
 export interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  /**
-   * StdInput variant colors.
-   * - `dark` : Orange Dark BG with white text.
-   * - `light` : Light orange BG with black text.
-   */
+  /** `id` HTML, relié au `<label htmlFor>`. Doit être unique dans la page. */
   inputId: string;
-  mandatory?: true | false;
+  /** Affiche un astérisque visuel et `aria-required`. */
+  mandatory?: boolean;
+  /** Type HTML de l’input. `selector` et `date` sont hérités ; préférer les composants dédiés. */
   inputType: "text" | "password" | "email" | "number" | "date" | "selector";
+  /** Libellé visible au-dessus du champ. */
   label: string;
+  /** Placeholder (contraste volontairement faible : maquette). */
   placeHolder?: string;
+  /** Classe Tailwind de largeur du champ (défaut `w-[280px]`). */
   inputWidth?: string;
-  // selectorOptions?: SelectorOption | string[];
 }
 
 /**
- * Component providing ready to use combo of label + input
- * with either a text/password/number input or date picker or selector
+ * Couple label + champ texte. `className` s’applique à l’`<input>`, pas au wrapper.
+ *
  * @example
  * ```tsx
- * <FormInput aria-label="Input for yyz" label="Password" inputType="password" mandatory=true/>
+ * <FormInput
+ *   inputId="email"
+ *   label="Email"
+ *   inputType="email"
+ *   mandatory
+ *   autoComplete="email"
+ * />
  * ```
  */
 export default function FormInput({
@@ -35,7 +41,6 @@ export default function FormInput({
   className = "",
   ...props
 }: FormInputProps) {
-  // Generic css classes to include whatever the input type
   const baseLabelCss = "text-body-s text-black";
   const baseInputCss = `flex items-center justify-start h-[53px] ${inputWidth} max-w-full
     px-[17px] bg-white border rounded-[4px] border-abr-grey-200 text-body-s 

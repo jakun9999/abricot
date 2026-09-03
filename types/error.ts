@@ -1,17 +1,13 @@
-/** Represent an error coming from an exchange
- *  with backend API
+/**
+ * Corps d’erreur renvoyé par le backend OpenClassrooms (`dev-react-P10`).
+ * `success` est toujours `false` côté API d’erreur, mais le champ existe.
  */
-
 export interface Error {
-  /** Boolean status for the error */
   success: boolean;
-
-  /** Texte message for the error */
+  /** Message affichable. */
   message: string;
-
-  /** Error code */
+  /** Code machine (ex. nom d’exception). */
   error: string;
-
-  /** Additionnal messages */
+  /** Détails par champ (validation). */
   details: [{ field: string; message: string }];
 }

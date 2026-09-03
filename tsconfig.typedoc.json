@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "plugins": [],
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": [
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "hooks/**/*.ts",
+    "lib/**/*.ts",
+    "schemas/**/*.ts",
+    "types/**/*.ts",
+    "context/**/*.ts",
+    "context/**/*.tsx",
+    "middleware.ts",
+    "app/api/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "app/test",
+    "components/ui/cards/task-simple.tsx"
+  ]
+}

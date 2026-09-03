@@ -11,6 +11,12 @@ const FOCUSABLE_SELECTOR = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(", ");
 
+/**
+ * Piège le Tab dans un conteneur (modale) et restaure le focus à la fermeture.
+ *
+ * @param containerRef - Élément racine (overlay). Doit pouvoir recevoir le focus (`tabIndex={-1}`).
+ * @param enabled - Désactiver le piège sans démonter (défaut `true`).
+ */
 export function useFocusTrap(
   containerRef: RefObject<HTMLElement | null>,
   enabled = true,

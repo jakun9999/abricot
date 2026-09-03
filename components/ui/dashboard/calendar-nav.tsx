@@ -10,6 +10,9 @@ import {
   shiftCalendarDate,
 } from "@/components/ui/dashboard/calendar-utils";
 
+/**
+ * Période précédente/suivante + bascule Jour/Semaine/Mois via `?view=` et `?date=`.
+ */
 export default function CalendarNav({
   view,
   date,

@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-// What is awaited when sending login data
-// to our /api/login route.
+/** Corps de `POST /api/login` (email + mot de passe non vide). */
 export const LoginSchema = z.object({
   email: z.email("Email format is incorrect"),
   password: z
