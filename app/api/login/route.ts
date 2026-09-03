@@ -3,6 +3,12 @@ import { cookies } from "next/headers";
 import { UserSchema } from "@/schemas/user-schema";
 import { LoginSchema } from "@/schemas/login-schema";
 import { z } from "zod";
+import { encodeUserDataCookie, SESSION_MAX_AGE_SECONDS } from "@/lib/api-server";
+import {
+  RATE_LIMITS,
+  enforceRateLimit,
+  getClientIp,
+} from "@/lib/rate-limit";
 
 /**
  * Authentifie via le backend, pose `token` (HttpOnly) et `user_data` (lisible
@@ -11,6 +17,13 @@ import { z } from "zod";
  */
 export async function POST(request: Request) {
   try {
+    const limited = enforceRateLimit(
+      `login:${getClientIp(request)}`,
+      RATE_LIMITS.login,
+      "tentatives de connexion",
+    );
+    if (limited) return limited;
+
     const body = await request.json();
 
     const authDataValidation = LoginSchema.safeParse(body);
@@ -45,7 +58,7 @@ export async function POST(request: Request) {
     const userValidation = UserSchema.safeParse(result.data.user);
 
     if (!userValidation.success) {
-      console.log(userValidation.error);
+      console.error("Login: profil utilisateur backend invalide");
       return NextResponse.json(
         { message: "User profil structure sent by backend are invalid" },
         { status: 502 },
@@ -62,15 +75,15 @@ export async function POST(request: Request) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60,
+      maxAge: SESSION_MAX_AGE_SECONDS,
       path: "/",
     });
 
-    cookieStore.set("user_data", JSON.stringify(result.data.user), {
+    cookieStore.set("user_data", encodeUserDataCookie(safeUser), {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60,
+      maxAge: SESSION_MAX_AGE_SECONDS,
       path: "/",
     });
 

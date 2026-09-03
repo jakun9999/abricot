@@ -120,6 +120,7 @@ export default function Comments({
               }}
               placeholder="Ajouter un commentaire..."
               aria-label="Ajouter un commentaire"
+              maxLength={2000}
               className="w-full resize-none text-body-xs text-gray-800 placeholder-gray-400 focus:outline-none"
               disabled={isSubmitting}
             />

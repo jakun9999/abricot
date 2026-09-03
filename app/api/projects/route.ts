@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { fetchServer } from "@/lib/api-server";
+import { fetchServer, requireApiSession } from "@/lib/api-server";
+import { fetchSessionUser, isProjectParticipant } from "@/lib/project-access";
 import { Project } from "@/schemas/project-schema";
 
 const ProjectCreateSchema = z
@@ -16,6 +17,9 @@ const ProjectCreateSchema = z
 
 export async function GET() {
   try {
+    const session = await requireApiSession();
+    if (session.response) return session.response;
+
     const response = await fetchServer(`/projects`);
     const payload = await response.json().catch(() => null);
 
@@ -33,9 +37,14 @@ export async function GET() {
     const projects: Project[] =
       payload?.data?.projects ?? payload?.projects ?? [];
 
+    const user = await fetchSessionUser();
+    const visibleProjects = user
+      ? projects.filter((project) => isProjectParticipant(project, user.id))
+      : [];
+
     return NextResponse.json({
       success: true,
-      projects,
+      projects: visibleProjects,
     });
   } catch (error) {
     console.error("Error fetching projects list", error);
@@ -51,6 +60,9 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const session = await requireApiSession();
+    if (session.response) return session.response;
+
     const body = await request.json();
 
     const validation = ProjectCreateSchema.safeParse(body);

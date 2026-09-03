@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { fetchServer } from "@/lib/api-server";
-import { Project } from "@/schemas/project-schema";
+import { requireApiSession } from "@/lib/api-server";
+import { loadAccessibleProject, projectAccessDenied } from "@/lib/project-access";
 import { ProjectMember } from "@/schemas/project-member-schema";
 
 export async function GET(
@@ -8,34 +8,14 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const session = await requireApiSession();
+    if (session.response) return session.response;
+
     const { id } = await params;
+    const access = await loadAccessibleProject(id);
+    if (!access.ok) return projectAccessDenied(access);
 
-    const response = await fetchServer(`/projects/${id}`);
-    const payload = await response.json().catch(() => null);
-
-    if (!response.ok) {
-      return NextResponse.json(
-        {
-          success: false,
-          message:
-            payload?.message ??
-            "Impossible de récupérer les membres du projet.",
-        },
-        { status: response.status },
-      );
-    }
-
-    const project: Project | null =
-      payload?.data?.project ?? payload?.project ?? null;
-    if (!project) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Projet introuvable.",
-        },
-        { status: 404 },
-      );
-    }
+    const project = access.project;
 
     const members = [
       ...(project.owner

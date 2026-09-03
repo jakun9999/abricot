@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { fetchServer } from "@/lib/api-server";
-import { User, UserSchema } from "@/schemas/user-schema";
+import { fetchServer, requireApiSession } from "@/lib/api-server";
+import { UserSchema } from "@/schemas/user-schema";
 
 export async function GET(request: Request) {
   try {
+    const session = await requireApiSession();
+    if (session.response) return session.response;
+
     const { searchParams } = new URL(request.url);
     const query = (searchParams.get("query") ?? "").trim();
 
@@ -32,9 +35,6 @@ export async function GET(request: Request) {
     }
 
     const users = payload?.data?.users ?? payload?.users ?? [];
-    users.map((user: User) => {
-      console.log("user", user);
-    });
     const parsedUsers = z.array(UserSchema).safeParse(users);
 
     if (!parsedUsers.success) {

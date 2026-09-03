@@ -5,6 +5,7 @@ import TaskLong from "@/components/ui/cards/task-long";
 import { Task } from "@/schemas/task-schema";
 import { Project } from "@/schemas/project-schema";
 import { fetchServer } from "@/lib/api-server";
+import { fetchSessionUser, isProjectParticipant } from "@/lib/project-access";
 
 export const metadata: Metadata = {
   title: "Tableau de bord",
@@ -30,7 +31,10 @@ export default async function Kanban() {
   }
 
   const projectRes = await projectsResponse.json();
-  const projects: Project[] = projectRes.data.projects;
+  const user = await fetchSessionUser();
+  const projects: Project[] = (projectRes.data.projects ?? []).filter(
+    (project: Project) => user && isProjectParticipant(project, user.id),
+  );
 
   const projectMap = new Map<string, string>(
     projects
@@ -40,7 +44,9 @@ export default async function Kanban() {
       .map((project) => [project.id, project.name] as const),
   );
   const taskRes = await tasksResponse.json();
-  const tasks: Task[] = taskRes.data.tasks;
+  const tasks: Task[] = (taskRes.data.tasks ?? []).filter((task: Task) =>
+    projectMap.has(task.projectId),
+  );
 
   const PRIORITY_ORDER: Record<Task["priority"], number> = {
     LOW: 3,

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { fetchServer } from "@/lib/api-server";
+import { fetchServer, requireApiSession } from "@/lib/api-server";
+import { loadAccessibleProject, projectAccessDenied } from "@/lib/project-access";
 import { Task } from "@/schemas/task-schema";
 
 /** `priority` peut arriver en `""` depuis le select : Zod le convertit en `undefined`. */
@@ -23,6 +24,9 @@ const TaskCreateSchema = z
 
 export async function POST(request: Request) {
   try {
+    const session = await requireApiSession();
+    if (session.response) return session.response;
+
     const body = await request.json();
 
     const validation = TaskCreateSchema.safeParse(body);
@@ -41,6 +45,10 @@ export async function POST(request: Request) {
 
     const { projectId, title, description, priority, dueDate, assigneeIds } =
       validation.data;
+
+    const access = await loadAccessibleProject(projectId);
+    if (!access.ok) return projectAccessDenied(access);
+
     const payload = {
       title,
       description,

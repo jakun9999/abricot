@@ -1,5 +1,4 @@
 import React from "react";
-import { Project } from "@/schemas/project-schema";
 import NewTaskButton from "@/components/ui/buttons/new-task-button";
 import AiTaskButton from "@/components/ui/buttons/ai-task-button";
 import { getUserInitials } from "@/lib/utils";
@@ -8,7 +7,7 @@ import { BackarrowIcon } from "@/components/ui/icons";
 import ProjectMenu from "@/components/ui/dashboard/project-menu";
 import SearchInput from "@/components/ui/inputs/search-input";
 import StatusFilterInput from "@/components/ui/inputs/status-filter-input";
-import { fetchServer } from "@/lib/api-server";
+import { loadAccessibleProject } from "@/lib/project-access";
 import UpdateProjectButton from "@/components/ui/buttons/update-project-button";
 
 interface LayoutProps {
@@ -21,17 +20,18 @@ interface LayoutProps {
 export default async function ProjectLayout({ children, params }: LayoutProps) {
   const { id } = await params;
 
-  const projectResponse = await fetchServer(`/projects/${id}`);
-  if (!projectResponse.ok) {
+  const access = await loadAccessibleProject(id);
+  if (!access.ok) {
     return (
-      <div className="p-10 text-center text-red-500">
-        Une erreur est survenue lors du chargement du projet.
+      <div className="p-10 text-center text-abr-error-red">
+        {access.status === 403
+          ? "Vous n’avez pas accès à ce projet."
+          : "Une erreur est survenue lors du chargement du projet."}
       </div>
     );
   }
 
-  const projectRes = await projectResponse.json();
-  const project: Project = projectRes.data.project;
+  const project = access.project;
 
   const nonOwnerMembers = project.members.filter(
     (member) => member.user.name !== project.owner.name,

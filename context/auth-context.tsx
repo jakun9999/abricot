@@ -39,8 +39,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsReady(true);
   }, []);
 
+  /** Efface les cookies de session via `POST /api/logout`, puis redirige vers `/login`. */
   const logout = async () => {
-    await fetch("/api/logout", { method: "POST" });
+    await fetch("/api/logout", { method: "POST", credentials: "include" });
     setUser(null);
     window.location.href = "/login";
   };

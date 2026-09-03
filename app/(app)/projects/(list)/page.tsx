@@ -3,6 +3,7 @@ import ProjectCard from "@/components/ui/cards/project-card";
 import { Project } from "@/schemas/project-schema";
 import { Task } from "@/schemas/task-schema";
 import { fetchServer } from "@/lib/api-server";
+import { fetchSessionUser, isProjectParticipant } from "@/lib/project-access";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -12,7 +13,6 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const projectsResponse = await fetchServer("/projects");
-  console.log("projectsResponse", projectsResponse);
 
   if (!projectsResponse.ok) {
     return (
@@ -23,8 +23,11 @@ export default async function Page() {
   }
 
   const projectRes = await projectsResponse.json();
-  console.log("projectRes", projectRes);
-  const projects: Project[] = projectRes.data.projects;
+  const allProjects: Project[] = projectRes.data.projects ?? [];
+  const user = await fetchSessionUser();
+  const projects = user
+    ? allProjects.filter((project) => isProjectParticipant(project, user.id))
+    : [];
 
   const projectsWithStats = await Promise.all(
     projects.map(async (project) => {

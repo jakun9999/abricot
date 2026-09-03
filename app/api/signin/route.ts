@@ -3,10 +3,23 @@ import { cookies } from "next/headers";
 import { UserSchema } from "@/schemas/user-schema";
 import { SigninSchema } from "@/schemas/signin-schema";
 import { z } from "zod";
+import { encodeUserDataCookie, SESSION_MAX_AGE_SECONDS } from "@/lib/api-server";
+import {
+  RATE_LIMITS,
+  enforceRateLimit,
+  getClientIp,
+} from "@/lib/rate-limit";
 
 /** Inscription : pose les mêmes cookies que `POST /api/login`. */
 export async function POST(request: Request) {
   try {
+    const limited = enforceRateLimit(
+      `signin:${getClientIp(request)}`,
+      RATE_LIMITS.signin,
+      "tentatives d’inscription",
+    );
+    if (limited) return limited;
+
     const body = await request.json();
     const authDataValidation = SigninSchema.safeParse(body);
 
@@ -77,15 +90,15 @@ export async function POST(request: Request) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60,
+      maxAge: SESSION_MAX_AGE_SECONDS,
       path: "/",
     });
 
-    cookieStore.set("user_data", JSON.stringify(safeUser), {
+    cookieStore.set("user_data", encodeUserDataCookie(safeUser), {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60,
+      maxAge: SESSION_MAX_AGE_SECONDS,
       path: "/",
     });
 

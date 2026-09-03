@@ -18,7 +18,7 @@ type ProfileFormData = z.infer<typeof UpdateProfileSchema>;
  * demande confirmation (et le mot de passe actuel si on change le MDP).
  */
 export default function AccountForm() {
-  const { user, setUser } = useAuth();
+  const { user, setUser, logout } = useAuth();
   const router = useRouter();
 
   const [pendingData, setPendingData] = useState<ProfileFormData | null>(null);
@@ -171,13 +171,22 @@ export default function AccountForm() {
           )}
         </div>
 
-        <AbrButton
-          type="submit"
-          label="Modifier les informations"
-          color="black"
-          className="w-60.5 max-w-full"
-          disabled={isSubmitDisabled}
-        />
+        <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+          <AbrButton
+            type="submit"
+            label="Modifier les informations"
+            color="black"
+            className="w-60.5 max-w-full"
+            disabled={isSubmitDisabled}
+          />
+          <AbrButton
+            type="button"
+            label="Déconnexion"
+            color="outline"
+            className="w-60.5 max-w-full"
+            onClick={() => void logout()}
+          />
+        </div>
       </form>
 
       {pendingData && (

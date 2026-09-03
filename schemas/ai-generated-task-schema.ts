@@ -1,12 +1,7 @@
 import { z } from "zod";
 import { TaskSchema } from "@/schemas/task-schema";
 
-const taskCreateFields = TaskSchema.pick({
-  title: true,
-  description: true,
-  priority: true,
-  dueDate: true,
-});
+const taskPriority = TaskSchema.shape.priority;
 
 /**
  * Sous-ensemble du schéma tâche utilisé pour la génération LLM.
@@ -14,14 +9,14 @@ const taskCreateFields = TaskSchema.pick({
  * (assignees, comments, status) sont renseignés à la création.
  */
 export const AiGeneratedTaskSchema = z.object({
-  title: taskCreateFields.shape.title,
-  description: z.string(),
-  priority: taskCreateFields.shape.priority,
+  title: z.string().trim().min(1).max(200),
+  description: z.string().max(2000),
+  priority: taskPriority,
   dueDate: z.string(),
 });
 
 export const AiGeneratedTasksResponseSchema = z.object({
-  tasks: z.array(AiGeneratedTaskSchema),
+  tasks: z.array(AiGeneratedTaskSchema).min(1).max(8),
 });
 
 export type AiGeneratedTask = z.infer<typeof AiGeneratedTaskSchema>;

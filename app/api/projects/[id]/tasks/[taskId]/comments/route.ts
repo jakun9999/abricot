@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { fetchServer } from "@/lib/api-server";
+import { fetchServer, requireApiSession } from "@/lib/api-server";
+import { loadAccessibleProject, projectAccessDenied } from "@/lib/project-access";
 import { Comment } from "@/schemas/comment-schema";
 
 interface RouteProps {
@@ -11,12 +12,22 @@ interface RouteProps {
 }
 
 const CommentCreateSchema = z.object({
-  content: z.string().min(1, "Le contenu du commentaire est requis."),
+  content: z
+    .string()
+    .trim()
+    .min(1, "Le contenu du commentaire est requis.")
+    .max(2000, "Le commentaire est trop long."),
 });
 
 export async function POST(request: Request, { params }: RouteProps) {
   try {
+    const session = await requireApiSession();
+    if (session.response) return session.response;
+
     const { id, taskId } = await params;
+    const access = await loadAccessibleProject(id);
+    if (!access.ok) return projectAccessDenied(access);
+
     const body = await request.json();
 
     const validation = CommentCreateSchema.safeParse(body);

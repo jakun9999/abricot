@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { UpdateProfilePayloadSchema } from "@/schemas/update-profile-schema";
 import { UserSchema } from "@/schemas/user-schema";
+import { encodeUserDataCookie, requireApiSession, SESSION_MAX_AGE_SECONDS } from "@/lib/api-server";
 
 const API_URL = process.env.API_URL_INTERNAL;
 
@@ -12,6 +13,9 @@ const API_URL = process.env.API_URL_INTERNAL;
  */
 export async function POST(request: NextRequest) {
   try {
+    const session = await requireApiSession();
+    if (session.response) return session.response;
+
     const body = await request.json();
 
     const validation = UpdateProfilePayloadSchema.safeParse(body);
@@ -28,14 +32,7 @@ export async function POST(request: NextRequest) {
     const { name, email, currentPassword, newPassword } = validation.data;
 
     const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) {
-      return NextResponse.json(
-        { success: false, message: "Non authentifié" },
-        { status: 401 },
-      );
-    }
+    const token = session.token;
 
     const authHeaders = {
       "Content-Type": "application/json",
@@ -78,11 +75,11 @@ export async function POST(request: NextRequest) {
 
     const updatedUser = userValidation.data;
 
-    cookieStore.set("user_data", JSON.stringify(updatedUser), {
+    cookieStore.set("user_data", encodeUserDataCookie(updatedUser), {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 7 * 24 * 60 * 60,
+      sameSite: "strict",
+      maxAge: SESSION_MAX_AGE_SECONDS,
       path: "/",
     });
 

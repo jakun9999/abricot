@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { fetchServer } from "@/lib/api-server";
+import { fetchServer, requireApiSession } from "@/lib/api-server";
+import {
+  canManageProject,
+  loadAccessibleProject,
+  projectAccessDenied,
+} from "@/lib/project-access";
 
 interface RouteProps {
   params: Promise<{
@@ -20,10 +25,24 @@ const ProjectCreateSchema = z
 
 export async function POST(request: Request, { params }: RouteProps) {
   try {
-    const body = await request.json();
+    const session = await requireApiSession();
+    if (session.response) return session.response;
+
     const { id } = await params;
-    console.log(body);
-    console.log(id);
+    const access = await loadAccessibleProject(id);
+    if (!access.ok) return projectAccessDenied(access);
+
+    if (!canManageProject(access.project, access.user.id)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Seuls le propriétaire ou un admin peuvent modifier le projet.",
+        },
+        { status: 403 },
+      );
+    }
+
+    const body = await request.json();
 
     const validation = ProjectCreateSchema.safeParse(body);
 
