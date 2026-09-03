@@ -1,6 +1,6 @@
 import { Task } from "@/schemas/task-schema";
-import TaskDetailed from "@/components/ui/cards/task-detailed";
 import { fetchServer } from "@/lib/api-server";
+import ProjectCalendar from "@/components/ui/dashboard/project-calendar";
 
 interface PageProps {
   params: Promise<{
@@ -9,12 +9,14 @@ interface PageProps {
   searchParams: Promise<{
     search?: string;
     status?: string;
+    view?: string;
+    date?: string;
   }>;
 }
 
-export default async function Page({ params, searchParams }: PageProps) {
+export default async function CalendarPage({ params, searchParams }: PageProps) {
   const { id } = await params;
-  const { search, status } = await searchParams;
+  const { search, status, view, date } = await searchParams;
   const searchQuery = search?.toLowerCase() ?? "";
   const statusQuery = status ?? "";
 
@@ -54,19 +56,28 @@ export default async function Page({ params, searchParams }: PageProps) {
     );
   });
 
+  if (tasks.length === 0) {
+    return (
+      <p className="mt-10.25 text-abr-grey-600">Aucune tâche sur ce projet.</p>
+    );
+  }
+
+  if (filteredTasks.length === 0) {
+    return (
+      <p className="mt-10.25 text-abr-grey-600">
+        Aucune tâche ne correspond à votre recherche.
+      </p>
+    );
+  }
+
   return (
-    <div className="flex flex-col mt-10.25 gap-4.25 lg:px-10">
-      {tasks.length === 0 ? (
-        <p className="text-abr-grey-600">Aucune tâche sur ce projet.</p>
-      ) : filteredTasks.length === 0 ? (
-        <p className="text-abr-grey-600">
-          Aucune tâche ne correspond à votre recherche.
-        </p>
-      ) : (
-        filteredTasks.map((task) => (
-          <TaskDetailed key={task.id} task={task} projectId={id} />
-        ))
-      )}
-    </div>
+    <ProjectCalendar
+      projectId={id}
+      tasks={filteredTasks}
+      view={view}
+      date={date}
+      search={search}
+      status={status}
+    />
   );
 }
