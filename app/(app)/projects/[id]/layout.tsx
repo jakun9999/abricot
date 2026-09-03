@@ -98,7 +98,7 @@ export default async function ProjectLayout({ children, params }: LayoutProps) {
       <div className="w-full mt-8.5 pl-4 pr-4 lg:pl-28 lg:pr-28.25 box-border mb-[97.85px]">
         <div className="flex flex-col w-full min-h-screen bg-abr-white border border-abr-grey-200 rounded-[10px] px-4 lg:px-14.75 py-10">
           <div className="flex flex-col lg:flex-row w-full gap-4">
-            <div className="w-full flex flex-col md:flex-row gap-4 lg:gap-0 justify-between lg:items-center">
+            <div className="w-full flex flex-col md:flex-row gap-4 lg:gap-0 justify-between lg:items-center lg:flex-1 lg:min-w-0">
               <div className="flex flex-col gap-2">
                 <h5 className="text-abr-grey-800">Tâches</h5>
                 <p className="text-abr-grey-600 text-body-m">
@@ -109,10 +109,12 @@ export default async function ProjectLayout({ children, params }: LayoutProps) {
                 <ProjectMenu projectId={id} />
               </div>
             </div>
-            <div className="flex flex-col md:flex-row lg:items-center gap-4 min-w-0 w-full lg:w-auto">
-              <StatusFilterInput width={171.75} />
+            <div className="flex flex-col md:flex-row lg:items-center gap-4 w-full lg:w-auto lg:shrink-0">
+              <div className="w-full md:w-[171.75px] md:shrink-0">
+                <StatusFilterInput width={171.75} />
+              </div>
               <SearchInput
-                width="w-full min-w-0 lg:w-65.75 lg:min-w-50"
+                width="w-full lg:w-65.75 lg:shrink-0"
                 placeHolder="Rechercher un tâche"
               />
             </div>
