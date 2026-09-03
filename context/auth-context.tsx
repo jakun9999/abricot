@@ -7,12 +7,14 @@ interface AuthContextType {
   user: User | null;
   setUser: (user: User | null) => void;
   logout: () => void;
+  isReady: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isReady, setIsReady] = useState(false);
 
   // When refreshing abricot or when connecting for the first time
   // we check if the local cookie with user profil exists
@@ -31,6 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.error("Error while reading user_data cookie", e);
       }
     }
+    setIsReady(true);
   }, []);
 
   const logout = async () => {
@@ -40,7 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, logout }}>
+    <AuthContext.Provider value={{ user, setUser, logout, isReady }}>
       {children}
     </AuthContext.Provider>
   );
