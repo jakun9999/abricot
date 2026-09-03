@@ -36,19 +36,19 @@ export default function TaskLong({
           {/* Task addition info (project name, date, comments) */}
           <div className="flex flex-wrap items-center gap-3.75 text-abr-grey-600 text-body-xs">
             <p className="flex items-center gap-2">
-              <span className="text-abr-grey-400!">
+              <span className="text-abr-grey-400!" aria-hidden="true">
                 <FolderIcon className="w-4.5 h-3.5" />
               </span>
               {projectName}
             </p>
             <p className="text-abr-grey-600">|</p>
             <p className="flex items-center gap-2">
-              <CalendarIcon className="w-3.75 h-3.5" />
+              <CalendarIcon className="w-3.75 h-3.5" aria-hidden="true" />
               {formatDateShort(task.dueDate)}
             </p>
             <p>|</p>
             <p className="flex items-center gap-2">
-              <MessageIcon className="w-3.75 h-3.75" />
+              <MessageIcon className="w-3.75 h-3.75" aria-hidden="true" />
               {task.comments?.length}
             </p>
           </div>
@@ -65,6 +65,7 @@ export default function TaskLong({
             )}
           </div>
           <AbrButton
+            type="button"
             label="Voir"
             color="black"
             className="w-30.25 h-12.5"

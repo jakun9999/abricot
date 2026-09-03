@@ -13,7 +13,7 @@ export default function LoginForm() {
   const { setUser } = useAuth();
   const router = useRouter();
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
@@ -46,18 +46,15 @@ export default function LoginForm() {
       onSubmit={handleSubmit}
       className="flex flex-col items-center gap-7.25"
     >
-      <h1
-        aria-label="Connexion à votre espace Abricot"
-        className="text-abr-dark-orange"
-      >
-        Connexion
-      </h1>
+      <h1 className="text-abr-dark-orange">Connexion</h1>
       <FormInput
         label="Email"
         inputId="email"
         inputType="email"
         className="w-70.5 max-w-full"
         autoComplete="email"
+        required
+        aria-invalid={error ? true : undefined}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
@@ -67,6 +64,8 @@ export default function LoginForm() {
         inputType="password"
         className="w-70.5 max-w-full"
         autoComplete="current-password"
+        required
+        aria-invalid={error ? true : undefined}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
@@ -76,7 +75,7 @@ export default function LoginForm() {
       >
         {isLoading ? "Connexion..." : "Se connecter"}
       </button>
-      <p className={`${error ? "" : "hidden "}text-body-s text-abr-error-red`}>
+      <p className={`${error ? "" : "hidden "}text-body-s text-abr-error-red`} role="alert">
         {error}
       </p>
     </form>

@@ -56,8 +56,9 @@ export default function ConfirmProfilUpdateModal({
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
+        aria-labelledby="confirm-profile-title"
       >
-        <h2 className="text-body-s text-abr-grey-800 mb-2">
+        <h2 id="confirm-profile-title" className="text-body-s text-abr-grey-800 mb-2">
           Confirmer la mise à jour
         </h2>
         <p className="text-body-xs text-abr-grey-600 mb-4">
@@ -80,6 +81,7 @@ export default function ConfirmProfilUpdateModal({
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               disabled={isSubmitting}
+              aria-invalid={showPasswordError || Boolean(error) || undefined}
               className="w-full border border-abr-grey-300 rounded-[10px] px-3 py-2 text-body-s text-abr-grey-800 placeholder:text-abr-grey-400 focus:outline-none focus:border-abr-dark-orange disabled:opacity-50"
             />
             {showPasswordError && (

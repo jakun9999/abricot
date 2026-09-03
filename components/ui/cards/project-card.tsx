@@ -38,7 +38,14 @@ export default function ProjectCard({
           <span className="text-abr-grey-800 text-body-xs">{progression}%</span>
         </div>
         {/* Progress bar */}
-        <div className="max-w-78 h-1.75 bg-abr-grey-200 rounded-[40px]">
+        <div
+          className="max-w-78 h-1.75 bg-abr-grey-200 rounded-[40px]"
+          role="progressbar"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={progression}
+          aria-label={`Progression du projet : ${progression} %`}
+        >
           <div
             className="bg-abr-grey-400 h-1.75 rounded-[40px]"
             style={{ width: `${progression}%` }}
@@ -51,13 +58,16 @@ export default function ProjectCard({
       {/* Team info */}
       <div className="flex shrink-0 flex-col gap-4">
         <div className="flex items-center gap-2 text-abr-grey-600">
-          <GroupIcon className="w-[11.58px] h-2.75" />
+          <GroupIcon className="w-[11.58px] h-2.75" aria-hidden="true" />
           <span className="text-body-2xs">
             Équipe ({project.members.length + 1})
           </span>
         </div>
         <div className="flex items-center gap-1">
-          <span className="flex w-6.75 h-6.75 bg-abr-light-orange rounded-full border border-white text-[10px] font-normal items-center justify-center">
+          <span
+            className="flex w-6.75 h-6.75 bg-abr-light-orange rounded-full border border-white text-[10px] font-normal items-center justify-center"
+            aria-label={`Propriétaire : ${project.owner.name}`}
+          >
             {getUserInitials(project.owner.name)}
           </span>
           <span className="flex w-27.25 h-6.75 bg-abr-light-orange rounded-full border border-white text-body-s text-abr-dark-orange items-center justify-center">
@@ -68,6 +78,7 @@ export default function ProjectCard({
               <span
                 key={index}
                 className="flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-abr-grey-200 text-[10px] font-normal"
+                aria-label={member.user.name}
               >
                 {getUserInitials(member.user.name)}
               </span>

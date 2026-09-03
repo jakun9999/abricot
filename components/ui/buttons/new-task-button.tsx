@@ -10,6 +10,7 @@ export default function NewTaskButton({ projectId }: { projectId: string }) {
   return (
     <>
       <AbrButton
+        type="button"
         onClick={() => setIsModalOpen(true)}
         color="black"
         label="Créer un tâche"

@@ -25,7 +25,7 @@ export default function StatusFilterInput({
 
   return (
     <SelectorInput
-      id="task-selector"
+      id="task-status-filter"
       width={width}
       placeHolder="Statut"
       value={status || undefined}

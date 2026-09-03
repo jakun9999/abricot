@@ -133,7 +133,7 @@ export default function AccountForm() {
             {...register("name")}
           />
           {errors.name && (
-            <p className="text-body-s text-abr-error-red">
+            <p className="text-body-s text-abr-error-red" role="alert">
               {errors.name.message}
             </p>
           )}
@@ -148,7 +148,7 @@ export default function AccountForm() {
             {...register("email")}
           />
           {errors.email && (
-            <p className="text-body-s text-abr-error-red">
+            <p className="text-body-s text-abr-error-red" role="alert">
               {errors.email.message}
             </p>
           )}
@@ -164,7 +164,7 @@ export default function AccountForm() {
             {...register("newPassword")}
           />
           {errors.newPassword && (
-            <p className="text-body-s text-abr-error-red">
+            <p className="text-body-s text-abr-error-red" role="alert">
               {errors.newPassword.message}
             </p>
           )}

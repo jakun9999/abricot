@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { BottomarrowIcon, CheckedboxIcon } from "@/components/ui/icons";
 import { User } from "@/schemas/user-schema";
 
@@ -22,6 +22,8 @@ export default function UserSearchSelectorInput({
   className = "",
 }: UserSearchSelectorInputProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const triggerId = useId();
+  const listId = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState<User[]>([]);
@@ -216,12 +218,30 @@ export default function UserSearchSelectorInput({
 
   return (
     <div className="flex flex-col gap-1.75">
-      {label ? <label className="text-body-s text-black">{label}</label> : null}
+      {label ? (
+        <label htmlFor={triggerId} className="text-body-s text-black">
+          {label}
+        </label>
+      ) : null}
 
-      <div ref={containerRef} className={`relative ${width}`}>
+      <div
+        ref={containerRef}
+        className={`relative ${width}`}
+        onKeyDown={(event) => {
+          if (event.key === "Escape" && isOpen) {
+            event.preventDefault();
+            event.stopPropagation();
+            setIsOpen(false);
+          }
+        }}
+      >
         <button
+          id={triggerId}
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-controls={listId}
           className={`
             flex h-13.25 w-full items-center justify-between gap-2
             rounded-sm border border-abr-grey-200 bg-white px-4.25
@@ -234,12 +254,17 @@ export default function UserSearchSelectorInput({
           </span>
 
           <span className="flex shrink-0 items-center justify-center text-abr-grey-600">
-            <BottomarrowIcon className="h-4 w-4" />
+            <BottomarrowIcon className="h-4 w-4" aria-hidden="true" />
           </span>
         </button>
 
         {isOpen && (
-          <div className="absolute left-0 top-[calc(100%+8px)] z-50 w-full max-w-90 lg:w-90 rounded-lg border border-abr-grey-200 bg-white p-3 shadow-md">
+          <div
+            id={listId}
+            role="listbox"
+            aria-multiselectable="true"
+            className="absolute left-0 top-[calc(100%+8px)] z-50 w-full max-w-90 lg:w-90 rounded-lg border border-abr-grey-200 bg-white p-3 shadow-md"
+          >
             <div className="mb-2 flex items-center justify-between">
               <span className="text-body-s text-abr-grey-800">
                 Sélectionner
@@ -251,10 +276,11 @@ export default function UserSearchSelectorInput({
 
             <div className="mb-3">
               <input
-                type="text"
+                type="search"
                 value={query}
                 onChange={(event) => handleQueryChange(event.target.value)}
                 placeholder="Rechercher par nom ou email"
+                aria-label="Rechercher par nom ou email"
                 className="w-full rounded-sm border border-abr-grey-200 bg-white px-3 py-2 text-body-s text-abr-grey-800 outline-none focus:border-abr-dark-orange"
               />
             </div>
@@ -278,6 +304,8 @@ export default function UserSearchSelectorInput({
                     <button
                       key={user.email}
                       type="button"
+                      role="option"
+                      aria-selected={selected}
                       onClick={() => toggleUser(user)}
                       className={`
                         flex w-full items-center justify-between rounded-md border px-3 py-2 text-left

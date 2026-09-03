@@ -32,9 +32,11 @@ export default function AiButton({
   return (
     <button
       {...props}
+      type={props.type ?? "button"}
+      aria-label={props["aria-label"] ?? "Générer avec l'IA"}
       className={`flex items-center justify-center h-10 w-10 hover:cursor-pointer rounded-full transition-colors duration-500 ${mode} ${className}`}
     >
-      <StarIcon className="size-3.5" />
+      <StarIcon className="size-3.5" aria-hidden="true" />
     </button>
   );
 }

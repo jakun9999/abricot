@@ -43,6 +43,7 @@ export default function CalendarNav({
           type="button"
           color="outline"
           label="Précédent"
+          aria-label="Période précédente"
           className="w-full sm:w-32.5 px-4 shrink-0"
           onClick={() =>
             updateParams({
@@ -58,6 +59,7 @@ export default function CalendarNav({
           type="button"
           color="outline"
           label="Suivant"
+          aria-label="Période suivante"
           className="w-full sm:w-32.5 px-4 shrink-0"
           onClick={() =>
             updateParams({
@@ -67,13 +69,18 @@ export default function CalendarNav({
           }
         />
       </div>
-      <div className="flex gap-2.5 justify-center">
+      <div
+        className="flex gap-2.5 justify-center"
+        role="group"
+        aria-label="Type d'affichage du calendrier"
+      >
         {views.map((item) => {
           const isActive = view === item.value;
           return (
             <button
               key={item.value}
               type="button"
+              aria-pressed={isActive}
               onClick={() => updateParams({ view: item.value, date })}
               className={`flex items-center justify-center h-11.25 px-4 rounded-lg text-abr-dark-orange text-body-s hover:cursor-pointer ${
                 isActive

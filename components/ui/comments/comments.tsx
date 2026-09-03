@@ -71,7 +71,10 @@ export default function Comments({
     <div className="w-full flex flex-col gap-4">
       {comments.map((item, index) => (
         <div key={item.id ?? index} className="flex items-start gap-4.5">
-          <div className="flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-gray-200 text-[10px] font-normal text-gray-950">
+          <div
+            className="flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-gray-200 text-[10px] font-normal text-gray-950"
+            aria-hidden="true"
+          >
             {item.author?.name ? getUserInitials(item.author.name) : "?"}
           </div>
 
@@ -101,6 +104,7 @@ export default function Comments({
         <div className="flex-1 flex flex-col">
           <div className="rounded-[10px] bg-gray-50  px-3.5 py-4.5 min-h-2.75">
             <textarea
+              id={`comment-${taskId}`}
               rows={2}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
@@ -111,6 +115,7 @@ export default function Comments({
                 }
               }}
               placeholder="Ajouter un commentaire..."
+              aria-label="Ajouter un commentaire"
               className="w-full resize-none text-body-xs text-gray-800 placeholder-gray-400 focus:outline-none"
               disabled={isSubmitting}
             />
@@ -123,7 +128,11 @@ export default function Comments({
             onClick={() => void handleAddComment()}
             disabled={isSubmitting || !newComment.trim()}
           />
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-sm mt-2" role="alert">
+              {error}
+            </p>
+          )}
         </div>
       </div>
     </div>

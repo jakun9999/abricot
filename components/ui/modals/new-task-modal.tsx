@@ -10,7 +10,7 @@ import AbrButton from "@/components/ui/buttons/abr-button";
 import ModalOverlay, {
   modalPanelClassName,
 } from "@/components/ui/modals/modal-overlay";
-import Image from "next/image";
+import ModalCloseButton from "@/components/ui/modals/modal-close-button";
 import { useRouter } from "next/navigation";
 
 export default function NewTaskModal({
@@ -92,22 +92,18 @@ export default function NewTaskModal({
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
+        aria-labelledby="new-task-modal-title"
       >
         <div className="flex flex-col items-end w-full ">
-          <Image
-            src="/close.svg"
-            alt="Fermer"
-            className="self-end cursor-pointer text-abr-grey-600 "
-            width={14.33}
-            height={14.33}
-            onClick={handleCancel}
-          />
+          <ModalCloseButton onClick={handleCancel} />
         </div>
         <div className="flex flex-col py-[27.67px] px-0 lg:px-5">
-          <h4 className="text-abr-grey-800">Créer une tâche</h4>
+          <h4 id="new-task-modal-title" className="text-abr-grey-800">
+            Créer une tâche
+          </h4>
           <form className="flex flex-col gap-6 mt-10">
             <FormInput
-              inputId="title"
+              inputId="new-task-title"
               inputWidth="max-w-[280px]"
               className="w-full"
               placeHolder="Titre de la tâche"
@@ -118,7 +114,7 @@ export default function NewTaskModal({
               onChange={(e) => setTitle(e.target.value)}
             />
             <FormInput
-              inputId="description"
+              inputId="new-task-description"
               inputWidth="max-w-[280px]"
               className="w-full"
               placeHolder="Description de la tâche"
@@ -129,6 +125,7 @@ export default function NewTaskModal({
               onChange={(e) => setDescription(e.target.value)}
             />
             <DateSelectorInput
+              inputId="new-task-due-date"
               width="max-w-[280px]"
               placeHolder="Sélectionner une date"
               label="Échéance"
@@ -144,7 +141,7 @@ export default function NewTaskModal({
               placeholder="Aucun collaborateur"
             />
             <SelectorInput
-              id="priority"
+              id="new-task-priority"
               width={280}
               height="h-13.25"
               label="Priorité"
@@ -166,7 +163,11 @@ export default function NewTaskModal({
               onClick={handleNewTask}
               disabled={isSubmitting || !hasChanges}
             />
-            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+            {error && (
+              <p className="text-red-500 text-sm mt-2" role="alert">
+                {error}
+              </p>
+            )}
           </form>
         </div>
       </div>

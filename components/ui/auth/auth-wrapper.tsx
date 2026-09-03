@@ -55,6 +55,7 @@ export default function AuthWrapper({
           priority
           sizes="(min-width: 1024px) 60vw, 0vw"
           className="object-cover object-center"
+          aria-hidden="true"
         />
       </div>
     </div>

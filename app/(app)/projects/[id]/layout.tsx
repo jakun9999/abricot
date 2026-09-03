@@ -1,10 +1,10 @@
 import React from "react";
 import { Project } from "@/schemas/project-schema";
-import IconButton from "@/components/ui/buttons/icon-button";
 import NewTaskButton from "@/components/ui/buttons/new-task-button";
 import AiTaskButton from "@/components/ui/buttons/ai-task-button";
 import { getUserInitials } from "@/lib/utils";
 import Link from "next/link";
+import { BackarrowIcon } from "@/components/ui/icons";
 import ProjectMenu from "@/components/ui/dashboard/project-menu";
 import SearchInput from "@/components/ui/inputs/search-input";
 import StatusFilterInput from "@/components/ui/inputs/status-filter-input";
@@ -43,14 +43,15 @@ export default async function ProjectLayout({ children, params }: LayoutProps) {
         <div className="flex items-start gap-4 min-w-0">
           <Link
             href="/projects"
-            className="mt-1.5 hover:cursor-pointer shrink-0"
+            className="mt-1.5 shrink-0 flex items-center justify-center h-14.25 w-14.25 text-caption-l rounded-[10px] border bg-white text-black border-gray-200 hover:border-abr-dark-orange hover:text-abr-dark-orange transition-colors duration-500"
+            aria-label="Retour à la liste des projets"
           >
-            <IconButton label="back" />
+            <BackarrowIcon aria-hidden="true" />
           </Link>
           <div className="flex flex-col gap-3.5 min-w-0">
-            <h1 aria-label={`Projet ${project.name}`} className="sr-only"></h1>
+            <h1 className="sr-only">{`Projet ${project.name}`}</h1>
             <div className="flex flex-wrap items-center gap-3.5 min-w-0">
-              <h4 className="min-w-0 wrap-break-word">{project.name}</h4>
+              <h4 className="min-w-0 wrap-break-word" aria-hidden="true">{project.name}</h4>
               <UpdateProjectButton project={project} />
             </div>
             <p className="text-body-l wrap-break-word">{project.description}</p>
@@ -69,7 +70,10 @@ export default async function ProjectLayout({ children, params }: LayoutProps) {
           </div>
           <div className="flex flex-col md:flex-row md:items-center gap-2">
             <div className="flex gap-1">
-              <span className="flex w-6.75 h-6.75 bg-abr-light-orange shrink-0 rounded-full border border-abr-light-orange text-[10px] font-normal items-center justify-center">
+              <span
+                className="flex w-6.75 h-6.75 bg-abr-light-orange shrink-0 rounded-full border border-abr-light-orange text-[10px] font-normal items-center justify-center"
+                aria-label={`Propriétaire : ${project.owner.name}`}
+              >
                 {getUserInitials(project.owner.name)}
               </span>
               <span className="flex w-27.25 h-6.75 bg-abr-light-orange rounded-full border border-abr-light-orange text-body-s text-abr-dark-orange items-center justify-center">

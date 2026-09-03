@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import Chips from "@/components/ui/chips/chips";
 
@@ -34,21 +33,21 @@ export default function ProjectMenu({
   const isCalendar = pathName === `/projects/${projectId}/calendar`;
 
   return (
-    <div className={`flex gap-2.5 ${className}`}>
-      <Link href={listHref}>
-        <Chips
-          icon="task"
-          text="Liste"
-          color={!isCalendar ? "light" : "white"}
-        />
-      </Link>
-      <Link href={calendarHref}>
-        <Chips
-          icon="calendar"
-          text="Calendrier"
-          color={isCalendar ? "light" : "white"}
-        />
-      </Link>
-    </div>
+    <nav className={`flex gap-2.5 ${className}`} aria-label="Vues du projet">
+      <Chips
+        href={listHref}
+        icon="task"
+        text="Liste"
+        color={!isCalendar ? "light" : "white"}
+        current={!isCalendar}
+      />
+      <Chips
+        href={calendarHref}
+        icon="calendar"
+        text="Calendrier"
+        color={isCalendar ? "light" : "white"}
+        current={isCalendar}
+      />
+    </nav>
   );
 }

@@ -59,15 +59,15 @@ export default function SigninForm() {
       onSubmit={handleSubmit}
       className="flex flex-col items-center gap-7.25"
     >
-      <h1 aria-label="Inscription sur Abricot" className="text-abr-dark-orange">
-        Inscription
-      </h1>
+      <h1 className="text-abr-dark-orange">Inscription</h1>
       <FormInput
         label="Email"
         inputId="email"
         inputType="email"
         className="w-70.5 max-w-full"
         autoComplete="email"
+        required
+        aria-invalid={error ? true : undefined}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
@@ -77,6 +77,8 @@ export default function SigninForm() {
         inputType="password"
         className="w-70.5 max-w-full"
         autoComplete="new-password"
+        required
+        aria-invalid={error ? true : undefined}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
@@ -87,7 +89,7 @@ export default function SigninForm() {
       >
         {isLoading ? "Inscription..." : "S'inscrire"}
       </button>
-      <p className={`${error ? "" : "hidden "}text-body-s text-abr-error-red`}>
+      <p className={`${error ? "" : "hidden "}text-body-s text-abr-error-red`} role="alert">
         {error}
       </p>
     </form>

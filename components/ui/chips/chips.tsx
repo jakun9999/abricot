@@ -1,6 +1,7 @@
 import CheckedboxIcon from "@/components/ui/icons/checkedbox-icon";
 import CalendarIcon from "@/components/ui/icons/calendar-icon";
 import FolderIcon from "@/components/ui/icons/folder-icon";
+import Link from "next/link";
 
 export interface ChipsProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
@@ -16,6 +17,8 @@ export interface ChipsProps extends React.ButtonHTMLAttributes<HTMLButtonElement
   icon: "task" | "calendar" | "folder";
   color: "light" | "white";
   text?: string;
+  href?: string;
+  current?: boolean;
 }
 
 /**
@@ -30,6 +33,8 @@ export default function Chips({
   icon,
   color,
   text,
+  href,
+  current = false,
   className = "",
   ...props
 }: ChipsProps) {
@@ -38,15 +43,34 @@ export default function Chips({
       ? "bg-abr-white hover:bg-abr-light-orange transition-colors duration-500"
       : "bg-abr-light-orange";
 
-  return (
-    <button
-      {...props}
-      className={`flex items-center justify-center h-11.25 px-4 gap-3.5 hover:cursor-pointer rounded-lg text-abr-dark-orange ${mode} ${className}`}
-    >
-      {icon === "task" && <CheckedboxIcon className="size-4" />}
-      {icon === "calendar" && <CalendarIcon className="size-4" />}
-      {icon === "folder" && <FolderIcon className="size-4" />}
+  const classes = `flex items-center justify-center h-11.25 px-4 gap-3.5 hover:cursor-pointer rounded-lg text-abr-dark-orange ${mode} ${className}`;
+
+  const content = (
+    <>
+      {icon === "task" && <CheckedboxIcon className="size-4" aria-hidden="true" />}
+      {icon === "calendar" && (
+        <CalendarIcon className="size-4" aria-hidden="true" />
+      )}
+      {icon === "folder" && <FolderIcon className="size-4" aria-hidden="true" />}
       {text && <span className="text-body-s">{text}</span>}
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={classes}
+        aria-current={current ? "page" : undefined}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button {...props} className={classes}>
+      {content}
     </button>
   );
 }

@@ -20,6 +20,7 @@ export interface SelectorInputProps {
 }
 
 export default function SelectorInput({
+  id,
   placeHolder,
   width = 152,
   height = "h-[63px]",
@@ -31,19 +32,28 @@ export default function SelectorInput({
   onChange,
 }: SelectorInputProps) {
   const widthValue = typeof width === "number" ? `${width}px` : width;
+  const labelId = `${id}-label`;
+  const accessibleName = label || placeHolder;
 
   return (
     <div
       style={{ width: widthValue }}
       className={`inline-block max-w-full ${className}`}
     >
-      {label && <label className="text-body-s text-black">{label}</label>}
+      {label ? (
+        <span id={labelId} className="text-body-s text-black">
+          {label}
+        </span>
+      ) : null}
       <Select.Root
         value={value}
         defaultValue={defaultValue}
         onValueChange={onChange}
       >
         <Select.Trigger
+          id={id}
+          aria-labelledby={label ? labelId : undefined}
+          aria-label={accessibleName}
           className={`w-full ${label ? "mt-1.75" : ""} ${height} flex items-center justify-between gap-2 rounded-sm border border-abr-grey-200 bg-white px-4.25 text-body-s text-abr-grey-600 overflow-hidden box-border outline-none focus-visible:ring-2 focus-visible:ring-abr-dark-orange data-[state=open]:ring-2 data-[state=open]:ring-abr-dark-orange`}
         >
           <span className="truncate text-left flex-1 min-w-0">
@@ -51,7 +61,7 @@ export default function SelectorInput({
           </span>
 
           <Select.Icon className="shrink-0">
-            <BottomarrowIcon />
+            <BottomarrowIcon aria-hidden="true" />
           </Select.Icon>
         </Select.Trigger>
 

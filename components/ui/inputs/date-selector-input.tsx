@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { ChangeEvent, InputHTMLAttributes } from "react";
 import { CalendarIcon } from "@/components/ui/icons";
 import { formatDateShort } from "@/lib/utils";
@@ -88,6 +88,8 @@ export default function DateSelectorInput({
   ...props
 }: DateSelectorInputProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const generatedId = useId();
+  const triggerId = inputId ?? generatedId;
   const [isOpen, setIsOpen] = useState(false);
   const [calendarMonth, setCalendarMonth] = useState(() =>
     toSafeDate(value ?? undefined),
@@ -132,7 +134,7 @@ export default function DateSelectorInput({
   return (
     <div className="flex flex-col gap-1.75">
       {label ? (
-        <label htmlFor={inputId} className="text-body-s text-black">
+        <label htmlFor={triggerId} className="text-body-s text-black">
           {label}
         </label>
       ) : null}
@@ -140,11 +142,20 @@ export default function DateSelectorInput({
       <div
         ref={containerRef}
         className={`relative inline-block max-w-full ${width}`}
+        onKeyDown={(event) => {
+          if (event.key === "Escape" && isOpen) {
+            event.preventDefault();
+            event.stopPropagation();
+            setIsOpen(false);
+          }
+        }}
       >
         <button
-          id={inputId}
+          id={triggerId}
           type="button"
-          aria-label={props["aria-label"] ?? "Sélectionner une date"}
+          aria-expanded={isOpen}
+          aria-haspopup="dialog"
+          aria-label={label ? undefined : (props["aria-label"] ?? placeHolder)}
           onClick={() => {
             if (selectedDate) {
               setCalendarMonth(toSafeDate(selectedDate));
@@ -163,12 +174,16 @@ export default function DateSelectorInput({
           </span>
 
           <span className="flex shrink-0 items-center justify-center text-abr-grey-600">
-            <CalendarIcon className="h-4 w-4" />
+            <CalendarIcon className="h-4 w-4" aria-hidden="true" />
           </span>
         </button>
 
         {isOpen && (
-          <div className="absolute left-0 top-[calc(100%+8px)] z-50 w-70 max-w-full rounded-lg border border-abr-grey-200 bg-white p-3 shadow-md">
+          <div
+            role="dialog"
+            aria-label="Choisir une date"
+            className="absolute left-0 top-[calc(100%+8px)] z-50 w-70 max-w-full rounded-lg border border-abr-grey-200 bg-white p-3 shadow-md"
+          >
             <div className="mb-3 flex items-center justify-between gap-2 text-body-xs text-abr-grey-800">
               <button
                 type="button"
@@ -237,6 +252,13 @@ export default function DateSelectorInput({
                   <button
                     key={`${dateKey}-${index}`}
                     type="button"
+                    aria-pressed={isSelected}
+                    aria-label={day.toLocaleDateString("fr-FR", {
+                      weekday: "long",
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
                     onClick={() => handleSelectDate(day)}
                     className={`
                       flex h-8 w-8 items-center justify-center rounded-md text-body-xs

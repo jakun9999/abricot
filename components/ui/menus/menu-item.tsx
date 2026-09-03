@@ -34,14 +34,14 @@ export default function MenuItem({
       className={`flex items-center justify-center h-19.5 w-62 cursor-pointer text-body-m rounded-[10px] ${mode} ${className}`}
       {...props}
     >
-      {type === "dashboard" ? (
+          {type === "dashboard" ? (
         <>
-          <DashboardIcon />
+          <DashboardIcon aria-hidden="true" />
           <span className="ml-4">Tableau de bord</span>
         </>
       ) : (
         <>
-          <FolderIcon />
+          <FolderIcon aria-hidden="true" />
           <span className="ml-4">Projets</span>
         </>
       )}

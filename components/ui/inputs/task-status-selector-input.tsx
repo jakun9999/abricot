@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import Label from "@/components/ui/labels/label";
 
 export type TaskStatusValue = "TODO" | "IN_PROGRESS" | "DONE" | "CANCELLED";
@@ -28,11 +29,22 @@ export default function TaskStatusSelectorInput({
   onChange,
   className = "",
 }: TaskStatusSelectorInputProps) {
+  const statusLabelId = useId();
+
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
-      {label ? <label className="text-body-s text-black">{label}</label> : null}
+      {label ? (
+        <p id={statusLabelId} className="text-body-s text-black">
+          {label}
+        </p>
+      ) : null}
 
-      <div className="flex items-center gap-2">
+      <div
+        className="flex items-center gap-2"
+        role="radiogroup"
+        aria-labelledby={label ? statusLabelId : undefined}
+        aria-label={label ? undefined : "Statut"}
+      >
         {STATUS_OPTIONS.map((option) => {
           const isSelected = option.value === value;
 
@@ -40,7 +52,8 @@ export default function TaskStatusSelectorInput({
             <button
               key={option.value}
               type="button"
-              aria-pressed={isSelected}
+              role="radio"
+              aria-checked={isSelected}
               onClick={() => onChange(option.value)}
               className={`
                 rounded-full transition-all

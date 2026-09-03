@@ -10,6 +10,7 @@ export default function NewProjectButton() {
   return (
     <>
       <AbrButton
+        type="button"
         onClick={() => setIsModalOpen(true)}
         color="black"
         label="+ Créer un projet"

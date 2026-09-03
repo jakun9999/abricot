@@ -60,6 +60,7 @@ export default function TaskDetailed({ task, projectId }: TaskProps) {
             <IconButton
               label="points"
               className="h-14.25 w-14.25 shrink-0"
+              aria-label="Modifier la tâche"
               onClick={() => setIsModalOpen(true)}
             />
           </div>
@@ -67,7 +68,7 @@ export default function TaskDetailed({ task, projectId }: TaskProps) {
           {/* Task deadline */}
           <div className="flex items-center">
             <p className="mr-1 text-body-xs text-abr-grey-600">Échéance :</p>
-            <CalendarIcon className="w-3.75 h-[16.54px] text-abr-grey-800" />
+            <CalendarIcon className="w-3.75 h-[16.54px] text-abr-grey-800" aria-hidden="true" />
             <p className="ml-2 text-abr-grey-800 text-body-xs">
               {formatDateShort(task.dueDate)}
             </p>
@@ -93,32 +94,35 @@ export default function TaskDetailed({ task, projectId }: TaskProps) {
             onClick={() => setShowComments(!showComments)}
             className="text-abr-grey-950 hover:text-black"
             type="button"
+            aria-expanded={showComments}
+            aria-controls={task.id ? `commentaires-${task.id}` : undefined}
           >
             <div className="flex justify-between items-center">
               <p className="text-abr-grey-800 text-body-s">
                 Commentaires ({commentsCount})
               </p>
 
-              {/* Alternance de l'icône selon l'état */}
               {showComments ? (
-                <UparrowIcon className="w-4 h-2" />
+                <UparrowIcon className="w-4 h-2" aria-hidden="true" />
               ) : (
-                <BottomarrowIcon className="w-4 h-2" />
+                <BottomarrowIcon className="w-4 h-2" aria-hidden="true" />
               )}
             </div>
           </button>
           {showComments && task.id && resolvedProjectId && (
-            <Comments
-              projectId={resolvedProjectId}
-              taskId={task.id}
-              comments={comments}
-              onCommentAdded={(comment) =>
-                setComments((previousComments) => [
-                  ...previousComments,
-                  comment,
-                ])
-              }
-            />
+            <div id={`commentaires-${task.id}`}>
+              <Comments
+                projectId={resolvedProjectId}
+                taskId={task.id}
+                comments={comments}
+                onCommentAdded={(comment) =>
+                  setComments((previousComments) => [
+                    ...previousComments,
+                    comment,
+                  ])
+                }
+              />
+            </div>
           )}
         </div>
       </div>

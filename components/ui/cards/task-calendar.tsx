@@ -19,6 +19,13 @@ const STATUS_DOT: Record<Task["status"], string> = {
   CANCELLED: "bg-abr-grey-400",
 };
 
+const STATUS_LABEL: Record<Task["status"], string> = {
+  TODO: "À faire",
+  IN_PROGRESS: "En cours",
+  DONE: "Terminé",
+  CANCELLED: "Annulé",
+};
+
 export default function TaskCalendar({
   task,
   projectId,
@@ -31,6 +38,7 @@ export default function TaskCalendar({
       <button
         type="button"
         onClick={() => setIsModalOpen(true)}
+        aria-label={`Ouvrir la tâche ${task.title}, statut : ${STATUS_LABEL[task.status]}`}
         className={`w-full min-w-0 text-left bg-white rounded-[10px] border border-abr-grey-200 hover:border-abr-dark-orange transition-colors duration-500 cursor-pointer ${
           compact ? "px-1.5 py-1 md:px-2 md:py-1.5" : "px-3 py-2.5"
         }`}
@@ -39,6 +47,7 @@ export default function TaskCalendar({
           <div className="flex items-start gap-1.5">
             <span
               className={`mt-1 h-2 w-2 shrink-0 rounded-full ${STATUS_DOT[task.status]}`}
+              aria-hidden="true"
             />
             <p className="text-body-xs text-abr-grey-800 font-semibold line-clamp-1 md:line-clamp-2">
               {task.title}

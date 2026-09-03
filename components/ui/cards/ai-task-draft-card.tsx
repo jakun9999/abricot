@@ -26,7 +26,7 @@ export default function AiTaskDraftCard({
           onClick={onDelete}
           className="flex items-center gap-2 hover:cursor-pointer hover:text-abr-grey-800"
         >
-          <span className="text-abr-grey-400">
+          <span className="text-abr-grey-400" aria-hidden="true">
             <BinIcon className="w-4.5 h-3.5" />
           </span>
           Supprimer
@@ -37,7 +37,7 @@ export default function AiTaskDraftCard({
           onClick={onEdit}
           className="flex items-center gap-2 hover:cursor-pointer hover:text-abr-grey-800"
         >
-          <ModifyIcon className="w-3.75 h-3.5" />
+          <ModifyIcon className="w-3.75 h-3.5" aria-hidden="true" />
           Modifier
         </button>
       </div>

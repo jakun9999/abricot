@@ -46,7 +46,12 @@ export default function FormInput({
     <div className="flex flex-col gap-1.75 max-w-full">
       <label htmlFor={inputId} className={`${baseLabelCss}`}>
         {label}
-        {mandatory ? "*" : ""}
+        {mandatory ? (
+          <>
+            <span aria-hidden="true">*</span>
+            <span className="sr-only"> (obligatoire)</span>
+          </>
+        ) : null}
       </label>
       <input
         id={inputId}
@@ -56,6 +61,7 @@ export default function FormInput({
         value={value}
         onChange={onChange}
         {...props}
+        aria-required={mandatory || undefined}
       />
     </div>
   );

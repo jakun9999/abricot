@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import AiButton from "@/components/ui/buttons/ai-button";
 import AbrButton from "@/components/ui/buttons/abr-button";
@@ -13,6 +12,7 @@ import StarIcon from "@/components/ui/icons/star-icon";
 import ModalOverlay, {
   modalPanelClassName,
 } from "@/components/ui/modals/modal-overlay";
+import ModalCloseButton from "@/components/ui/modals/modal-close-button";
 import {
   AiGeneratedTask,
   normalizeDueDate,
@@ -177,19 +177,12 @@ export default function AiTaskModal({
           aria-modal="true"
           aria-labelledby="ai-task-modal-title"
         >
-          <div className="flex flex-col items-end w-full">
-            <Image
-              src="/close.svg"
-              alt="Fermer"
-              className="self-end cursor-pointer text-abr-grey-600"
-              width={14.33}
-              height={14.33}
-              onClick={handleCancel}
-            />
-          </div>
+        <div className="flex flex-col items-end w-full">
+          <ModalCloseButton onClick={handleCancel} />
+        </div>
 
-          <div className="flex items-center gap-2.5 mt-4 px-0 lg:px-5">
-            <StarIcon className="size-5 text-abr-dark-orange" />
+        <div className="flex items-center gap-2.5 mt-4 px-0 lg:px-5">
+          <StarIcon className="size-5 text-abr-dark-orange" aria-hidden="true" />
             <h4 id="ai-task-modal-title" className="text-abr-grey-800">
               {hasDrafts ? "Vos tâches..." : "Créer une tâche"}
             </h4>
@@ -301,19 +294,15 @@ function DraftEditModal({
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
+        aria-labelledby="ai-draft-edit-title"
       >
         <div className="flex flex-col items-end w-full">
-          <Image
-            src="/close.svg"
-            alt="Fermer"
-            className="self-end cursor-pointer text-abr-grey-600"
-            width={14.33}
-            height={14.33}
-            onClick={onClose}
-          />
+          <ModalCloseButton onClick={onClose} />
         </div>
         <div className="flex flex-col py-[27.67px] px-0 lg:px-5">
-          <h4 className="text-abr-grey-800">Modifier</h4>
+          <h4 id="ai-draft-edit-title" className="text-abr-grey-800">
+            Modifier
+          </h4>
           <form className="flex flex-col gap-6 mt-10">
             <FormInput
               inputId="ai-draft-title"
@@ -337,6 +326,7 @@ function DraftEditModal({
               onChange={(e) => setDescription(e.target.value)}
             />
             <DateSelectorInput
+              inputId="ai-draft-due-date"
               width="w-full lg:w-[280px]"
               placeHolder="Sélectionner une date"
               label="Échéance"

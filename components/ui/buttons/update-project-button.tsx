@@ -30,8 +30,10 @@ export default function UpdateProjectButton({ project }: { project: Project }) {
   return (
     <>
       <button
+        type="button"
         onClick={() => setIsModalOpen(true)}
         className="text-abr-dark-orange text-body-s underline mb-1 cursor-pointer"
+        aria-label={`Modifier le projet ${project.name}`}
       >
         Modifier
       </button>
