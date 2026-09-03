@@ -25,14 +25,14 @@ export default function ProjectCard({
   return (
     <div className="max-w-95 h-87.75 flex flex-col bg-white rounded-[10px] border border-abr-grey-200 gap-14 px-8.5 py-7.5">
       {/* Project info */}
-      <div className="gap-2">
+      <div className="shrink-0">
         <h5 className="line-clamp-1">{project.name}</h5>
-        <p className="text-body-s text-abr-grey-600 line-clamp-2">
+        <p className="text-body-s text-abr-grey-600 line-clamp-2 min-h-[2lh]">
           {project.description}
         </p>
       </div>
       {/* Progression */}
-      <div>
+      <div className="shrink-0">
         <div className="flex justify-between mb-4 items-center">
           <span className="text-abr-grey-600 text-body-xs">Progression</span>
           <span className="text-abr-grey-800 text-body-xs">{progression}%</span>
@@ -49,7 +49,7 @@ export default function ProjectCard({
         </p>
       </div>
       {/* Team info */}
-      <div className="flex flex-col gap-4">
+      <div className="flex shrink-0 flex-col gap-4">
         <div className="flex items-center gap-2 text-abr-grey-600">
           <GroupIcon className="w-[11.58px] h-2.75" />
           <span className="text-body-2xs">
