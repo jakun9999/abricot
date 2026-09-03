@@ -1,8 +1,8 @@
 import React from "react";
 import { Project } from "@/schemas/project-schema";
 import IconButton from "@/components/ui/buttons/icon-button";
-import AiSquareButton from "@/components/ui/buttons/ai-square-button";
 import NewTaskButton from "@/components/ui/buttons/new-task-button";
+import AiTaskButton from "@/components/ui/buttons/ai-task-button";
 import { getUserInitials } from "@/lib/utils";
 import Link from "next/link";
 import ProjectMenu from "@/components/ui/dashboard/project-menu";
@@ -55,7 +55,7 @@ export default async function ProjectLayout({ children, params }: LayoutProps) {
         </div>
         <div className="flex gap-3">
           <NewTaskButton projectId={id} />
-          <AiSquareButton className="w-23.5 shrink-0" color="dark" label="IA" />
+          <AiTaskButton projectId={id} />
         </div>
       </div>
       <div className="mt-12.25 flex w-full pl-4 pr-4 lg:pl-28 lg:pr-28.25 box-border">
