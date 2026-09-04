@@ -1,0 +1,24 @@
+import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{t}from"./jsx-runtime-CadfrxEJ.js";import{o as n,t as r}from"./icons-xHe3bdQz.js";import{n as i,r as a}from"./utils-DCjhW0oa.js";function o({project:e,totalTasks:t,finishedTasks:r}){let a=t>0?Math.round(r/t*100):0,o=e.members.filter(t=>t.user.name!==e.owner.name);return(0,s.jsxs)(`div`,{className:`w-full max-w-95 h-87.75 flex flex-col bg-white rounded-[10px] border border-abr-grey-200 gap-14 px-8.5 py-7.5`,children:[(0,s.jsxs)(`div`,{className:`shrink-0`,children:[(0,s.jsx)(`h5`,{className:`line-clamp-1`,children:e.name}),(0,s.jsx)(`p`,{className:`text-body-s text-abr-grey-600 line-clamp-2 min-h-[2lh]`,children:e.description})]}),(0,s.jsxs)(`div`,{className:`shrink-0`,children:[(0,s.jsxs)(`div`,{className:`flex justify-between mb-4 items-center`,children:[(0,s.jsx)(`span`,{className:`text-abr-grey-600 text-body-xs`,children:`Progression`}),(0,s.jsxs)(`span`,{className:`text-abr-grey-800 text-body-xs`,children:[a,`%`]})]}),(0,s.jsx)(`div`,{className:`max-w-78 h-1.75 bg-abr-grey-200 rounded-[40px]`,role:`progressbar`,"aria-valuemin":0,"aria-valuemax":100,"aria-valuenow":a,"aria-label":`Progression du projet : ${a} %`,children:(0,s.jsx)(`div`,{className:`bg-abr-grey-400 h-1.75 rounded-[40px]`,style:{width:`${a}%`}})}),(0,s.jsxs)(`p`,{className:`mt-2 text-abr-grey-600 text-body-2xs`,children:[r,`/`,t,` tâches terminées`]})]}),(0,s.jsxs)(`div`,{className:`flex shrink-0 flex-col gap-4`,children:[(0,s.jsxs)(`div`,{className:`flex items-center gap-2 text-abr-grey-600`,children:[(0,s.jsx)(n,{className:`w-[11.58px] h-2.75`,"aria-hidden":`true`}),(0,s.jsxs)(`span`,{className:`text-body-2xs`,children:[`Équipe (`,e.members.length+1,`)`]})]}),(0,s.jsxs)(`div`,{className:`flex items-center gap-1`,children:[(0,s.jsx)(`span`,{className:`flex w-6.75 h-6.75 bg-abr-light-orange rounded-full border border-white text-[10px] font-normal items-center justify-center`,"aria-label":`Propriétaire : ${e.owner.name}`,children:i(e.owner.name)}),(0,s.jsx)(`span`,{className:`flex w-27.25 h-6.75 bg-abr-light-orange rounded-full border border-white text-body-s text-abr-dark-orange items-center justify-center`,children:`Propriétaire`}),(0,s.jsx)(`div`,{className:`flex -space-x-2 overflow-hidden`,children:o.map((e,t)=>(0,s.jsx)(`span`,{className:`flex h-6.75 w-6.75 shrink-0 items-center justify-center rounded-full border border-white bg-abr-grey-200 text-[10px] font-normal`,"aria-label":e.user.name,children:i(e.user.name)},t))})]})]})]})}var s;function c(){return(c=e((()=>{s=t(),r(),a(),o.__docgenInfo={description:"Carte projet (liste). Hauteur fixe Figma `h-87.75` : la description est\nclampée à 2 lignes (`min-h-[2lh]`) pour aligner les cartes en grille.\n\n@example\n```tsx\n<ProjectCard project={project} totalTasks={10} finishedTasks={3} />\n```",methods:[],displayName:`ProjectCard`,props:{project:{required:!0,tsType:{name:`Project`},description:``},totalTasks:{required:!0,tsType:{name:`number`},description:`Nombre de tâches prises en compte dans la jauge (terminées + actives).`},finishedTasks:{required:!0,tsType:{name:`number`},description:``}}}})))()}var l,u,d,f,p,m,h,g,_;function v(){return(v=e((()=>{l=t(),c(),{expect:u}=__STORYBOOK_MODULE_TEST__,d={id:`u1`,email:`marie@abricot.test`,name:`Marie Dupont`},f={id:`p1`,name:`Refonte landing`,description:`Mise à jour de la page d’accueil et des parcours d’inscription.`,ownerId:`u1`,owner:d,members:[{role:`OWNER`,user:d,joinedAt:`2024-01-15T10:00:00.000Z`},{role:`CONTRIBUTOR`,user:{id:`u2`,email:`jean@abricot.test`,name:`Jean Martin`},joinedAt:`2024-02-01T10:00:00.000Z`}]},p={component:o,parameters:{layout:`centered`},decorators:[e=>(0,l.jsx)(`div`,{className:`w-full max-w-95`,children:(0,l.jsx)(e,{})})]},m={args:{project:f,totalTasks:10,finishedTasks:3},play:async({canvas:e})=>{await u(e.getByRole(`progressbar`)).toHaveAttribute(`aria-valuenow`,`30`)}},h={args:{project:f,totalTasks:0,finishedTasks:0}},g={args:{project:f,totalTasks:8,finishedTasks:8}},_=[`EnCours`,`Vide`,`Termine`],m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{
+  args: {
+    project,
+    totalTasks: 10,
+    finishedTasks: 3
+  },
+  play: async ({
+    canvas
+  }) => {
+    await expect(canvas.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '30');
+  }
+}`,...m.parameters?.docs?.source}}},h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`{
+  args: {
+    project,
+    totalTasks: 0,
+    finishedTasks: 0
+  }
+}`,...h.parameters?.docs?.source}}},g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`{
+  args: {
+    project,
+    totalTasks: 8,
+    finishedTasks: 8
+  }
+}`,...g.parameters?.docs?.source}}}})))()}v();export{m as EnCours,g as Termine,h as Vide,_ as __namedExportsOrder,p as default};

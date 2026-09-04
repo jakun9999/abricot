@@ -1,0 +1,718 @@
+{
+  "v": 0,
+  "components": {
+    "ui-auth-login-form": {
+      "id": "ui-auth-login-form",
+      "name": "LoginForm",
+      "path": "./components/ui/auth/login-form.stories.tsx",
+      "jsDocTags": {},
+      "description": "Formulaire de connexion. Succès → cookie posé par `/api/login`, puis `/dashboard`.",
+      "reactDocgen": {
+        "description": "Formulaire de connexion. Succès → cookie posé par `/api/login`, puis `/dashboard`.",
+        "methods": [],
+        "displayName": "LoginForm",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/auth/login-form.tsx",
+        "actualName": "LoginForm",
+        "exportName": "default"
+      },
+      "stories": [
+        {
+          "id": "ui-auth-login-form--default",
+          "name": "Default",
+          "snippet": "const Default = () => <LoginForm />;"
+        },
+        {
+          "id": "ui-auth-login-form--formulaire-rempli",
+          "name": "Formulaire Rempli",
+          "snippet": "const FormulaireRempli = () => <LoginForm />;"
+        },
+        {
+          "id": "ui-auth-login-form--identifiants-invalides",
+          "name": "Identifiants Invalides",
+          "snippet": "const IdentifiantsInvalides = () => <LoginForm />;"
+        }
+      ],
+      "import": "import { AbricotIcon, LoginForm } from 'abricot';\nimport Link from 'next/link';"
+    },
+    "ui-buttons-abr-button": {
+      "id": "ui-buttons-abr-button",
+      "name": "AbrButton",
+      "path": "./components/ui/buttons/abr-button.stories.tsx",
+      "jsDocTags": {
+        "example": [
+          "```tsx <AbrButton type=\"button\" color=\"black\" label=\"Créer un projet\" /> ```"
+        ]
+      },
+      "description": "Bouton d’action principal d’Abricot (création, soumission, navigation).",
+      "reactDocgen": {
+        "description": "Bouton d’action principal d’Abricot (création, soumission, navigation).\n\n@example\n```tsx\n<AbrButton type=\"button\" color=\"black\" label=\"Créer un projet\" />\n```",
+        "methods": [],
+        "displayName": "AbrButton",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/buttons/abr-button.tsx",
+        "actualName": "AbrButton",
+        "exportName": "default",
+        "props": {
+          "color": {
+            "required": true,
+            "tsType": {
+              "name": "union",
+              "raw": "\"black\" | \"outline\" | \"disabled\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"black\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"outline\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"disabled\""
+                }
+              ]
+            },
+            "description": "Variante visuelle.\n- `black` : fond gris foncé, texte blanc (actions principales).\n- `outline` : fond blanc, bordure et texte orange.\n- `disabled` : conservé pour le typage Storybook ; passer aussi `disabled` HTML."
+          },
+          "label": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Libellé affiché dans le bouton.",
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            }
+          },
+          "className": {
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "ui-buttons-abr-button--creer-un-projet",
+          "name": "Creer Un Projet",
+          "snippet": "const CreerUnProjet = () => <AbrButton\n    type=\"button\"\n    color=\"black\"\n    label=\"+ Créer un projet\"\n    className=\"w-45.25 h-12.5 shrink-0\" />;"
+        },
+        {
+          "id": "ui-buttons-abr-button--annuler",
+          "name": "Annuler",
+          "snippet": "const Annuler = () => <AbrButton type=\"button\" color=\"outline\" label=\"Annuler\" className=\"min-w-27.5\" />;"
+        },
+        {
+          "id": "ui-buttons-abr-button--desactive",
+          "name": "Desactive",
+          "snippet": "const Desactive = () => <AbrButton\n    type=\"button\"\n    color=\"disabled\"\n    label=\"+ Créer un projet\"\n    className=\"w-45.25 h-12.5 shrink-0\"\n    disabled />;"
+        }
+      ],
+      "import": "import { AbrButton } from 'abricot';"
+    },
+    "ui-buttons-icon-button": {
+      "id": "ui-buttons-icon-button",
+      "name": "IconButton",
+      "path": "./components/ui/buttons/icon-button.stories.tsx",
+      "jsDocTags": {
+        "example": [
+          "```tsx <IconButton label=\"back\" aria-label=\"Retour à la liste des projets\" /> ```"
+        ]
+      },
+      "description": "Bouton icône bordé (carré arrondi). Taille par défaut 57×57 (`h-14.25`), pas 40×40 :\nc’est la cote Figma du bouton « retour / plus ».",
+      "reactDocgen": {
+        "description": "Bouton icône bordé (carré arrondi). Taille par défaut 57×57 (`h-14.25`), pas 40×40 :\nc’est la cote Figma du bouton « retour / plus ».\n\n@example\n```tsx\n<IconButton label=\"back\" aria-label=\"Retour à la liste des projets\" />\n```",
+        "methods": [],
+        "displayName": "IconButton",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/buttons/icon-button.tsx",
+        "actualName": "IconButton",
+        "exportName": "default",
+        "props": {
+          "label": {
+            "required": true,
+            "tsType": {
+              "name": "union",
+              "raw": "\"back\" | \"points\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"back\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"points\""
+                }
+              ]
+            },
+            "description": "Pictogramme affiché. Le nom accessible est déduit si `aria-label` n’est pas fourni.\n- `back` : retour (flèche).\n- `points` : actions supplémentaires (trois points)."
+          },
+          "className": {
+            "defaultValue": {
+              "value": "\"h-14.25 w-14.25\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "ui-buttons-icon-button--retour",
+          "name": "Retour",
+          "snippet": "const Retour = () => <IconButton label=\"back\" aria-label=\"Retour à la liste des projets\" />;"
+        },
+        {
+          "id": "ui-buttons-icon-button--plus-d-actions",
+          "name": "Plus D Actions",
+          "snippet": "const PlusDActions = () => <IconButton label=\"points\" />;"
+        }
+      ],
+      "import": "import { IconButton } from 'abricot';"
+    },
+    "ui-cards-project-card": {
+      "id": "ui-cards-project-card",
+      "name": "ProjectCard",
+      "path": "./components/ui/cards/project-card.stories.tsx",
+      "jsDocTags": {
+        "example": [
+          "```tsx <ProjectCard project={project} totalTasks={10} finishedTasks={3} /> ```"
+        ]
+      },
+      "description": "Carte projet (liste). Hauteur fixe Figma `h-87.75` : la description est\nclampée à 2 lignes (`min-h-[2lh]`) pour aligner les cartes en grille.",
+      "reactDocgen": {
+        "description": "Carte projet (liste). Hauteur fixe Figma `h-87.75` : la description est\nclampée à 2 lignes (`min-h-[2lh]`) pour aligner les cartes en grille.\n\n@example\n```tsx\n<ProjectCard project={project} totalTasks={10} finishedTasks={3} />\n```",
+        "methods": [],
+        "displayName": "ProjectCard",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/cards/project-card.tsx",
+        "actualName": "ProjectCard",
+        "exportName": "default",
+        "props": {
+          "project": {
+            "required": true,
+            "tsType": {
+              "name": "z.infer",
+              "elements": [
+                {
+                  "name": "ProjectSchema"
+                }
+              ],
+              "raw": "z.infer<typeof ProjectSchema>"
+            },
+            "description": ""
+          },
+          "totalTasks": {
+            "required": true,
+            "tsType": {
+              "name": "number"
+            },
+            "description": "Nombre de tâches prises en compte dans la jauge (terminées + actives)."
+          },
+          "finishedTasks": {
+            "required": true,
+            "tsType": {
+              "name": "number"
+            },
+            "description": ""
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "ui-cards-project-card--en-cours",
+          "name": "En Cours",
+          "snippet": "const EnCours = () => <ProjectCard\n    project={{\n      id: 'p1',\n      name: 'Refonte landing',\n      description: 'Mise à jour de la page d’accueil et des parcours d’inscription.',\n      ownerId: 'u1',\n      owner,\n      members: [\n        {\n          role: 'OWNER',\n          user: owner,\n          joinedAt: '2024-01-15T10:00:00.000Z',\n        },\n        {\n          role: 'CONTRIBUTOR',\n          user: { id: 'u2', email: 'jean@abricot.test', name: 'Jean Martin' },\n          joinedAt: '2024-02-01T10:00:00.000Z',\n        },\n      ],\n    }}\n    totalTasks={10}\n    finishedTasks={3} />;",
+          "warning": "Incomplete snippet: `owner` could not be resolved statically."
+        },
+        {
+          "id": "ui-cards-project-card--vide",
+          "name": "Vide",
+          "snippet": "const Vide = () => <ProjectCard\n    project={{\n      id: 'p1',\n      name: 'Refonte landing',\n      description: 'Mise à jour de la page d’accueil et des parcours d’inscription.',\n      ownerId: 'u1',\n      owner,\n      members: [\n        {\n          role: 'OWNER',\n          user: owner,\n          joinedAt: '2024-01-15T10:00:00.000Z',\n        },\n        {\n          role: 'CONTRIBUTOR',\n          user: { id: 'u2', email: 'jean@abricot.test', name: 'Jean Martin' },\n          joinedAt: '2024-02-01T10:00:00.000Z',\n        },\n      ],\n    }}\n    totalTasks={0}\n    finishedTasks={0} />;",
+          "warning": "Incomplete snippet: `owner` could not be resolved statically."
+        },
+        {
+          "id": "ui-cards-project-card--termine",
+          "name": "Termine",
+          "snippet": "const Termine = () => <ProjectCard\n    project={{\n      id: 'p1',\n      name: 'Refonte landing',\n      description: 'Mise à jour de la page d’accueil et des parcours d’inscription.',\n      ownerId: 'u1',\n      owner,\n      members: [\n        {\n          role: 'OWNER',\n          user: owner,\n          joinedAt: '2024-01-15T10:00:00.000Z',\n        },\n        {\n          role: 'CONTRIBUTOR',\n          user: { id: 'u2', email: 'jean@abricot.test', name: 'Jean Martin' },\n          joinedAt: '2024-02-01T10:00:00.000Z',\n        },\n      ],\n    }}\n    totalTasks={8}\n    finishedTasks={8} />;",
+          "warning": "Incomplete snippet: `owner` could not be resolved statically."
+        }
+      ],
+      "import": "import { ProjectCard } from 'abricot';"
+    },
+    "ui-cards-task-short": {
+      "id": "ui-cards-task-short",
+      "name": "TaskShort",
+      "path": "./components/ui/cards/task-short.stories.tsx",
+      "jsDocTags": {},
+      "description": "Carte tâche empilée (mobile / colonnes kanban étroites). Le parent bascule\nvers {@link components/ui/cards/task-long} à partir de `md` ou `lg` selon la page.",
+      "reactDocgen": {
+        "description": "Carte tâche empilée (mobile / colonnes kanban étroites). Le parent bascule\nvers {@link components/ui/cards/task-long} à partir de `md` ou `lg` selon la page.",
+        "methods": [],
+        "displayName": "TaskShort",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/cards/task-short.tsx",
+        "actualName": "TaskShort",
+        "exportName": "default",
+        "props": {
+          "task": {
+            "required": true,
+            "tsType": {
+              "name": "z.infer",
+              "elements": [
+                {
+                  "name": "TaskSchema"
+                }
+              ],
+              "raw": "z.infer<typeof TaskSchema>"
+            },
+            "description": ""
+          },
+          "projectName": {
+            "required": true,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "className": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            }
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "ui-cards-task-short--a-faire",
+          "name": "A Faire",
+          "snippet": "const AFaire = () => <TaskShort\n    task={{\n      id: 't1',\n      title: 'Rédiger la maquette mobile',\n      description: 'Adapter les écrans clés pour le viewport 375px.',\n      status: 'TODO',\n      priority: 'HIGH',\n      dueDate: '2024-04-01T12:00:00.000Z',\n      projectId: 'p1',\n      creatorId: 'u1',\n      comments: [],\n    }}\n    projectName=\"Refonte landing\" />;"
+        },
+        {
+          "id": "ui-cards-task-short--en-cours",
+          "name": "En Cours",
+          "snippet": "const EnCours = () => <TaskShort\n    task={{\n        id: 't1',\n        title: 'Rédiger la maquette mobile',\n        description: 'Adapter les écrans clés pour le viewport 375px.',\n        status: 'IN_PROGRESS',\n        priority: 'HIGH',\n        dueDate: '2024-04-01T12:00:00.000Z',\n        projectId: 'p1',\n        creatorId: 'u1',\n        comments: []\n    }}\n    projectName=\"Refonte landing\" />;"
+        },
+        {
+          "id": "ui-cards-task-short--terminee",
+          "name": "Terminee",
+          "snippet": "const Terminee = () => <TaskShort\n    task={{\n        id: 't1',\n        title: 'Rédiger la maquette mobile',\n        description: 'Adapter les écrans clés pour le viewport 375px.',\n        status: 'DONE',\n        priority: 'HIGH',\n        dueDate: '2024-03-20T09:00:00.000Z',\n        projectId: 'p1',\n        creatorId: 'u1',\n        comments: []\n    }}\n    projectName=\"Refonte landing\" />;"
+        }
+      ],
+      "import": "import { Label, TaskShort } from 'abricot';"
+    },
+    "ui-chips": {
+      "id": "ui-chips",
+      "name": "Chips",
+      "path": "./components/ui/chips/chips.stories.tsx",
+      "jsDocTags": {
+        "example": [
+          "```tsx <Chips href=\"/dashboard\" icon=\"task\" text=\"Liste\" color=\"light\" current /> ```"
+        ]
+      },
+      "description": "Puce de navigation (Liste / Kanban / Calendrier). Lien si `href`, bouton sinon.",
+      "reactDocgen": {
+        "description": "Puce de navigation (Liste / Kanban / Calendrier). Lien si `href`, bouton sinon.\n\n@example\n```tsx\n<Chips href=\"/dashboard\" icon=\"task\" text=\"Liste\" color=\"light\" current />\n```",
+        "methods": [],
+        "displayName": "Chips",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/chips/chips.tsx",
+        "actualName": "Chips",
+        "exportName": "default",
+        "props": {
+          "icon": {
+            "required": true,
+            "tsType": {
+              "name": "union",
+              "raw": "\"task\" | \"calendar\" | \"folder\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"task\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"calendar\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"folder\""
+                }
+              ]
+            },
+            "description": "Pictogramme à gauche du libellé.\n- `task` : case cochée (vue liste).\n- `calendar` : calendrier / kanban.\n- `folder` : dossier (projets)."
+          },
+          "color": {
+            "required": true,
+            "tsType": {
+              "name": "union",
+              "raw": "\"light\" | \"white\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"light\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"white\""
+                }
+              ]
+            },
+            "description": "Fond. `light` = état actif (orange clair), `white` = inactif."
+          },
+          "text": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Texte affiché à droite de l’icône."
+          },
+          "href": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Si fourni, le chip est un lien Next.js (évite un bouton dans un `<Link>`).\nSinon c’est un `<button>`."
+          },
+          "current": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "Page courante : pose `aria-current=\"page\"` sur le lien.",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "className": {
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "ui-chips--vues-dashboard",
+          "name": "Vues Dashboard",
+          "snippet": "const VuesDashboard = () => (\n  <nav className=\"flex gap-2.5\" aria-label=\"Vues du tableau de bord\">\n    <Chips\n      href=\"/dashboard\"\n      icon=\"task\"\n      text=\"Liste\"\n      color=\"light\"\n      current\n    />\n    <Chips\n      href=\"/dashboard/kanban\"\n      icon=\"calendar\"\n      text=\"Kanban\"\n      color=\"white\"\n    />\n  </nav>\n);"
+        },
+        {
+          "id": "ui-chips--liste",
+          "name": "Liste",
+          "snippet": "const Liste = () => <Chips icon=\"task\" color=\"light\" text=\"Liste\" />;"
+        },
+        {
+          "id": "ui-chips--kanban",
+          "name": "Kanban",
+          "snippet": "const Kanban = () => <Chips icon=\"calendar\" color=\"white\" text=\"Kanban\" />;"
+        },
+        {
+          "id": "ui-chips--calendrier",
+          "name": "Calendrier",
+          "snippet": "const Calendrier = () => <Chips icon=\"calendar\" color=\"white\" text=\"Calendrier\" />;"
+        },
+        {
+          "id": "ui-chips--css-check",
+          "name": "Css Check",
+          "snippet": "const CssCheck = () => <Chips icon=\"task\" color=\"light\" text=\"Liste\" />;"
+        }
+      ],
+      "import": "import { Chips } from 'abricot';"
+    },
+    "ui-footer": {
+      "id": "ui-footer",
+      "name": "Footer",
+      "path": "./components/ui/footer/footer.stories.tsx",
+      "jsDocTags": {},
+      "description": "Pied de page : logo décoratif + millésime.",
+      "reactDocgen": {
+        "description": "Pied de page : logo décoratif + millésime.",
+        "methods": [],
+        "displayName": "Footer",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/footer/footer.tsx",
+        "actualName": "Footer",
+        "exportName": "default"
+      },
+      "stories": [
+        {
+          "id": "ui-footer--default",
+          "name": "Default",
+          "snippet": "const Default = () => <Footer />;"
+        }
+      ],
+      "import": "import { Footer } from 'abricot';"
+    },
+    "ui-header": {
+      "id": "ui-header",
+      "name": "Header",
+      "path": "./components/ui/header/header.stories.tsx",
+      "jsDocTags": {},
+      "description": "Header applicatif. Burger uniquement sous `md` (les MenuItem Figma sont trop\nlarges pour tenir à trois sur mobile).",
+      "reactDocgen": {
+        "description": "Header applicatif. Burger uniquement sous `md` (les MenuItem Figma sont trop\nlarges pour tenir à trois sur mobile).",
+        "methods": [],
+        "displayName": "Header",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/header/header.tsx",
+        "actualName": "Header",
+        "exportName": "default"
+      },
+      "stories": [
+        {
+          "id": "ui-header--authenticated",
+          "name": "Authenticated",
+          "snippet": "const Authenticated = () => <Header />;"
+        }
+      ],
+      "import": "import { Header } from 'abricot';"
+    },
+    "ui-inputs-form-input": {
+      "id": "ui-inputs-form-input",
+      "name": "FormInput",
+      "path": "./components/ui/inputs/form-input.stories.tsx",
+      "jsDocTags": {
+        "example": [
+          "```tsx <FormInput inputId=\"email\" label=\"Email\" inputType=\"email\" mandatory autoComplete=\"email\" /> ```"
+        ]
+      },
+      "description": "Couple label + champ texte. `className` s’applique à l’`<input>`, pas au wrapper.",
+      "reactDocgen": {
+        "description": "Couple label + champ texte. `className` s’applique à l’`<input>`, pas au wrapper.\n\n@example\n```tsx\n<FormInput\n  inputId=\"email\"\n  label=\"Email\"\n  inputType=\"email\"\n  mandatory\n  autoComplete=\"email\"\n/>\n```",
+        "methods": [],
+        "displayName": "FormInput",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/inputs/form-input.tsx",
+        "actualName": "FormInput",
+        "exportName": "default",
+        "props": {
+          "inputId": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "`id` HTML, relié au `<label htmlFor>`. Doit être unique dans la page.",
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            }
+          },
+          "mandatory": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "Affiche un astérisque visuel et `aria-required`.",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "inputType": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"text\" | \"password\" | \"email\" | \"number\" | \"date\" | \"selector\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"text\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"password\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"email\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"number\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"date\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"selector\""
+                }
+              ]
+            },
+            "description": "Type HTML de l’input. `selector` et `date` sont hérités ; préférer les composants dédiés.",
+            "defaultValue": {
+              "value": "\"text\"",
+              "computed": false
+            }
+          },
+          "label": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Libellé visible au-dessus du champ.",
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            }
+          },
+          "placeHolder": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Placeholder (contraste volontairement faible : maquette).",
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            }
+          },
+          "inputWidth": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Classe Tailwind de largeur du champ (défaut `w-[280px]`).",
+            "defaultValue": {
+              "value": "\"w-[280px]\"",
+              "computed": false
+            }
+          },
+          "className": {
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "ui-inputs-form-input--email",
+          "name": "Email",
+          "snippet": "const Email = () => <FormInput\n    className=\"w-70.5 max-w-full\"\n    inputId=\"email\"\n    label=\"Email\"\n    inputType=\"email\"\n    autoComplete=\"email\" />;"
+        },
+        {
+          "id": "ui-inputs-form-input--mot-de-passe",
+          "name": "Mot De Passe",
+          "snippet": "const MotDePasse = () => <FormInput\n    className=\"w-70.5 max-w-full\"\n    inputId=\"password\"\n    label=\"Mot de passe\"\n    inputType=\"password\"\n    autoComplete=\"current-password\" />;"
+        },
+        {
+          "id": "ui-inputs-form-input--nom-obligatoire",
+          "name": "Nom Obligatoire",
+          "snippet": "const NomObligatoire = () => <FormInput\n    className=\"w-70.5 max-w-full\"\n    inputId=\"name\"\n    label=\"Nom\"\n    inputType=\"text\"\n    mandatory />;"
+        }
+      ],
+      "import": "import { FormInput } from 'abricot';"
+    },
+    "ui-labels-label": {
+      "id": "ui-labels-label",
+      "name": "Label",
+      "path": "./components/ui/labels/label.stories.tsx",
+      "jsDocTags": {
+        "example": [
+          "```tsx <Label color=\"red\" text=\"À faire\" /> ```"
+        ]
+      },
+      "description": "Pastille de statut (tâche, compteur kanban). Le texte passe de `body-xs` à\n`body-s` à partir de `lg` : en-dessous, « À faire » débordait de la pastille.",
+      "reactDocgen": {
+        "description": "Pastille de statut (tâche, compteur kanban). Le texte passe de `body-xs` à\n`body-s` à partir de `lg` : en-dessous, « À faire » débordait de la pastille.\n\n@example\n```tsx\n<Label color=\"red\" text=\"À faire\" />\n```",
+        "methods": [],
+        "displayName": "Label",
+        "definedInFile": "/home/matthieu/Dev/openclassroom/abricot/components/ui/labels/label.tsx",
+        "actualName": "Label",
+        "exportName": "default",
+        "props": {
+          "color": {
+            "required": true,
+            "tsType": {
+              "name": "union",
+              "raw": "| \"green\"\n| \"red\"\n| \"blue\"\n| \"warningOrangeLight\"\n| \"lightOrange\"\n| \"grey\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"green\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"red\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"blue\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"warningOrangeLight\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"lightOrange\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"grey\""
+                }
+              ]
+            },
+            "description": "Couleur sémantique (jetons Figma, contrastes non ajustés volontairement).\n- `green` : terminé.\n- `red` : à faire.\n- `blue` : info.\n- `warningOrangeLight` : en cours.\n- `lightOrange` : mise en avant marque.\n- `grey` : neutre / compteur."
+          },
+          "text": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "Texte affiché dans la pastille."
+          },
+          "className": {
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "ui-labels-label--statuts-kanban",
+          "name": "Statuts Kanban",
+          "snippet": "const StatutsKanban = () => (\n  <div className=\"flex flex-wrap items-center gap-2\">\n    <Label color=\"red\" text=\"À faire\" />\n    <Label color=\"warningOrangeLight\" text=\"En cours\" />\n    <Label color=\"green\" text=\"Terminé\" />\n    <Label color=\"grey\" text=\"Annulé\" />\n  </div>\n);"
+        },
+        {
+          "id": "ui-labels-label--a-faire",
+          "name": "A Faire",
+          "snippet": "const AFaire = () => <Label color=\"red\" text=\"À faire\" />;"
+        },
+        {
+          "id": "ui-labels-label--en-cours",
+          "name": "En Cours",
+          "snippet": "const EnCours = () => <Label color=\"warningOrangeLight\" text=\"En cours\" />;"
+        },
+        {
+          "id": "ui-labels-label--termine",
+          "name": "Termine",
+          "snippet": "const Termine = () => <Label color=\"green\" text=\"Terminé\" />;"
+        },
+        {
+          "id": "ui-labels-label--compteur",
+          "name": "Compteur",
+          "snippet": "const Compteur = () => <Label color=\"grey\" text=\"3\" />;"
+        }
+      ],
+      "import": "import { Label } from 'abricot';"
+    }
+  },
+  "meta": {
+    "docgen": "react-docgen",
+    "durationMs": 298
+  }
+}
