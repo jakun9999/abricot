@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@ai-sdk/mistral": "^4.0.39",
+    "@ai-sdk/openai": "^4.0.58",
     "@hookform/resolvers": "^5.9.1",
     "@radix-ui/react-select": "^2.3.7",
     "ai": "^7.0.91",
@@ -58,7 +59,9 @@
   },
   "allowScripts": {
     "sharp@0.34.5": true,
-    "unrs-resolver@1.12.2": true
+    "unrs-resolver@1.12.2": true,
+    "esbuild@0.28.2": true,
+    "msw@2.15.0": true
   },
   "msw": {
     "workerDirectory": [

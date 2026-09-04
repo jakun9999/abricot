@@ -1,7 +1,0 @@
-import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{t}from"./jsx-runtime-CadfrxEJ.js";import{f as n,t as r}from"./icons-xHe3bdQz.js";function i(){return(0,a.jsxs)(`footer`,{className:`flex items-center justify-between h-17 mx-0 w-full max-w-360 px-4 lg:px-7.5 text-black`,children:[(0,a.jsx)(n,{className:`w-25.25 h-[12.86px]`,"aria-hidden":`true`}),(0,a.jsx)(`p`,{className:`text-body-m`,children:`Abricot 2025`})]})}var a;function o(){return(o=e((()=>{a=t(),r(),i.__docgenInfo={description:`Pied de page : logo décoratif + millésime.`,methods:[],displayName:`Footer`}})))()}var s,c,l,u,d;function f(){return(f=e((()=>{s=t(),o(),{expect:c}=__STORYBOOK_MODULE_TEST__,l={component:i,parameters:{layout:`fullscreen`,backgrounds:{default:`white`}},decorators:[e=>(0,s.jsx)(`div`,{className:`w-full max-w-360 mx-auto bg-white`,children:(0,s.jsx)(e,{})})]},u={play:async({canvas:e})=>{await c(e.getByText(`Abricot 2025`)).toBeVisible()}},d=[`Default`],u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`{
-  play: async ({
-    canvas
-  }) => {
-    await expect(canvas.getByText('Abricot 2025')).toBeVisible();
-  }
-}`,...u.parameters?.docs?.source}}}})))()}f();export{u as Default,d as __namedExportsOrder,l as default};
