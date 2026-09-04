@@ -62,7 +62,7 @@ export default async function Page() {
     }),
   );
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 px-4 lg:px-34.25 gap-x-3.5 gap-y-4.5">
+    <div className="min-h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 content-start px-4 lg:px-34.25 gap-x-3.5 gap-y-4.5">
       {projectsWithStats.map((project) => (
         <Link
           key={project.id}
