@@ -91,7 +91,7 @@ export async function POST(request: Request) {
       success: true,
       user: safeUser,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 },

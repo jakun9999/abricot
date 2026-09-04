@@ -2,11 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { generateText, Output } from "ai";
 // import { mistral, type MistralLanguageModelChatOptions } from "@ai-sdk/mistral";
-import {
-  createOpenAI,
-  openai,
-  type OpenAILanguageModelChatOptions,
-} from "@ai-sdk/openai";
+import {  createOpenAI } from "@ai-sdk/openai";
 import { requireApiSession } from "@/lib/api-server";
 import {
   loadAccessibleProject,
